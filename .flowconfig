@@ -1,0 +1,17 @@
+[ignore]
+.*/node_modules/.*
+.*/\.git/.*
+.*/\.travis/.*
+.*/__tests__/.*
+.*/android/.*
+.*/ios/.*
+.*/web/.*
+.*/windows/.*
+
+[include]
+
+[libs]
+.types/
+
+[options]
+suppress_comment= \\(.\\|\n\\)*\\$FlowIgnore
