@@ -2,14 +2,31 @@ dist: trusty
 sudo: required
 language: node_js
 node_js:
-- '6'
+  - '6'
 cache:
   yarn: true
   directories:
   - node_modules
+addons:
+  sauce_connect:
+    username: "jakedawkins"
+    access_key: $SAUCE_ACCESS_KEY
+before_install:
+  - npm i -g now commit-status
+  - yarn
+  - yarn serve &
 script:
-- yarn
-- yarn test
+  - yarn test-all
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: sh $TRAVIS_BUILD_DIR/web/deploy.sh
+  on:
+    all_branches: true
+    condition: $TRAVIS_PULL_REQUEST == true
 notifications:
   slack:
     secure: K7QHkmHJr3n+hT7buOU/lQGNzBchPy7RjMWwm8uo8fhCyb4dxt+6Db1JUsZJFHs0pOTaPVWdEZKgXnZfjhG6Ge0q+Qdy8ywIyZ9k67KPkRihnvSEIbDKaSZUAJxgmaTp/8CYHHjT8udQNLjgiPH6hBcoDd+jT2810lBEPlPUHpBgYZkTwYVsTxtFb5Ybh7OAHZkENwT7ZiE4OZPRHi+uentoF4HlqociThlU/L5o2lNAkd8ZrlMNKP8o6On5RXsd3oDcqaW/y3jDVRqrknp+iCe9P0LHLa/NZjgl68V7JnnC7HWf3JbSzoJXga+14JnKyZPbzcMg/tiU8xDxCR+4MpZaF9t2kHsYI32loCeW+LjIhAZnuxUafHxK5SeoZLWDliuSnV+GHE2NSz3M7siOX+KfY31GyxxadIo52x4l+YJACO5Dmo3OOVyFsScIY+hCEuRjO3eYzfyVD/Z560nexRsnhhrO3HpSHiKsRGNWEJfXZzcXPBCncj7nZW6gHZxSrolr3ZRVWZRuBi6M2ZNZoJhMbmg19blBdLsKtU82n8e45MLuaRBL6S2BjiKu/e29WXo7iQnjCp/A0N1rNNNJzlhD2NaVu8lmNlmuSTWqs1IWUCQdO3gTspCxRat758zuRoRGCt9qeZp+G8Pj8GxuDtB68/LOZJSzvDXWkkyzqKQ=
+env:
+  global:
+    secure: XVb2o7Zf+UeX351vEmI99C0FGuoXKAb8uecBZekQS5t0f0dFyPqU/CdaW81NItv6CR88A32SZpm+uX/VgRZEfy7ss0uwHn+u86zn421mqZ61UaNz4BsymvXlP4DzjwdCldNbzR1MgOX46if2KTNt7V8xsfo5idPccjf4JnJFYDfOsXGV5AN2IdtupvdEpLcITdZE/pKXuw8PcWcLtbgsJfpGOEFjyOsbmcc//lhaGh1WiroVTEsY0ww/csNy4bi2hOjm7+9Kv2aicvJkyHQ+kADZ089d9pECFkrazMX/qIHL1vL38dabKeECmIxEqIydySZm5vXMt+0ps245eKfq8C/yWwQupNSwM9iTJ5HgaIlWPDiVi0EBphK5vbwkeJy80FM+NzQ1YPtIThp7k+T56L/I0g9zhwg72jti/Zcyx0amCtd+RkND5jke55NAt9gC7Om6B2K/2gqmCdW3iHWuKp21tmn0QfANNmNNK7lCYNE05lk4Rn9MWvTC+j6fITPORjH9qv/7dLJcbdnoCNaPZE0WXV5BjXSRJweP7a1WHqmJaGn62m6QKW5NzGLs1HtI1wpVPGKT2M0PSH4GSJ5HLk3PIWvZxhXaaNyXrSKJwzFVkZymmgOPsvaDiDjFIm5+h+17ubd7TRc2yNvELRPvosT5BmcG/5jS6CIHfBSqLhw=

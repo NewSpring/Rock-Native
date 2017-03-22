@@ -1,10 +1,29 @@
 {
   "parser": "babel-eslint",
-  "extends": "eslint:recommended",
-  "plugins": [
-    "prettier"
+  "extends": [
+    "eslint:recommended", "plugin:react/recommended"
   ],
+  "env": {
+    "jest": true
+  },
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  "plugins": [
+    "prettier",
+    "react",
+    "react-native"
+  ],
+  "globals": {
+    "process": true,
+    "jasmine": true,
+  },
   "rules": {
-    "prettier/prettier": "error",
+
+    "prettier/prettier": ["error", { "trailingComma": "all" }],
+    "react-native/no-unused-styles": 2,
+    "react-native/split-platform-components": 2,
+    "react-native/no-inline-styles": 2,
+    "react-native/no-color-literals": 2
   }
 }
