@@ -7,11 +7,6 @@ cache:
   yarn: true
   directories:
     - node_modules
-before_install:
-  - chmod +x $TRAVIS_BUILD_DIR/.travis/run_for_coverage
-  - npm install -g coveralls
 script:
   - yarn
   - yarn test
-after_success:
-  - 'if [ "$TRAVIS_EVENT_TYPE" == "cron" ]; then bash ./.travis/run_for_coverage; fi'
