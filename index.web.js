@@ -3,51 +3,29 @@
  * https://github.com/facebook/react-native
  * @flow
  */
+import React from 'react';
+import {AppRegistry} from 'react-native';
+import {AppContainer} from 'react-hot-loader';
+import dune from './src';
 
-import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, Text, View} from 'react-native';
+const render = Component => {
+  const App = () => (
+    <AppContainer>
+      <Component />
+    </AppContainer>
+  );
+  AppRegistry.registerComponent('dune', () => App);
+  AppRegistry.runApplication('dune', {
+    initialProps: {},
+    rootTag: document.getElementById('react-app'),
+  });
+};
 
-export default class dune extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.web.js
-        </Text>
-        <Text style={styles.instructions}>
-          Reloading is enabled already,{'\n'}
-          Open dev tools for dev menu.
-        </Text>
-      </View>
-    );
-  }
+render(dune);
+
+// Hot Module Replacement API
+if (module.hot) {
+  module.hot.accept('./src', () => {
+    render(dune);
+  });
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
-
-AppRegistry.registerComponent('dune', () => dune);
-
-AppRegistry.runApplication('dune', {
-  initialProps: {},
-  rootTag: document.getElementById('react-app'),
-});
