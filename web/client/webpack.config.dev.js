@@ -4,7 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-source-map',
-  entry: [path.resolve(__dirname, '../../index.web.js')],
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/only-dev-server',
+    path.resolve(__dirname, '../../index.web.js'),
+  ],
   output: {
     filename: '[name].blocks.bundle.js',
     chunkFilename: '[id].block.bundle.js',
@@ -19,11 +24,8 @@ module.exports = {
       //  },
       {
         test: /\.(js)$/,
-        loader: 'babel-loader',
+        loaders: ['react-hot-loader/webpack', 'babel-loader'],
         exclude: /node_modules/,
-        options: {
-          cacheDirectory: true,
-        },
       },
     ],
   },
@@ -37,11 +39,13 @@ module.exports = {
       title: 'Dune',
       template: path.resolve(__dirname, './index.ejs'),
     }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
   ],
   devServer: {
     compress: true,
     inline: true,
-    hot: false,
+    hot: true,
     port: 3000,
   },
 };
