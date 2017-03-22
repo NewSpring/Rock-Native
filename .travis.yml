@@ -1,18 +1,8 @@
+dist: trusty
 sudo: required
-env: # required for node_bcrypt
-  - CXX=g++-4.8
-os:
-- linux
 language: node_js
 node_js:
 - '6'
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - gcc-4.8
-    - g++-4.8
 cache:
   yarn: true
   directories:
@@ -25,4 +15,3 @@ script:
   - yarn test
 after_success:
   - 'if [ "$TRAVIS_EVENT_TYPE" == "cron" ]; then bash ./.travis/run_for_coverage; fi'
-  
