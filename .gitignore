@@ -35,3 +35,11 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+.DS_Store
+
+# Build files
+ios/build
+android/.gradle
+android/build
+android/app/build
