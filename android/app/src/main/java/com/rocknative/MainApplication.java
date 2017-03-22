@@ -1,4 +1,4 @@
-package com.dune;
+package com.rocknative;
 
 import android.app.Application;
 

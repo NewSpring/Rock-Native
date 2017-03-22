@@ -14,7 +14,6 @@ Jump over to our [Rock website](http://www.rockrms.com/) to find out more. Keep 
 * [Following us on Twitter](http://www.twitter.com/therockrms)
 * [Liking us on Facebook](http://www.facebook.com/therockrms)
 * [Reading the community Q & A](http://www.rockrms.com/Rock/Ask)
-* [Subscribing to our newsletter](http://www.rockrms.com/Rock/Subscribe)
 
 # Installing
 
@@ -37,6 +36,6 @@ Jump over to our [Rock website](http://www.rockrms.com/) to find out more. Keep 
 
 - Open the xcode project under `ios/`
 - Make sure a tvOS simulator is installed in `Preferences > Components`
-- To run on a tvOS simulator, click `dune` on the top bar next to the play and stop buttons.
-- Choose dune-tvOS as your target, and choose an appropriate simulator.
+- To run on a tvOS simulator, click `rockNative` on the top bar next to the play and stop buttons.
+- Choose rockNative-tvOS as your target, and choose an appropriate simulator.
 - Click play in XCode.

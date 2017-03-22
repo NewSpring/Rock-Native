@@ -1,19 +1,19 @@
-const webpack = require('webpack');
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require("webpack");
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  devtool: 'cheap-module-source-map',
+  devtool: "cheap-module-source-map",
   entry: [
-    'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
-    path.resolve(__dirname, '../../index.web.js'),
+    "react-hot-loader/patch",
+    "webpack-dev-server/client?http://localhost:3000",
+    "webpack/hot/only-dev-server",
+    path.resolve(__dirname, "../../index.web.js"),
   ],
   output: {
-    filename: '[name].blocks.bundle.js',
-    chunkFilename: '[id].block.bundle.js',
-    path: path.resolve(__dirname, './dist/'),
+    filename: "[name].blocks.bundle.js",
+    chunkFilename: "[id].block.bundle.js",
+    path: path.resolve(__dirname, "./dist/"),
   },
   module: {
     rules: [
@@ -24,20 +24,20 @@ module.exports = {
       //  },
       {
         test: /\.(js)$/,
-        loaders: ['react-hot-loader/webpack', 'babel-loader'],
+        loaders: ["react-hot-loader/webpack", "babel-loader"],
         exclude: /node_modules/,
       },
     ],
   },
   resolve: {
     alias: {
-      'react-native': 'react-native-web',
+      "react-native": "react-native-web",
     },
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Dune',
-      template: path.resolve(__dirname, './index.ejs'),
+      title: "RockNative",
+      template: path.resolve(__dirname, "./index.ejs"),
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
