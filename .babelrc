@@ -3,5 +3,8 @@
     "es2015",
     "react",
     "react-native"
+  ],
+  "plugins": [
+    "transform-flow-strip-types"
   ]
 }
