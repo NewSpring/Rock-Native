@@ -17,7 +17,8 @@
     "web": "webpack-dev-server --config ./web/client/webpack.config.dev.js",
     "web-build": "cross-env NODE_ENV=production webpack --config ./web/client/webpack.config.dev.js",
     "now": "npm run web-build && now ./web/client/dist",
-    "serve": "cross-env NODE_ENV=production serve ./web/client/dist --port 3000"
+    "serve": "cross-env NODE_ENV=production serve ./web/client/dist --port 3000",
+    "danger": "danger run --verbose"
   },
   "lint-staged": {
     "*.js": [
@@ -45,6 +46,7 @@
     "babel-preset-react": "^6.23.0",
     "babel-preset-react-native": "1.9.1",
     "cross-env": "^3.2.4",
+    "danger": "https://github.com/delianides/danger-js/releases/download/0.14.2/danger-0.14.2.tgz",
     "eslint": "^3.18.0",
     "eslint-loader": "^1.6.3",
     "eslint-plugin-prettier": "^2.0.1",

@@ -17,6 +17,7 @@ before_install:
 - yarn web-build
 - yarn serve &
 script:
+- yarn danger
 - yarn lint
 - yarn flow
 - yarn test-all
