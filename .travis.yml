@@ -12,7 +12,7 @@ before_install:
 script:
   - yarn
   - yarn test
-  - echo $TRAVIS_PULL_REQUEST_BRANCH
+  - echo $TRAVIS_BRANCH
 deploy:
   skip_cleanup: true
   provider: script
