@@ -38,6 +38,10 @@ jspm_packages
 
 .DS_Store
 
+# Fastlane Extras
+.fastlane/report.xml
+.fastlane/README.md
+
 # Build files
 ios/build
 android/.gradle
