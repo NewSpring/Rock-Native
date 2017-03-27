@@ -3,7 +3,7 @@ import React from "react";
 import { Text, View, Platform, Button, StyleSheet } from "react-native";
 import { withState, withHandlers } from "recompose";
 
-import Junction from "~/junction";
+import Junction from "./junction";
 
 type IWithState = {
   counter: number,
@@ -33,7 +33,7 @@ export const Counter = (
     increment,
     counter,
     decrement,
-  }: { increment: Function, counter: number, decrement: Function },
+  }: IWithHandlers,
 ) => (
   <View style={style.counter}>
     <Text>Counter is at {counter} on {Platform.OS}</Text>
