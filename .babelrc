@@ -5,6 +5,12 @@
     "react-native"
   ],
   "plugins": [
+<<<<<<< HEAD
     "transform-flow-strip-types"
+=======
+    ["babel-plugin-root-import", {
+      "rootPathSuffix": "src"
+    }]
+>>>>>>> prototype junction and now
   ]
 }

@@ -33,12 +33,12 @@ function Junction(f = A => A) {
 }
 
 Junction.prototype.render = function(A) {
-  return (f => f(A))(this.__value);
+  return this.__value(A);
 };
 
 // .of :: Applicative Component -> Junction Component
 Junction.prototype.of = function(A) {
-  return new Junction(A => A);
+  return new Junction(() => A);
 };
 Junction.of = Junction.prototype.of;
 
@@ -51,3 +51,5 @@ Junction.prototype.map = function(f) {
 Junction.prototype.with = function(f) {
   return this.map(g => A => g(f(A)));
 };
+
+export default Junction;
