@@ -1,46 +1,24 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+import React from "react";
+import { Text, View, Platform, Button } from "react-native";
+import { withState, withHandlers, compose } from "recompose";
 
-import React, { Component } from "react";
-import { AppRegistry, StyleSheet, Text, View } from "react-native";
+export const state = withState(
+  "counter",
+  "setCounter",
+  ({ defaultValue }) => defaultValue || 1,
+);
 
-export default class dune extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.web.js
-        </Text>
-        <Text style={styles.instructions}>
-          Reloading is enabled already,{"\n"}
-          Open dev tools for dev menu.
-        </Text>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF",
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10,
-  },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5,
-  },
+export const actions = withHandlers({
+  increment: ({ setCounter }) => () => setCounter(n => n + 1),
+  decrement: ({ setCounter }) => () => setCounter(n => n - 1),
 });
+
+export const Counter = ({ increment, counter, decrement }) => (
+  <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <Text>Counter is at {counter} on {Platform.OS}</Text>
+    <Button title="Increment" onPress={increment} />
+    <Button title="Decrement" onPress={decrement} />
+  </View>
+);
+
+export default compose(state, actions)(Counter);
