@@ -10,10 +10,12 @@ cache:
 script:
   - yarn
   - yarn test
+  - echo $TRAVIS_PULL_REQUEST_SLUG
 deploy:
   provider: script
   script: web/deploy.sh 
   on:
+    branch: true
     condition: $TRAVIS_PULL_REQUEST_SLUG != ""
 
 notifications:
