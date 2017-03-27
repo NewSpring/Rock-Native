@@ -10,7 +10,7 @@ cache:
 script:
   - yarn
   - yarn test
-  - echo $TRAVIS_PULL_REQUEST_SLUG
+  - echo $TRAVIS_PULL_REQUEST_BRANCH
 deploy:
   provider: script
   script: web/deploy.sh 
