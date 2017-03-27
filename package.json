@@ -13,7 +13,8 @@
     "android": "react-native run-android",
     "web": "webpack-dev-server --config ./web/client/webpack.config.dev.js",
     "web-build": "cross-env NODE_ENV=production webpack --config ./web/client/webpack.config.dev.js",
-    "now": "npm run web-build && now ./web/client/dist"
+    "now": "npm run web-build && now ./web/client/dist",
+    "serve": "cross-env NODE_ENV=production serve ./web/client/dist --port 3000"
   },
   "lint-staged": {
     "*.js": [
