@@ -6,9 +6,9 @@ node_js:
 cache:
   yarn: true
   directories:
-  - node_modulee
+  - node_modules
 before_install:
-  - npm i -g now
+  - npm i -g now commit-status
 script:
   - yarn
   - yarn test
