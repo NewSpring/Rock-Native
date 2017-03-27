@@ -14,7 +14,7 @@ deploy:
   provider: script
   script: web/deploy.sh 
   on:
-    condition: '$TRAVIS_PULL_REQUEST_SLUG != ""'
+    condition: $TRAVIS_PULL_REQUEST_SLUG != ""
 
 notifications:
   slack:
