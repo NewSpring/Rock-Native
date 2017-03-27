@@ -1,0 +1,25 @@
+fastlane_version "2.13.0"
+
+default_platform :ios
+
+platform :ios do
+  desc "Install App Store Certificates"
+  lane :development do
+    match(
+      type: "development",
+      git_url: ENV['CERTIFICATES_REPO'],
+      app_identifier: [ "cc.newspring.newspringapp", "com.subsplashstudio31.NewSpring-Church" ],
+      username: ENV["APPLE_ID"],
+    )
+  end
+
+  desc "Install App Store Certificates"
+  lane :production do
+    match(
+      type: "appstore",
+      git_url: ENV['CERTIFICATES_REPO'],
+      app_identifier: [ "cc.newspring.newspringapp", "com.subsplashstudio31.NewSpring-Church" ],
+      username: ENV["APPLE_ID"],
+    )
+  end
+end
