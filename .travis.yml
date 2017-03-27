@@ -16,7 +16,7 @@ script:
 deploy:
   skip_cleanup: true
   provider: script
-  script: web/deploy.sh 
+  script: sh $TRAVIS_BUILD_DIR/web/deploy.sh 
   on:
     all_branches: true
     condition: $TRAVIS_PULL_REQUEST
