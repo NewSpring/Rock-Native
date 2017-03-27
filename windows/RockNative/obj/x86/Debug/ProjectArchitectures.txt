@@ -1,3 +1,0 @@
-C:\Users\james.baxley\Products\Rock-Native\node_modules\react-native-windows\ReactWindows\ChakraBridge\ChakraBridge.vcxproj;x86
-C:\Users\james.baxley\Products\Rock-Native\node_modules\react-native-windows\ReactWindows\ReactNative\ReactNative.csproj;x86
-C:\Users\james.baxley\Products\Rock-Native\windows\RockNative\RockNative.csproj;x86
