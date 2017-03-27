@@ -6,12 +6,15 @@ node_js:
 cache:
   yarn: true
   directories:
-  - node_modules
+  - node_modulee
+before_install:
+  - npm i -g now
 script:
   - yarn
   - yarn test
   - echo $TRAVIS_PULL_REQUEST_BRANCH
 deploy:
+  skip_cleanup: true
   provider: script
   script: web/deploy.sh 
   on:
