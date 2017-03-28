@@ -3,7 +3,7 @@ import webdriver from "selenium-webdriver";
 
 // FUTURE: See https://www.npmjs.com/package/selenium-standalone for standalone server
 
-const username = "jakedawkins";
+const username = process.env.SAUCE_USERNAME;
 const accessKey = process.env.SAUCE_ACCESS_KEY;
 
 export default {
