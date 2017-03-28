@@ -16,6 +16,8 @@ before_install:
   - yarn
   - yarn serve &
 script:
+  - yarn lint
+  - yarn flow
   - yarn test-all
 deploy:
   skip_cleanup: true
