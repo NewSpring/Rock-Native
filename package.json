@@ -27,12 +27,12 @@
     "react": "^15.4.2",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-native": "0.42.3",
-    "react-native-web": "^0.0.79",
+    "react-native-web": "^0.0.80",
     "recompose": "^0.22.0",
     "serve": "^5.1.1"
   },
   "devDependencies": {
-    "babel-eslint": "^6.1.2",
+    "babel-eslint": "^7.2.1",
     "babel-jest": "19.0.0",
     "babel-loader": "^6.4.1",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
@@ -44,7 +44,7 @@
     "eslint": "^3.18.0",
     "eslint-loader": "^1.6.3",
     "eslint-plugin-prettier": "^2.0.1",
-    "flow-bin": "^0.38.0",
+    "flow-bin": "^0.42.0",
     "eslint-plugin-react": "^6.10.3",
     "eslint-plugin-react-native": "^2.3.1",
     "html-webpack-plugin": "^2.28.0",
