@@ -1,3 +1,12 @@
+// React native imports (not overwritten)
+import { View, Platform } from "react-native";
+
+// Custom wrappers
+import Heading, { H1, H2, H3, H4, H5, H6 } from "./components/Heading";
+import Hr from "./components/Hr";
+import Text, { BlockQuote, Small, P } from "./components/Text";
+import Button from "./components/Button";
+
 // import Junction from "~/junction";
 // import { Text, View, Platform, Button } from "react-native";
 // import { withState, withHandlers, recompose } from "recompose";
@@ -53,3 +62,21 @@ Junction.prototype.with = function(f) {
 };
 
 export default Junction;
+
+export {
+  Heading,
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6,
+  Hr,
+  Text,
+  BlockQuote,
+  Small,
+  P,
+  Button,
+  View,
+  Platform,
+};

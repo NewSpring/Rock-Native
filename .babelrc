@@ -7,6 +7,7 @@
     "transform-flow-strip-types",
     ["babel-plugin-root-import", {
       "rootPathSuffix": "src"
-    }]
+    }],
+    "idx"
   ]
 }
