@@ -8,6 +8,8 @@ Our main developer starting point site is [the wiki](https://github.com/NewSprin
 
 ## Learn More
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/NewSpring/Rock-Native.svg)](https://greenkeeper.io/)
+
 Jump over to our [Rock website](http://www.rockrms.com/) to find out more. Keep up to date by:
 
 * [Reading our blog](http://www.rockrms.com/Rock/Connect)

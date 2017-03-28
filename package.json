@@ -27,12 +27,12 @@
     "react": "^15.4.2",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-native": "0.42.3",
-    "react-native-web": "^0.0.79",
+    "react-native-web": "^0.0.80",
     "recompose": "^0.22.0",
     "serve": "^5.1.1"
   },
   "devDependencies": {
-    "babel-eslint": "^6.1.2",
+    "babel-eslint": "^7.2.1",
     "babel-jest": "19.0.0",
     "babel-loader": "^6.4.1",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",

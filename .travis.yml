@@ -11,8 +11,9 @@ before_install:
   - npm i -g now commit-status
 script:
   - yarn
+  - yarn lint
+  - yarn flow
   - yarn test
-  - echo $TRAVIS_BRANCH
 deploy:
   skip_cleanup: true
   provider: script
