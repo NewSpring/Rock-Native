@@ -1,11 +1,6 @@
 # Feature / Fixed Issue(s)
 - Description of feature and expected functionality/issue that has been fixed in this PR.
 
-# Testing/Documentation
-- [ ] All significant new logic is covered by tests.
-- [ ] Storybook documentation has been added.
-- [ ] Changelog has been updated.
-
 # Screenshots
 - If applicable, include screenshots of UI/style changes.
 
