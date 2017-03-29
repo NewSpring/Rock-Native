@@ -27,22 +27,23 @@ Jump over to the [Rock website](http://www.rockrms.com/) to find out more. Keep 
 
 ## Running Locally
 ### Android
-
 **Mac Users:** If you are trying to run an android emulator and the emulator will not start, make sure you are _not_ running Docker for Mac. They don't seem to like each other.
 
 - You must first be running a virtual device (or actual device connected to Android Studio) before attempting to start the project. See above instructions if you don't have a virtual device set up.
 - run `yarn android` to start the app on the device.
 
 ### iOS
-`yarn ios`
+- run `yarn ios`
 
 ### tvOS
-
 - Open the xcode project under `ios/`.
 - Make sure a tvOS simulator is installed in `Preferences > Components`.
 - To run on a tvOS simulator, click `rockNative` on the top bar next to the play and stop buttons.
 - Choose rockNative-tvOS as your target, and choose an appropriate simulator.
 - Click play in XCode.
+
+### Web
+- run `yarn web`
 
 ## Contributing
 
