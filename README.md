@@ -53,4 +53,4 @@ For more information about contributing PRs and issues, see our [Contribution Gu
 
 ## License
 
-By contributing to Rock-Native, you agree that your contributions will be licensed under its MIT license.
+By contributing to Rock-Native, you agree that your contributions will be licensed under our [NewSpring Church Community License Agreement](https://github.com/NewSpring/Rock-Native/wiki/License).
