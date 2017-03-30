@@ -48,16 +48,20 @@ if (someoneAssigned === null) {
 }
 
 // Make sure there are changelog entries
-const hasChangelog = danger.git.modified_files.includes("changelog.md");
+const hasChangelog = danger.git.modified_files.includes("changelog.md") ||
+  danger.git.created_files.includes("changelog.md");
 if (!hasChangelog) {
   fail("No Changelog changes!");
 }
 
-const jsModifiedFiles = danger.git.created_files.filter(path =>
-  path.endsWith("js"));
+// only look in the /src/ folder
+const jsModifiedFiles = danger.git.created_files
+  .filter(path => any(x => x.includes("src/"), path))
+  .filter(path => path.endsWith("js"));
 const hasAppChanges = jsModifiedFiles.length > 0;
+
 const jsTestChanges = jsModifiedFiles.filter(filepath =>
-  filepath.match(/__tests__\/$/gmi));
+  filepath.includes("__tests__"));
 const hasTestChanges = jsTestChanges.length > 0;
 
 // Warn when there is a big PR
