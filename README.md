@@ -13,10 +13,10 @@ Our main developer starting point site is [the wiki](https://github.com/NewSprin
 
 Jump over to the [Rock website](http://www.rockrms.com/) to find out more. Keep up to date by:
 
-* [Reading our blog](http://www.rockrms.com/Rock/Connect)
-* [Following us on Twitter](http://www.twitter.com/therockrms)
-* [Liking us on Facebook](http://www.facebook.com/therockrms)
-* [Reading the community Q & A](http://www.rockrms.com/Rock/Ask)
+* [Reading the Rock blog](http://www.rockrms.com/Rock/Connect)
+* [Following RockRMS on Twitter](http://www.twitter.com/therockrms)
+* [Liking RockRMS on Facebook](http://www.facebook.com/therockrms)
+* [Reading the Rock Community Q & A](http://www.rockrms.com/Rock/Ask)
 
 ## Installing
 
@@ -30,10 +30,10 @@ Jump over to the [Rock website](http://www.rockrms.com/) to find out more. Keep 
 **Mac Users:** If you are trying to run an android emulator and the emulator will not start, make sure you are _not_ running Docker for Mac. They don't seem to like each other.
 
 - You must first be running a virtual device (or actual device connected to Android Studio) before attempting to start the project. See above instructions if you don't have a virtual device set up.
-- run `yarn android` to start the app on the device.
+- Run `yarn android` to start the app on the device.
 
 ### iOS
-- run `yarn ios`
+- Run `yarn ios`
 
 ### tvOS
 - Open the xcode project under `ios/`.
@@ -43,7 +43,7 @@ Jump over to the [Rock website](http://www.rockrms.com/) to find out more. Keep 
 - Click play in XCode.
 
 ### Web
-- run `yarn web`
+- Run `yarn web`
 
 ## Contributing
 
