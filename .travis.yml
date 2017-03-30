@@ -21,6 +21,7 @@ script:
 - yarn lint
 - yarn flow
 - yarn test-all
+- yarn coverage
 deploy:
   skip_cleanup: true
   provider: script

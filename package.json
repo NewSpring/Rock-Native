@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "coverage": "npm run test-unit -- --coverage && codecov",
     "test": "jest \"^((?!integration).)*$\"",
     "test-unit": "jest \"^((?!integration).)*$\"",
     "test-int": "jest \"*.integration.js\"",
@@ -45,8 +46,10 @@
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
     "babel-preset-react-native": "1.9.1",
+    "codecov": "^2.1.0",
     "cross-env": "^3.2.4",
     "danger": "https://github.com/delianides/danger-js/releases/download/0.14.2/danger-0.14.2.tgz",
+    "enzyme": "^2.8.0",
     "eslint": "^3.18.0",
     "eslint-loader": "^1.6.3",
     "eslint-plugin-prettier": "^2.0.1",
@@ -59,12 +62,19 @@
     "now": "^4.10.2",
     "pre-commit": "^1.2.2",
     "prettier": "^0.22.0",
+    "react-addons-test-utils": "^15.4.2",
     "react-test-renderer": "~15.4.1",
     "selenium-webdriver": "^3.3.0",
     "webpack": "^2.3.0",
     "webpack-dev-server": "^2.4.2"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "coverageDirectory": "./coverage/",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!**/node_modules/**",
+      "!src/test-utils/**"
+    ]
   }
 }
