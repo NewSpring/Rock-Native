@@ -1,6 +1,7 @@
 {
   "name": "RockNative",
   "version": "0.0.1",
+  "license": "SEE LICENSE IN LICENSE",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
