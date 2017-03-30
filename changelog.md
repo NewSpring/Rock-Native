@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.0.1] - UNRELEASED
 
 ### Added
-  - initial repo management and project setup
+  - initial repo management and project setup (@delianides)
 
 ### Fixed
 
