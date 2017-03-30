@@ -9,7 +9,7 @@ Our main developer starting point site is [the wiki](https://github.com/NewSprin
 
 ## Learn More
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/NewSpring/Rock-Native.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/NewSpring/Rock-Native.svg)](https://greenkeeper.io/)[![codecov](https://codecov.io/gh/NewSpring/Rock-Native/branch/master/graph/badge.svg)](https://codecov.io/gh/NewSpring/Rock-Native)
 
 Jump over to the [Rock website](http://www.rockrms.com/) to find out more. Keep up to date by:
 

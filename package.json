@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "coverage": "npm run test-unit -- --coverage && codecov",
     "test": "jest \"^((?!integration).)*$\"",
     "test-unit": "jest \"^((?!integration).)*$\"",
     "test-int": "jest \"*.integration.js\"",
@@ -17,7 +18,8 @@
     "web": "webpack-dev-server --config ./web/client/webpack.config.dev.js",
     "web-build": "cross-env NODE_ENV=production webpack --config ./web/client/webpack.config.dev.js",
     "now": "npm run web-build && now ./web/client/dist",
-    "serve": "cross-env NODE_ENV=production serve ./web/client/dist --port 3000"
+    "serve": "cross-env NODE_ENV=production serve ./web/client/dist --port 3000",
+    "danger": "danger run --verbose"
   },
   "lint-staged": {
     "*.js": [
@@ -27,6 +29,7 @@
   },
   "pre-commit": "lint-staged",
   "dependencies": {
+    "ramda": "^0.23.0",
     "react": "^15.4.2",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-native": "0.42.3",
@@ -40,31 +43,38 @@
     "babel-loader": "^6.4.1",
     "babel-plugin-root-import": "^5.1.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "babel-plugin-root-import": "^5.1.0",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
     "babel-preset-react-native": "1.9.1",
+    "codecov": "^2.1.0",
     "cross-env": "^3.2.4",
+    "danger": "https://github.com/delianides/danger-js/releases/download/0.14.2/danger-0.14.2.tgz",
+    "enzyme": "^2.8.0",
     "eslint": "^3.18.0",
     "eslint-loader": "^1.6.3",
     "eslint-plugin-prettier": "^2.0.1",
     "eslint-plugin-react": "^6.10.3",
     "eslint-plugin-react-native": "^2.3.1",
     "flow-bin": "^0.38.0",
-    "eslint-plugin-react": "^6.10.3",
-    "eslint-plugin-react-native": "^2.3.1",
     "html-webpack-plugin": "^2.28.0",
     "jest": "^19.0.2",
     "lint-staged": "^3.4.0",
     "now": "^4.10.2",
     "pre-commit": "^1.2.2",
     "prettier": "^0.22.0",
+    "react-addons-test-utils": "^15.4.2",
     "react-test-renderer": "~15.4.1",
     "selenium-webdriver": "^3.3.0",
     "webpack": "^2.3.0",
     "webpack-dev-server": "^2.4.2"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "coverageDirectory": "./coverage/",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!**/node_modules/**",
+      "!src/test-utils/**"
+    ]
   }
 }
