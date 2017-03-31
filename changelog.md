@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
   - initial repo management and project setup (@delianides)
+  - windows universal app platform as build target (@jbaxleyiii)
 
 ### Fixed
 
