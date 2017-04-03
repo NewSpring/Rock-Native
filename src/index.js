@@ -1,7 +1,8 @@
 // @flow
 import React from "react";
-import { Text, View, Platform, Button, StyleSheet } from "react-native";
+import { Text, View, Platform, Button } from "react-native";
 import { withState, withHandlers } from "recompose";
+import Style from "@jongold/further";
 
 import Junction from "./junction";
 
@@ -11,9 +12,9 @@ type IWithState = {
 };
 
 export const state = withState(
-  "counter",
-  "setCounter",
-  ({ defaultValue }) => defaultValue || 0,
+  "counter", // state name
+  "setCounter", // updater name
+  ({ defaultValue }) => defaultValue || 0, // default
 );
 
 type IWithHandlers =
@@ -28,6 +29,12 @@ export const actions = withHandlers({
   decrement: ({ setCounter }) => () => setCounter(n => n - 1),
 });
 
+export const counterStyle = Style.of({
+  flex: 1,
+  justifyContent: "center",
+  alignItems: "center",
+});
+
 export const Counter = (
   {
     increment,
@@ -35,19 +42,11 @@ export const Counter = (
     decrement,
   }: IWithHandlers,
 ) => (
-  <View style={style.counter}>
+  <View style={counterStyle.resolve()}>
     <Text>Counter is at {counter} on {Platform.OS}</Text>
     <Button onPress={increment} title="Increment" />
     <Button onPress={decrement} title="Decrement" />
   </View>
 );
-
-const style = StyleSheet.create({
-  counter: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default Junction().with(state).with(actions).render(Counter);
