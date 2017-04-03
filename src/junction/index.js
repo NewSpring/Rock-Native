@@ -36,11 +36,12 @@ Junction.prototype.render = function(A) {
   return this.__value(A);
 };
 
+// does .of make sense?
 // .of :: Applicative Component -> Junction Component
-Junction.prototype.of = function(A) {
-  return new Junction(() => A);
-};
-Junction.of = Junction.prototype.of;
+// Junction.prototype.of = function(A) {
+//   return new Junction(() => A);
+// };
+// Junction.of = Junction.prototype.of;
 
 // #map :: Function Junction => Junction a ~> (a -> b) -> Junction b
 Junction.prototype.map = function(f) {
