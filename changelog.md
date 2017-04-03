@@ -17,3 +17,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   - Updated the LICENSE file and the package.json to include the license.
   - Updated the README to include the link to the license file in the repo's wiki.
   - Tested base counter
+  - remove .of operator from junction until more thought is given (@jbaxleyiii)
