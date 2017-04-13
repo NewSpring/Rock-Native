@@ -65,7 +65,7 @@
     "lint-staged": "^3.4.0",
     "now": "^4.10.2",
     "pre-commit": "^1.2.2",
-    "prettier": "^0.22.0",
+    "prettier": "^1.0.0",
     "react-addons-test-utils": "^15.4.2",
     "react-test-renderer": "~15.4.1",
     "rnpm-plugin-windows": "^0.2.4",
