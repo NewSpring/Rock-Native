@@ -19,8 +19,6 @@ before_install:
 - node --version
 - npm i -g now commit-status
 - yarn
-- yarn web-build
-- yarn serve &
 - cd web && dotnet restore
 script:
 - yarn danger
