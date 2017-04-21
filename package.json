@@ -16,10 +16,11 @@
     "flow-stop": "flow stop",
     "ios": "react-native run-ios",
     "android": "react-native run-android",
-    "web": "cd ./web && cross-env ASPNETCORE_ENVIRONMENT=development dotnet watch run --project ./RockNative.csproj",
+    "web": "cd ./web && cross-env ASPNETCORE_ENVIRONMENT=development dotnet watch run --project ./RockNative.csproj --server.urls \"http://*:3000\"",
     "web-build": "cd ./web &&  dotnet publish --configuration Release",
     "now": "npm run web-build && now ./web/client/dist",
-    "danger": "danger run --verbose"
+    "danger": "danger run --verbose",
+    "restore": "cd web && dotnet restore"
   },
   "lint-staged": {
     "*.js": [

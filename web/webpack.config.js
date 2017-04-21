@@ -40,8 +40,8 @@ module.exports = env => {
       new webpack.DllReferencePlugin({
         context: __dirname,
         manifest: require(
-          path.join(__dirname, clientBundleOutputDir, "vendor-manifest.json"),
-        ),
+          path.join(__dirname, clientBundleOutputDir, "vendor-manifest.json")
+        )
       }),
     ].concat(
       isDevBuild
@@ -51,14 +51,14 @@ module.exports = env => {
               filename: "[file].map", // Remove this line if you prefer inline source maps
               moduleFilenameTemplate: path.relative(
                 clientBundleOutputDir,
-                "[resourcePath]",
+                "[resourcePath]"
               ), // Point sourcemap entries to the original file locations on disk
             }),
           ]
         : [
             // Plugins that apply in production builds only
             new webpack.optimize.UglifyJsPlugin(),
-          ],
+          ]
     ),
   });
 
@@ -75,8 +75,8 @@ module.exports = env => {
             clientBundleOutputDir,
             "../app",
             "dist",
-            "vendor-manifest.json",
-          ),
+            "vendor-manifest.json"
+          )
         ),
         sourceType: "commonjs2",
         name: "./vendor",
