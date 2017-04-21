@@ -51,7 +51,9 @@ dist
 
 # C# files
 bin
-obj
+.dll
+Debug
+Release
 
 # Editor configuration
 .vscode

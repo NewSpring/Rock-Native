@@ -21,6 +21,7 @@ before_install:
 - yarn
 - yarn web-build
 - yarn serve &
+- cd web && dotnet restore
 script:
 - yarn danger
 - yarn lint
