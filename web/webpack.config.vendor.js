@@ -68,7 +68,7 @@ module.exports = env => {
           "wwwroot",
           "app",
           "dist",
-          "[name]-manifest.json",
+          "[name]-manifest.json"
         ),
         name: "[name]_[hash]",
       }),
