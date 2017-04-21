@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div
+    id="react-app"
+    asp-prerender-module="wwwroot/app/dist/main-server"
+    asp-prerender-data="new {
+        Cookies = ViewContext.HttpContext.Request.Cookies
+    }"
+>
+    Loading...
+</div>
+
+@section scripts {
+    <script src="~/dist/main-client.js" asp-append-version="true"></script>
+}

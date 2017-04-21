@@ -1,5 +1,5 @@
 {
-  "name": "RockNative",
+  "name": "rock-native",
   "version": "0.0.1",
   "license": "SEE LICENSE IN LICENSE",
   "private": true,
@@ -10,16 +10,15 @@
     "test-unit": "jest \"^((?!integration).)*$\"",
     "test-int": "jest \"*.integration.js\"",
     "test-all": "jest",
-    "lint": "eslint ./src",
+    "lint": "eslint ./src index.*",
     "lint-staged": "lint-staged",
     "flow": "flow",
     "flow-stop": "flow stop",
     "ios": "react-native run-ios",
     "android": "react-native run-android",
-    "web": "webpack-dev-server --config ./web/client/webpack.config.dev.js",
-    "web-build": "cross-env NODE_ENV=production webpack --config ./web/client/webpack.config.dev.js",
+    "web": "cd ./web && cross-env ASPNETCORE_ENVIRONMENT=development dotnet watch run --project ./RockNative.csproj",
+    "web-build": "cd ./web &&  dotnet publish --configuration Release",
     "now": "npm run web-build && now ./web/client/dist",
-    "serve": "cross-env NODE_ENV=production serve ./web/client/dist --port 3000",
     "danger": "danger run --verbose"
   },
   "lint-staged": {
@@ -31,17 +30,23 @@
   "pre-commit": "lint-staged",
   "dependencies": {
     "@jongold/further": "^1.0.3",
+    "aspnet-prerendering": "^2.0.3",
+    "domain-task": "^3.0.0",
     "enzyme-to-json": "^1.5.0",
+    "event-source-polyfill": "0.0.9",
     "ramda": "^0.23.0",
     "react": "^15.4.2",
-    "react-hot-loader": "^3.0.0-beta.6",
     "react-native": "0.42.3",
     "react-native-web": "^0.0.80",
     "react-native-windows": "^0.42.0",
-    "recompose": "^0.22.0",
-    "serve": "^5.1.1"
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "recompose": "^0.22.0"
+    
   },
   "devDependencies": {
+    "aspnet-webpack": "^1.0.28",
+    "aspnet-webpack-react": "^1.0.5",
     "babel-eslint": "^7.2.1",
     "babel-jest": "19.0.0",
     "babel-loader": "^6.4.1",
@@ -67,11 +72,14 @@
     "pre-commit": "^1.2.2",
     "prettier": "^0.22.0",
     "react-addons-test-utils": "^15.4.2",
+    "react-hot-loader": "^3.0.0-beta.6",
     "react-test-renderer": "~15.4.1",
     "rnpm-plugin-windows": "^0.2.4",
     "selenium-webdriver": "^3.3.0",
     "webpack": "^2.3.0",
-    "webpack-dev-server": "^2.4.2"
+    "webpack-dev-server": "^2.4.2",
+    "webpack-hot-middleware": "^2.18.0",
+    "webpack-merge": "^4.1.0"
   },
   "jest": {
     "preset": "react-native",

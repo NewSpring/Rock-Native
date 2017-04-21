@@ -1,9 +1,0 @@
-{
-  "name": "rock-native",
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "files": [
-    "dist" 
-  ]
-}

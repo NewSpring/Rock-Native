@@ -4,7 +4,10 @@
     "eslint:recommended", "plugin:react/recommended"
   ],
   "env": {
-    "jest": true
+    "jest": true,
+    "browser": true,
+    "node": true,
+    "es6": true
   },
   "ecmaFeatures": {
     "jsx": true
