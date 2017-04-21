@@ -3,7 +3,7 @@ sudo: required
 # language: node_js
 language: csharp
 mono: none
-dotnet: 1.1.0
+dotnet: 1.0.1
 cache:
   yarn: true
   directories:
