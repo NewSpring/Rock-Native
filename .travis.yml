@@ -19,7 +19,7 @@ before_install:
 - node --version
 - npm i -g now commit-status
 - yarn
-- yarn restore cd web
+- yarn restore
 - yarn web &
 script:
 - yarn danger
