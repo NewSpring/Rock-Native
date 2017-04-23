@@ -1,13 +1,17 @@
 const path = require("path");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+
 
 module.exports = env => {
   const isDevBuild = !(env && env.prod);
 
   const sharedConfig = {
     stats: { modules: false },
-    resolve: { extensions: [".js"] },
+    resolve: {
+      extensions: [".js"],
+    },
     module: {
       rules: [
         {
@@ -17,12 +21,11 @@ module.exports = env => {
       ],
     },
     entry: {
-      vendor: [
-        "domain-task",
-        "event-source-polyfill",
-        "react",
+      vendor:[
+         "react",
         "react-dom",
         "react-router",
+        "react-helmet",
       ],
     },
     output: {
@@ -38,6 +41,11 @@ module.exports = env => {
   };
 
   const clientBundleConfig = merge(sharedConfig, {
+     entry: {
+      vendor: [
+        "react-router-dom",
+      ],
+    },
     output: { path: path.join(__dirname, "wwwroot", "dist") },
     module: {
       rules: [],
@@ -47,7 +55,15 @@ module.exports = env => {
         path: path.join(__dirname, "wwwroot", "dist", "[name]-manifest.json"),
         name: "[name]_[hash]",
       }),
-    ].concat(isDevBuild ? [] : [new webpack.optimize.UglifyJsPlugin()]),
+    ].concat(isDevBuild ? [] : [
+      new webpack.optimize.UglifyJsPlugin(),
+      new BundleAnalyzerPlugin({
+        analyzerMode: "disabled",
+        generateStatsFile: true,
+        statsFilename:  path.join(__dirname, "wwwroot", "app", "dist", "vendor-stats.json"),
+        logLevel: 'silent'
+      })
+    ]),
   });
 
   const serverBundleConfig = merge(sharedConfig, {
@@ -60,7 +76,14 @@ module.exports = env => {
     module: {
       rules: [],
     },
-    entry: { vendor: ["aspnet-prerendering", "react-dom/server"] },
+    entry: {
+      vendor: [
+        "aspnet-prerendering",
+        "react-dom/server",
+        "domain-task",
+        "event-source-polyfill",
+      ]
+    },
     plugins: [
       new webpack.DllPlugin({
         path: path.join(

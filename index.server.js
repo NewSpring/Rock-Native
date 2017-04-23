@@ -1,27 +1,27 @@
-import React from "react";
-import { AppRegistry } from "react-native";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router";
 import { createServerRenderer } from "aspnet-prerendering";
+import Helmet from "react-helmet";
 
 import RockNative from "./src";
 
 export default createServerRenderer(params => {
   return new Promise((resolve, reject) => {
     const context = {};
-    const AppContainer = () => (
+    
+    // prerender the app
+    const html = renderToString(
       <StaticRouter location={params.location} context={context}>
         <RockNative {...params.data} />
       </StaticRouter>
     );
 
-    // register the app
-    AppRegistry.registerComponent("RockNative", () => AppContainer);
-
-    // prerender the app
-    const { element, stylesheet } = AppRegistry.getApplication("RockNative", {
-    });
-    const html = renderToString(element);
+    const metadata = Helmet.renderStatic();
+    const meta = `
+      ${metadata.title.toString()}
+      ${metadata.meta.toString()}
+      ${metadata.link.toString()}
+    `;
 
     if (context.url) {
       resolve({ redirectUrl: context.url });
@@ -35,7 +35,9 @@ export default createServerRenderer(params => {
         resolve({
           html,
           globals: {
-            meta: `<title>Test page</title>${stylesheet}`,
+            meta,
+            bodyAttributes: metadata.bodyAttributes.toString(),
+            htmlAttributes: metadata.htmlAttributes.toString(),
           },
         });
       },

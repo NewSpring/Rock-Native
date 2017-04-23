@@ -1,6 +1,11 @@
 const path = require("path");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const OfflinePlugin = require('offline-plugin');
+
+
+// const baseBabel = require("../.babelrc");
 
 module.exports = env => {
   const isDevBuild = !(env && env.prod);
@@ -8,27 +13,35 @@ module.exports = env => {
   // Configuration in common to both client-side and server-side bundles
   const sharedConfig = () => ({
     stats: { modules: false },
+    //  performance: {
+    //   hints: isDevBuild ? true : false,
+    // },
     resolve: {
-      extensions: [".js"],
-      alias: {
-        "react-native": "react-native-web",
-      },
+      extensions: [".web.js", ".js"],
     },
     output: {
       filename: "[name].js",
       publicPath: "/dist/", // Webpack dev middleware, if enabled, handles requests for this URL prefix
     },
     module: {
-      rules: [{ test: /\.js?$/, exclude: /node_modules/, use: "babel-loader" }],
+      rules: [
+        {
+          test: /\.js?$/,
+          exclude: /node_modules/,
+          use:  "babel-loader",
+        }
+      ],
     },
-    plugins: [],
+    plugins: [
+      
+    ],
   });
 
   // Configuration for client-side bundle suitable for running in browsers
   const clientBundleOutputDir = "./wwwroot/dist";
   const clientBundleConfig = merge(sharedConfig(), {
-    entry: { "main-client": path.join(__dirname, "..", "./index.web.js") },
-    resolve: { extensions: [".web.js"] },
+    entry: { "main-client": path.join(__dirname, "..", "./index.browser.js") },
+    resolve: {  extensions: [".browser.js"] },
     module: {
       rules: [
         // { test: /\.css$/, use: ExtractTextPlugin.extract({ use: 'css-loader' }) },
@@ -58,6 +71,13 @@ module.exports = env => {
         : [
             // Plugins that apply in production builds only
             new webpack.optimize.UglifyJsPlugin(),
+            new BundleAnalyzerPlugin({
+              analyzerMode: "disabled",
+              generateStatsFile: true,
+              statsFilename:  path.join(__dirname, "wwwroot", "dist", "stats.json"),
+              logLevel: 'silent'
+            }),
+            new OfflinePlugin(),
           ]
     ),
   });

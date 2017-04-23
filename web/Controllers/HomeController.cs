@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.NodeServices;
 using Microsoft.AspNetCore.SpaServices.Prerendering;
@@ -35,6 +31,8 @@ namespace WebApplicationBasic.Controllers
 
             ViewData["SpaHtml"] = prerenderResult.Html;
             ViewData["Meta"] = prerenderResult.Globals["meta"];
+            ViewData["HtmlAttributes"] = prerenderResult.Globals["htmlAttributes"];
+            ViewData["BodyAttributes"] = prerenderResult.Globals["bodyAttributes"];
 
             return View();
         }

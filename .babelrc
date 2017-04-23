@@ -1,12 +1,19 @@
 {
   "presets": [
     "react",
-    "react-native"
+    "react-native",
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions", "safari >= 7"]
+      }
+    }]
   ],
   "plugins": [
+    "transform-react-require",
     "transform-flow-strip-types",
     ["babel-plugin-root-import", {
       "rootPathSuffix": "src"
-    }]
+    }],
+    ["lodash", { "id": ["recompose", "ramda"] }]
   ]
 }
