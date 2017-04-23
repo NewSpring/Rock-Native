@@ -1,8 +1,9 @@
 dist: trusty
 sudo: required
-language: node_js
-node_js:
-- '6'
+# language: node_js
+language: csharp
+mono: none
+dotnet: 1.0.1
 cache:
   yarn: true
   directories:
@@ -12,15 +13,20 @@ addons:
     username: $SAUCE_USERNAME
     access_key: $SAUCE_ACCESS_KEY
 before_install:
+- curl -s -o $HOME/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh
+- source $HOME/.nvm/nvm.sh
+- nvm install stable
+- node --version
 - npm i -g now commit-status
 - yarn
+- yarn restore
 - yarn web-build
-- yarn serve &
+- yarn web &
 script:
 - yarn danger
 - yarn lint
 - yarn flow
-- yarn test-all
+- yarn test # need to upgrade sauce labs
 - yarn coverage
 deploy:
   skip_cleanup: true

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <head @Html.Raw(ViewData["HtmlAttributes"])>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        @Html.Raw(ViewData["Meta"])
+    </head>
+    <body @Html.Raw(ViewData["BodyAttributes"])>
+        @RenderBody()
+        <script src="~/dist/vendor.js" asp-append-version="true"></script>
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

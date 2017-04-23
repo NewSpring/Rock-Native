@@ -48,3 +48,15 @@ android/.gradle
 android/build
 android/app/build
 dist
+
+# C# files
+bin
+.dll
+obj
+
+# Editor configuration
+.vscode
+.vs
+
+# Credentials
+appsettings.json
