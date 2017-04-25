@@ -38,7 +38,7 @@ module.exports = env => {
   });
 
   // Configuration for client-side bundle suitable for running in browsers
-  const clientBundleOutputDir = "./wwwroot/dist";
+  const clientBundleOutputDir = "./dist";
   const clientBundleConfig = merge(sharedConfig(), {
     entry: { "main-client": path.join(__dirname, "..", "./index.browser.js") },
     resolve: {  extensions: [".browser.js"] },
@@ -74,10 +74,10 @@ module.exports = env => {
             new BundleAnalyzerPlugin({
               analyzerMode: "disabled",
               generateStatsFile: true,
-              statsFilename:  path.join(__dirname, "wwwroot", "dist", "stats.json"),
+              statsFilename:  path.join(__dirname,  "dist", "stats.json"),
               logLevel: 'silent'
             }),
-            new OfflinePlugin(),
+            // new OfflinePlugin(),
           ]
     ),
   });
@@ -85,7 +85,7 @@ module.exports = env => {
   // Configuration for server-side (prerendering) bundle suitable for running in Node
   const serverBundleConfig = merge(sharedConfig(), {
     resolve: { mainFields: ["main"], extensions: [".server.js"] },
-    entry: { "main-server": path.join(__dirname, "..", "./index.server.js") },
+    entry: { "server": path.join(__dirname, "..", "./index.server.js") },
     plugins: [
       new webpack.DllReferencePlugin({
         context: __dirname,
@@ -93,8 +93,7 @@ module.exports = env => {
           path.join(
             __dirname,
             clientBundleOutputDir,
-            "../app",
-            "dist",
+            "server",
             "vendor-manifest.json"
           )
         ),
@@ -104,7 +103,8 @@ module.exports = env => {
     ],
     output: {
       libraryTarget: "commonjs",
-      path: path.join(__dirname, clientBundleOutputDir, "../app/dist"),
+      library: "RockNative",
+      path: path.join(__dirname, clientBundleOutputDir, "/server"),
     },
     target: "node",
     devtool: "inline-source-map",

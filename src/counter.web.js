@@ -4,7 +4,7 @@ import Meta from "react-helmet";
 import type { IWithHandlers } from "./";
 import { counterStyle } from "./";
 
-export default (
+export const Counter = (
   {
     increment,
     counter,
@@ -20,3 +20,5 @@ export default (
     <button onClick={decrement}>Decrement</button>
   </div>
 );
+
+export default Counter;

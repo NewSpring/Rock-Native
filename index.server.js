@@ -1,47 +1,104 @@
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router";
-import { createServerRenderer } from "aspnet-prerendering";
 import Helmet from "react-helmet";
+import { makeExecutableSchema } from "graphql-tools";
+
+// XXX why can't I import this?
+import { graphqlLambda, graphiqlLambda } from "graphql-server-lambda";
 
 import RockNative from "./src";
 
-export default createServerRenderer(params => {
-  return new Promise((resolve, reject) => {
-    const context = {};
-    
-    // prerender the app
-    const html = renderToString(
-      <StaticRouter location={params.location} context={context}>
-        <RockNative {...params.data} />
-      </StaticRouter>
+const typeDefs = `
+type Response {
+  code: Int!
+  message: String
+}
+
+# the schema allows the following query:
+type Query {
+  sample: Response
+}
+
+schema {
+  query: Query
+}
+`;
+
+const resolvers = {
+  Query: {
+    sample: () => ({ code: 200, message: "hello world" }),
+  },
+  Response: {
+    code: ({ code }) => code,
+    message: ({ message }) => message,
+  },
+};
+
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+export const graphql = (event, ctx, cb) => {
+  // enable cors
+  const filter = (error, output) => {
+    output.headers["Access-Control-Allow-Origin"] = "*";
+    cb(error, output);
+  };
+  return graphqlLambda({ schema })(event, ctx, filter);
+};
+
+export const graphiql = (event, ctx, cb) => {
+  const stage = event.isOffline ? "" : `/${event.requestContext.stage}`;
+  return graphiqlLambda({ endpointURL: `${stage}/graphql` })(event, ctx, cb);
+};
+
+export const ssr = (event, ctx) => {
+  const path = event.path;
+
+  const context = {};
+
+  // prerender the app
+  const body = renderToString(
+    <StaticRouter location={path} context={context}>
+      <RockNative />
+    </StaticRouter>,
+  );
+
+  if (context.url) {
+    const err = new Error(
+      "HandlerDemo.ResponseFound Redirection: Resource found elsewhere",
     );
+    err.name = context.url;
+    context.done(err, {});
+    return;
+  }
 
-    const metadata = Helmet.renderStatic();
-    const meta = `
-      ${metadata.title.toString()}
-      ${metadata.meta.toString()}
-      ${metadata.link.toString()}
-    `;
+  const metadata = Helmet.renderStatic();
 
-    if (context.url) {
-      resolve({ redirectUrl: context.url });
-      return;
-    }
+  const html = `
+      <!doctype html>
+      <html ${metadata.htmlAttributes.toString()}>
+        <head>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          ${metadata.title.toString()}
+          ${metadata.meta.toString()}
+          ${metadata.link.toString()}
+        </head>
+        <body ${metadata.bodyAttributes.toString()}>
+          <div id="rock-native">
+            ${body}
+          </div>
+          <script src="https://s3.amazonaws.com/ns-ops/serverless/vendor.js"></script>
+          <script src="https://s3.amazonaws.com/ns-ops/serverless/main-client.js"></script>
+        </body>
+      </html>
+  `;
 
-    // Once the tasks are done, we can perform the final render
-    // We also send the redux store state, so the client can continue execution where the server left off
-    params.domainTasks.then(
-      () => {
-        resolve({
-          html,
-          globals: {
-            meta,
-            bodyAttributes: metadata.bodyAttributes.toString(),
-            htmlAttributes: metadata.htmlAttributes.toString(),
-          },
-        });
-      },
-      reject,
-    ); // Also propagate any errors back into the host application
+  ctx.succeed({
+    statusCode: 200,
+    headers: {
+      "Content-Type": "text/html",
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: html,
   });
-});
+};

@@ -4,7 +4,7 @@ import { Text, View, Platform, Button } from "react-native";
 import type { IWithHandlers } from "./";
 import { counterStyle } from "./";
 
-export default (
+export const Counter = (
   {
     increment,
     counter,
@@ -17,3 +17,5 @@ export default (
     <Button onPress={decrement} title="Decrement" />
   </View>
 );
+
+export default Counter;

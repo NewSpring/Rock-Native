@@ -1,0 +1,32 @@
+service: rock-native
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+
+package:
+  artifact: dist.zip
+
+plugins:
+  - serverless-offline
+
+functions:
+  ssr:
+    handler: handler.ssr
+    events:
+      - http:
+          method: get
+          path: /
+  graphql:
+    handler: handler.graphql
+    events:
+      - http:
+          method: post
+          path: /graphql
+  graphiql:
+    handler: handler.graphiql
+    events:
+      - http:
+          method: get
+          path: /graphql
+

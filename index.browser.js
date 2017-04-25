@@ -5,16 +5,16 @@ import { BrowserRouter } from "react-router-dom";
 import RockNative from "./src";
 
 // offline support
-if (process.env.NODE_ENV === "production") {
-  require("offline-plugin/runtime").install();
-}
+// if (process.env.NODE_ENV === "production") {
+//   require("offline-plugin/runtime").install();
+// }
 
 const start = Component => {
   render(
     <BrowserRouter>
       <Component />
-    </BrowserRouter>
-    , document.getElementById("react-app")
+    </BrowserRouter>,
+    document.getElementById("rock-native"),
   );
 };
 

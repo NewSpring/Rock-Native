@@ -25,6 +25,15 @@ flow-typed/
 [options]
 module.system=haste
 
+# prefer native files over web for type checking
+# https://github.com/facebook/flow/issues/945
+module.file_ext=.native.js
+module.file_ext=.ios.js
+module.file_ext=.web.js
+module.file_ext=.browser.js
+module.file_ext=.js
+module.file_ext=.jsx
+
 emoji=true
 
 munge_underscores=true

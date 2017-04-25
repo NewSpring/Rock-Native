@@ -16,7 +16,7 @@ export const state = withState(
   ({ defaultValue }) => defaultValue || 0, // default
 );
 
-type IWithHandlers =
+export type IWithHandlers =
   & {
     increment: Function,
     decrement: Function,

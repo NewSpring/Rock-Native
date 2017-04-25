@@ -1,9 +1,6 @@
 dist: trusty
 sudo: required
-# language: node_js
-language: csharp
-mono: none
-dotnet: 1.0.1
+language: node_js
 cache:
   yarn: true
   directories:

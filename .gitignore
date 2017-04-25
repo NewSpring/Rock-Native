@@ -48,15 +48,11 @@ android/.gradle
 android/build
 android/app/build
 dist
-
-# C# files
-bin
-.dll
-obj
+*.zip
 
 # Editor configuration
 .vscode
 .vs
 
-# Credentials
-appsettings.json
+# Serverless directories
+.serverless

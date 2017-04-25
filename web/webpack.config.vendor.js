@@ -14,15 +14,11 @@ module.exports = env => {
     },
     module: {
       rules: [
-        {
-          test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/,
-          use: "url-loader?limit=100000",
-        },
       ],
     },
     entry: {
       vendor:[
-         "react",
+        "react",
         "react-dom",
         "react-router",
         "react-helmet",
@@ -46,13 +42,13 @@ module.exports = env => {
         "react-router-dom",
       ],
     },
-    output: { path: path.join(__dirname, "wwwroot", "dist") },
+    output: { path: path.join(__dirname, "dist") },
     module: {
       rules: [],
     },
     plugins: [
       new webpack.DllPlugin({
-        path: path.join(__dirname, "wwwroot", "dist", "[name]-manifest.json"),
+        path: path.join(__dirname, "dist", "[name]-manifest.json"),
         name: "[name]_[hash]",
       }),
     ].concat(isDevBuild ? [] : [
@@ -60,7 +56,7 @@ module.exports = env => {
       new BundleAnalyzerPlugin({
         analyzerMode: "disabled",
         generateStatsFile: true,
-        statsFilename:  path.join(__dirname, "wwwroot", "app", "dist", "vendor-stats.json"),
+        statsFilename:  path.join(__dirname, "dist", "vendor-stats.json"),
         logLevel: 'silent'
       })
     ]),
@@ -70,7 +66,7 @@ module.exports = env => {
     target: "node",
     resolve: { mainFields: ["main"] },
     output: {
-      path: path.join(__dirname, "wwwroot", "app", "dist"),
+      path: path.join(__dirname, "dist", "server"),
       libraryTarget: "commonjs2",
     },
     module: {
@@ -78,19 +74,18 @@ module.exports = env => {
     },
     entry: {
       vendor: [
-        "aspnet-prerendering",
         "react-dom/server",
-        "domain-task",
-        "event-source-polyfill",
+        "graphql-server-lambda",
+        "graphql",
+        "graphql-tools",
       ]
     },
     plugins: [
       new webpack.DllPlugin({
         path: path.join(
           __dirname,
-          "wwwroot",
-          "app",
           "dist",
+          "server",
           "[name]-manifest.json"
         ),
         name: "[name]_[hash]",

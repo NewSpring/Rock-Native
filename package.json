@@ -17,13 +17,12 @@
     "ios": "react-native run-ios",
     "android": "react-native run-android",
     "windows": "react-native run-windows",
-    "web": "cd ./web && cross-env ASPNETCORE_ENVIRONMENT=development dotnet watch run --project ./RockNative.csproj --server.urls \"http://*:3000\"",
-    "web-build": "cd ./web && cross-env ASPNETCORE_ENVIRONMENT=Production dotnet publish --configuration Release",
-    "now": "npm run web-build && now ./web --docker -e ASPNETCORE_ENVIRONMENT=Production -e NODE_ENV=production",
+    "web-ssr": "cd ./web && serverless offline start --location ./dist",
+    "web-build": "cd ./web && webpack --config webpack.config.vendor.js --env.prod --optimize-minimize && webpack --config webpack.config.js --env.prod --optimize-minimize && cd ./dist && zip -r ../dist/zip . **",
+    "web-deploy": "cd ./web && serverless deploy",
     "danger": "danger run --verbose",
-    "restore": "cd web && dotnet restore",
-    "stat-vendor": "webpack-bundle-analyzer ./web/wwwroot/app/dist/vendor-stats.json",
-    "stat-app": "webpack-bundle-analyzer ./web/wwwroot/dist/stats.json"
+    "stat-vendor": "webpack-bundle-analyzer ./web/dist/vendor-stats.json",
+    "stat-app": "webpack-bundle-analyzer ./web/dist/stats.json"
   },
   "lint-staged": {
     "*.js": [
@@ -34,9 +33,7 @@
   "pre-commit": "lint-staged",
   "dependencies": {
     "@jongold/further": "^1.0.3",
-    "aspnet-prerendering": "^2.0.3",
-    "domain-task": "^3.0.0",
-    "event-source-polyfill": "0.0.9",
+    "graphql-server-lambda": "^0.7.2",
     "preact": "^8.1.0",
     "preact-compat": "^3.15.0",
     "ramda": "^0.23.0",
@@ -49,14 +46,13 @@
     "recompose": "^0.22.0"
   },
   "devDependencies": {
-    "aspnet-webpack": "^1.0.28",
-    "aspnet-webpack-react": "^1.0.5",
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.1",
     "babel-jest": "19.0.0",
     "babel-loader": "^6.4.1",
     "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-root-import": "^5.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-react-require": "^1.0.1",
     "babel-preset-env": "^1.4.0",
@@ -86,6 +82,7 @@
     "react-test-renderer": "~15.4.1",
     "rnpm-plugin-windows": "^0.2.4",
     "selenium-webdriver": "^3.3.0",
+    "serverless-offline": "^3.13.5",
     "webpack": "^2.3.0",
     "webpack-bundle-analyzer": "^2.4.0",
     "webpack-dev-server": "^2.4.2",
@@ -100,5 +97,43 @@
       "!**/node_modules/**",
       "!src/test-utils/**"
     ]
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "env": {
+      "jest": true,
+      "browser": true,
+      "node": true,
+      "es6": true
+    },
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "plugins": [
+      "prettier",
+      "react",
+      "react-native"
+    ],
+    "globals": {
+      "process": true,
+      "jasmine": true
+    },
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "trailingComma": "all"
+        }
+      ],
+      "react-native/no-unused-styles": 2,
+      "react-native/split-platform-components": 2,
+      "react-native/no-inline-styles": 2,
+      "react-native/no-color-literals": 2,
+      "react/react-in-jsx-scope": 0
+    }
   }
 }
