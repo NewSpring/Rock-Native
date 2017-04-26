@@ -1,1 +1,1 @@
-module.exports = require("./server/server").RockNative;
+module.exports = require("./server").RockNative;

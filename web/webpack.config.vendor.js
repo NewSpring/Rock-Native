@@ -42,13 +42,13 @@ module.exports = env => {
         "react-router-dom",
       ],
     },
-    output: { path: path.join(__dirname, "dist") },
+    output: { path: path.join(__dirname, "dist", "client") },
     module: {
       rules: [],
     },
     plugins: [
       new webpack.DllPlugin({
-        path: path.join(__dirname, "dist", "[name]-manifest.json"),
+        path: path.join(__dirname, "dist", "client", "[name]-manifest.json"),
         name: "[name]_[hash]",
       }),
     ].concat(isDevBuild ? [] : [
@@ -56,7 +56,7 @@ module.exports = env => {
       new BundleAnalyzerPlugin({
         analyzerMode: "disabled",
         generateStatsFile: true,
-        statsFilename:  path.join(__dirname, "dist", "vendor-stats.json"),
+        statsFilename:  path.join(__dirname, "dist", "client", "vendor-stats.json"),
         logLevel: 'silent'
       })
     ]),

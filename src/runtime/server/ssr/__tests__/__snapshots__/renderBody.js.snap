@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the body of the app into a static router context 1`] = `"<div data-reactroot=\\"\\" data-reactid=\\"1\\" data-react-checksum=\\"1494228789\\"><h1 data-reactid=\\"2\\">Home</h1><!-- react-empty: 3 --></div>"`;
+
+exports[`renders the body of the app into a static router context based on route 1`] = `"<div data-reactroot=\\"\\" data-reactid=\\"1\\" data-react-checksum=\\"818356684\\"><!-- react-empty: 2 --><h3 data-reactid=\\"3\\">Hello World</h3></div>"`;

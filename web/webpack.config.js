@@ -3,9 +3,8 @@ const webpack = require("webpack");
 const merge = require("webpack-merge");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const OfflinePlugin = require('offline-plugin');
-
-
-// const baseBabel = require("../.babelrc");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ZipPlugin = require('zip-webpack-plugin');
 
 module.exports = env => {
   const isDevBuild = !(env && env.prod);
@@ -38,7 +37,7 @@ module.exports = env => {
   });
 
   // Configuration for client-side bundle suitable for running in browsers
-  const clientBundleOutputDir = "./dist";
+  const clientBundleOutputDir = "./dist/client";
   const clientBundleConfig = merge(sharedConfig(), {
     entry: { "main-client": path.join(__dirname, "..", "./index.browser.js") },
     resolve: {  extensions: [".browser.js"] },
@@ -49,6 +48,18 @@ module.exports = env => {
       ],
     },
     output: { path: path.join(__dirname, clientBundleOutputDir) },
+    devServer: {
+      // clientLogLevel: "none",
+      compress: true,
+      inline: true,
+      publicPath: "http://localhost:8080/dist/client",
+      hot: true,
+      quiet: true,
+      headers: {
+        "Access-Control-Allow-Origin": "http://localhost:3000",
+        "Access-Control-Allow-Credentials": "true",
+      }
+    },
     plugins: [
       new webpack.DllReferencePlugin({
         context: __dirname,
@@ -59,6 +70,7 @@ module.exports = env => {
     ].concat(
       isDevBuild
         ? [
+            new webpack.HotModuleReplacementPlugin(),
             // Plugins that apply in development builds only
             new webpack.SourceMapDevToolPlugin({
               filename: "[file].map", // Remove this line if you prefer inline source maps
@@ -67,6 +79,8 @@ module.exports = env => {
                 "[resourcePath]"
               ), // Point sourcemap entries to the original file locations on disk
             }),
+            new webpack.NoEmitOnErrorsPlugin(),
+            new webpack.NamedModulesPlugin(),
           ]
         : [
             // Plugins that apply in production builds only
@@ -74,7 +88,7 @@ module.exports = env => {
             new BundleAnalyzerPlugin({
               analyzerMode: "disabled",
               generateStatsFile: true,
-              statsFilename:  path.join(__dirname,  "dist", "stats.json"),
+              statsFilename:  path.join(__dirname,  "dist", "client", "stats.json"),
               logLevel: 'silent'
             }),
             // new OfflinePlugin(),
@@ -92,7 +106,7 @@ module.exports = env => {
         manifest: require(
           path.join(
             __dirname,
-            clientBundleOutputDir,
+            "dist",
             "server",
             "vendor-manifest.json"
           )
@@ -100,11 +114,24 @@ module.exports = env => {
         sourceType: "commonjs2",
         name: "./vendor",
       }),
-    ],
+      new CopyWebpackPlugin([
+          { from: path.join(__dirname, "handler.js"), to: path.join(__dirname, "dist", "server") },
+          { from: path.join(__dirname, "dist", "server", "vendor.js") },
+      ])
+    ].concat(isDevBuild ? [
+      new webpack.NoEmitOnErrorsPlugin(),
+      new webpack.NamedModulesPlugin(),
+    ]: [
+      new ZipPlugin({
+        path: './../../',
+        filename: 'dist.zip',
+        include: [/\.js$/],
+      })
+    ]),
     output: {
       libraryTarget: "commonjs",
       library: "RockNative",
-      path: path.join(__dirname, clientBundleOutputDir, "/server"),
+      path: path.join(__dirname, "dist", "server"),
     },
     target: "node",
     devtool: "inline-source-map",

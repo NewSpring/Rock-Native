@@ -1,4 +1,10 @@
-export const html = (metadata, body) =>
+import type { Head } from "react-helmet";
+
+export const html = (
+  metadata: Head,
+  body: string,
+  scripts: string = "",
+): string =>
   `
   <!doctype html>
   <html ${metadata.htmlAttributes.toString()}>
@@ -10,16 +16,25 @@ export const html = (metadata, body) =>
       ${metadata.link.toString()}
     </head>
     <body ${metadata.bodyAttributes.toString()}>
-      <div id="rock-native">
-        ${body}
-      </div>
-      <script src="https://s3.amazonaws.com/ns-ops/serverless/vendor.js"></script>
-      <script src="https://s3.amazonaws.com/ns-ops/serverless/main-client.js"></script>
+      <div id="rock-native">${body}</div>
+      ${scripts}
     </body>
   </html>
 `;
 
-export default ({ body, metadata, ...rest }) => ({
+export default (
+  {
+    scripts,
+    body,
+    metadata,
+    ...rest
+  }: {
+    scripts: string,
+    body: string,
+    metadata: Head,
+    rest: {},
+  },
+) => ({
   ...rest,
-  html: html(metadata, body),
+  html: html(metadata, body, scripts),
 });

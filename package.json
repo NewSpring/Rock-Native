@@ -17,9 +17,9 @@
     "ios": "react-native run-ios",
     "android": "react-native run-android",
     "windows": "react-native run-windows",
-    "web-ssr": "cd ./web && serverless offline start --location ./dist",
-    "web-build": "cd ./web && webpack --config webpack.config.vendor.js --env.prod --optimize-minimize && webpack --config webpack.config.js --env.prod --optimize-minimize && cd ./dist && zip -r ../dist/zip . **",
-    "web-deploy": "cd ./web && serverless deploy",
+    "server": "cd ./web && concurrently \"serverless offline start --location ./dist/server\" \"webpack --config webpack.config.vendor.js && webpack --config webpack.config.js --watch\"",
+    "server-build": "cd ./web && webpack --config webpack.config.vendor.js --env.prod --optimize-minimize && webpack --config webpack.config.js --env.prod --optimize-minimize",
+    "server-deploy": "cd ./web && serverless deploy",
     "danger": "danger run --verbose",
     "stat-vendor": "webpack-bundle-analyzer ./web/dist/vendor-stats.json",
     "stat-app": "webpack-bundle-analyzer ./web/dist/stats.json"
@@ -60,6 +60,8 @@
     "babel-preset-react": "^6.23.0",
     "babel-preset-react-native": "1.9.1",
     "codecov": "^2.1.0",
+    "concurrently": "^3.4.0",
+    "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^4.0.0",
     "danger": "https://github.com/delianides/danger-js/releases/download/0.14.2/danger-0.14.2.tgz",
     "enzyme": "^2.8.0",
@@ -87,7 +89,8 @@
     "webpack-bundle-analyzer": "^2.4.0",
     "webpack-dev-server": "^2.4.2",
     "webpack-hot-middleware": "^2.18.0",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "zip-webpack-plugin": "^1.1.0"
   },
   "jest": {
     "preset": "react-native",

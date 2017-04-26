@@ -1,6 +1,13 @@
+// @flow
 import Helmet from "react-helmet";
+import type { Head } from "react-helmet";
 
-export default x => ({
+type IMetaDataResult = {
+  [key: any]: any,
+  metadata: Head,
+};
+
+export default (x: any): IMetaDataResult => ({
   ...x,
   metadata: Helmet.renderStatic(),
 });
