@@ -10,6 +10,7 @@
 .*/node_modules/animated/.*
 .*/node_modules/react-native-web/.*
 .*/node_modules/react-native-windows/.*
+.*/node_modules/flow-coverage-report/.*
 
 # Directories to ignore.
 .*/__tests__/.*
