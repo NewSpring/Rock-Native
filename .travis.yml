@@ -18,9 +18,8 @@ before_install:
 - node --version
 - npm i -g now commit-status
 - yarn
-- yarn restore
-- yarn web-build
-- yarn web &
+# - yarn web-build
+# - yarn web &
 script:
 - yarn danger
 - yarn lint
