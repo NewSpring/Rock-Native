@@ -20,7 +20,8 @@ before_install:
 - yarn --ignore-engines
 - yarn server-build
 - yarn server &
-install: false
+# skip install since its done above
+install: true
 script:
 - yarn danger
 - yarn lint
