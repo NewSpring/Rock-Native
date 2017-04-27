@@ -12,6 +12,13 @@ addons:
     username: $SAUCE_USERNAME
     access_key: $SAUCE_ACCESS_KEY
 before_install:
+- export CHROME_BIN=/usr/bin/google-chrome
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sudo apt-get update
+- sudo apt-get install -y libappindicator1 fonts-liberation
+- wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+- sudo dpkg -i google-chrome*.deb
 - npm i -g now commit-status
 - yarn --ignore-engines
 - yarn server-build
@@ -19,10 +26,11 @@ before_install:
 # skip install since its done above
 install: true
 script:
+- jdk_switcher use oraclejdk8
 - yarn danger
 - yarn lint
 - yarn flow
-- yarn test # need to upgrade sauce labs
+- yarn test-all # need to upgrade sauce labs
 - yarn coverage
 # deploy:
 #   skip_cleanup: true
