@@ -22,7 +22,7 @@ script:
 - yarn danger
 - yarn lint
 - yarn flow
-- yarn test-all # need to upgrade sauce labs
+- yarn test # need to upgrade sauce labs
 - yarn coverage
 # deploy:
 #   skip_cleanup: true
