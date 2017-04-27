@@ -1,4 +1,12 @@
-import { typeDefs, resolvers, withCors, graphql } from "../graphql";
+import lambda from "lambda-tester";
+import {
+  typeDefs,
+  resolvers,
+  withCors,
+  graphql,
+  graphqlEndpoint,
+  graphiqlEndpoint,
+} from "../graphql";
 
 describe("typeDefs", () => {
   it("should match a snapshot", () => {
@@ -48,4 +56,37 @@ describe("withCors", () => {
       },
     });
   });
+});
+
+describe("graphqlEndpoint", () => {
+  it("returns a response from the sample root query", () =>
+    lambda(graphqlEndpoint)
+      .event({
+        httpMethod: "POST",
+        body: JSON.stringify({
+          query: "{ sample { code message } }",
+        }),
+      })
+      .expectResult(({ statusCode, body, headers }) => {
+        expect(statusCode).toEqual(200);
+        expect(JSON.parse(body)).toEqual({
+          data: { sample: { code: 200, message: "hello world" } },
+        });
+        expect(headers["Content-Type"]).toEqual("application/json");
+        expect(headers["Access-Control-Allow-Origin"]).toEqual("*");
+      }));
+});
+
+describe("graphiqlEndpoint", () => {
+  it("returns a mini react app", () =>
+    lambda(graphiqlEndpoint)
+      .event({
+        httpMethod: "GET",
+        isOffline: true,
+      })
+      .expectResult(({ statusCode, body, headers }) => {
+        expect(statusCode).toEqual(200);
+        expect(body).toMatch(/GraphiQL/);
+        expect(headers["Content-Type"]).toEqual("text/html");
+      }));
 });
