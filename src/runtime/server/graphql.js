@@ -1,7 +1,13 @@
+// @flow
+import { graphql as graphqljs } from "graphql";
 import { makeExecutableSchema } from "graphql-tools";
 import { graphqlLambda, graphiqlLambda } from "graphql-server-lambda";
 
-const typeDefs = `
+import type { ExecutionResult } from "graphql";
+// XXX move these to a typings file for lambda
+import type { ILambdaEvent, ILambdaContext } from "./ssr/withApp";
+
+export const typeDefs = `
 type Response {
   code: Int!
   message: String
@@ -17,29 +23,57 @@ schema {
 }
 `;
 
-const resolvers = {
+type ISample = {
+  code: number,
+  message: string,
+};
+
+export const resolvers = {
   Query: {
-    sample: () => ({ code: 200, message: "hello world" }),
+    sample: (): ISample => ({ code: 200, message: "hello world" }),
   },
   Response: {
-    code: ({ code }) => code,
-    message: ({ message }) => message,
+    code: ({ code }: ISample): number => code,
+    message: ({ message }: ISample): string => message,
   },
 };
 
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+export const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+// this is a curried schema execution function
+// use it to execute queries for SSR and testing
+export const graphql = (
+  query: string,
+  root?: mixed,
+  context?: mixed,
+  variables?: ?{ [key: string]: mixed },
+  operationName?: ?string,
+): Promise<ExecutionResult> =>
+  graphqljs(schema, query, root, context, variables, operationName);
+
+export type ILambdaOutput = {
+  headers: { [key: string]: string },
+};
+export type ILambdaCallback = (error: mixed, output: ILambdaOutput) => void;
 
 // enable cors
-export const withCors = cb =>
+export const withCors = (cb: ILambdaCallback): ILambdaCallback =>
   (error, output) => {
     output.headers["Access-Control-Allow-Origin"] = "*";
     cb(error, output);
   };
 
-export const graphql = (event, ctx, cb) =>
-  graphqlLambda({ schema })(event, ctx, withCors(cb));
+export const graphqlEndpoint = (
+  event: ILambdaEvent,
+  ctx: ILambdaContext,
+  cb: ILambdaCallback,
+) => graphqlLambda({ schema })(event, ctx, withCors(cb));
 
-export const graphiql = (event, ctx, cb) => {
+export const graphiqlEndpoint = (
+  event: ILambdaEvent,
+  ctx: ILambdaContext,
+  cb: ILambdaCallback,
+) => {
   const stage = event.isOffline ? "" : `/${event.requestContext.stage}`;
   return graphiqlLambda({ endpointURL: `${stage}/graphql` })(event, ctx, cb);
 };

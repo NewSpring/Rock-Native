@@ -19,6 +19,9 @@ export type ILambdaContext = {
 
 export type ILambdaEvent = {
   path: string,
+  requestContext: {
+    stage: string,
+  },
 };
 
 export default (App: Component) =>
