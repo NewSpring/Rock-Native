@@ -13,4 +13,5 @@ export const shouldRedirect = ifElse(
   compose(endRequest, withHtml, withMeta),
 );
 
-export default App => compose(shouldRedirect, renderBody, withApp(App));
+export default (App, config) =>
+  compose(shouldRedirect, renderBody, withApp(App, config));

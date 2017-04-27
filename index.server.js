@@ -5,7 +5,14 @@ import {
   graphiqlEndpoint as graphiql,
 } from "./src/runtime/server/graphql";
 
+// load the app
 import RockNative from "./src";
 
-export const ssr = render(RockNative);
+// load the manifests
+// $FlowIgnore
+import client from "./web/dist/manifests/client.json";
+// $FlowIgnore
+import vendor from "./web/dist/manifests/vendor.json";
+
+export const ssr = render(RockNative, { manifests: { client, vendor } });
 export { graphql, graphiql };

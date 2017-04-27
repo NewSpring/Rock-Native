@@ -2,7 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
-
+const WebpackAssetsManifest = require("webpack-assets-manifest");
 
 module.exports = env => {
   const isDevBuild = !(env && env.prod);
@@ -42,7 +42,11 @@ module.exports = env => {
         "react-router-dom",
       ],
     },
-    output: { path: path.join(__dirname, "dist", "client") },
+    output: {
+      path: path.join(__dirname, "dist", "client"),
+      filename: '[name]-[hash].js',
+      chunkFilename: '[id]-[hash].js',
+    },
     module: {
       rules: [],
     },
@@ -51,12 +55,16 @@ module.exports = env => {
         path: path.join(__dirname, "dist", "client", "[name]-manifest.json"),
         name: "[name]_[hash]",
       }),
+      new WebpackAssetsManifest({
+        output: "../manifests/vendor.json",
+        publicPath: isDevBuild ? "//localhost:8080/dist/client/": process.env.CDN_URL,
+      }),
     ].concat(isDevBuild ? [] : [
       new webpack.optimize.UglifyJsPlugin(),
       new BundleAnalyzerPlugin({
         analyzerMode: "disabled",
         generateStatsFile: true,
-        statsFilename:  path.join(__dirname, "dist", "client", "vendor-stats.json"),
+        statsFilename:  path.join(__dirname, "dist", "stats", "vendor.json"),
         logLevel: 'silent'
       })
     ]),

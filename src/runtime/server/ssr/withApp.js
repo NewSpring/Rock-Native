@@ -24,7 +24,11 @@ export type ILambdaEvent = {
   },
 };
 
-export default (App: Component) =>
+export type IConfig = {
+  manifests?: ?{ [key: string]: string },
+};
+
+export default (App: Component, config: IConfig) =>
   (
     event: ILambdaEvent,
     ctx: ILambdaContext,
@@ -33,9 +37,11 @@ export default (App: Component) =>
     ctx: ILambdaContext,
     context: StaticRouterContext,
     App: Component,
+    config: IConfig,
   } => ({
     path: event.path,
     ctx,
     context: {},
     App,
+    config,
   });

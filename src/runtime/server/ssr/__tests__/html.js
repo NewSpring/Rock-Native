@@ -37,10 +37,19 @@ describe("withHtml", () => {
     const initial = {
       metadata,
       body: "<div>hello world</div>",
-      scripts: "<script></script>",
       other: "keys",
       are: "okay",
       and: "passed",
+      config: {
+        manifests: {
+          vendor: {
+            foo: "bar",
+          },
+          client: {
+            bar: "foo",
+          },
+        },
+      },
     };
 
     const result = withHtml(initial);

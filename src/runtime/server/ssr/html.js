@@ -1,4 +1,15 @@
+import { values } from "ramda";
 import type { Head } from "react-helmet";
+
+import type { IConfig } from "./withApp";
+
+export const createScripts = (
+  { manifests: { client, vendor } }: IConfig = { manifests: {} },
+): string =>
+  values(vendor)
+    .concat(values(client))
+    .map(src => `<script src="${src}"></script>`)
+    .join("");
 
 export const html = (
   metadata: Head,
@@ -24,17 +35,17 @@ export const html = (
 
 export default (
   {
-    scripts,
     body,
     metadata,
+    config,
     ...rest
   }: {
-    scripts: string,
+    config: IConfig,
     body: string,
     metadata: Head,
     rest: {},
   },
 ) => ({
   ...rest,
-  html: html(metadata, body, scripts),
+  html: html(metadata, body, createScripts(config)),
 });
