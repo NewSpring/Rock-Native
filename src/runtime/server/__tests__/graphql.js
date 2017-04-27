@@ -1,4 +1,5 @@
-import lambda from "lambda-tester";
+import { wrap } from "lambda-wrapper";
+
 import {
   typeDefs,
   resolvers,
@@ -59,34 +60,36 @@ describe("withCors", () => {
 });
 
 describe("graphqlEndpoint", () => {
-  it("returns a response from the sample root query", () =>
-    lambda(graphqlEndpoint)
-      .event({
-        httpMethod: "POST",
-        body: JSON.stringify({
-          query: "{ sample { code message } }",
-        }),
-      })
-      .expectResult(({ statusCode, body, headers }) => {
-        expect(statusCode).toEqual(200);
-        expect(JSON.parse(body)).toEqual({
-          data: { sample: { code: 200, message: "hello world" } },
-        });
-        expect(headers["Content-Type"]).toEqual("application/json");
-        expect(headers["Access-Control-Allow-Origin"]).toEqual("*");
-      }));
+  it("returns a response from the sample root query", async () => {
+    const event = {
+      httpMethod: "POST",
+      body: JSON.stringify({
+        query: "{ sample { code message } }",
+      }),
+    };
+    const { statusCode, body, headers } = await wrap({
+      handler: graphqlEndpoint,
+    }).run(event);
+    expect(statusCode).toEqual(200);
+    expect(JSON.parse(body)).toEqual({
+      data: { sample: { code: 200, message: "hello world" } },
+    });
+    expect(headers["Content-Type"]).toEqual("application/json");
+    expect(headers["Access-Control-Allow-Origin"]).toEqual("*");
+  });
 });
 
 describe("graphiqlEndpoint", () => {
-  it("returns a mini react app", () =>
-    lambda(graphiqlEndpoint)
-      .event({
-        httpMethod: "GET",
-        isOffline: true,
-      })
-      .expectResult(({ statusCode, body, headers }) => {
-        expect(statusCode).toEqual(200);
-        expect(body).toMatch(/GraphiQL/);
-        expect(headers["Content-Type"]).toEqual("text/html");
-      }));
+  it("returns a mini react app", async () => {
+    const event = {
+      httpMethod: "GET",
+      isOffline: true,
+    };
+    const { statusCode, body, headers } = await wrap({
+      handler: graphiqlEndpoint,
+    }).run(event);
+    expect(statusCode).toEqual(200);
+    expect(body).toMatch(/GraphiQL/);
+    expect(headers["Content-Type"]).toEqual("text/html");
+  });
 });
