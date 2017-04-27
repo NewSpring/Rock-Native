@@ -10,11 +10,11 @@ exports[`shows a counter count on web 1`] = `
     }
   }
 >
-  <h6>
+  <span>
     Counter is at 
     1
      on web
-  </h6>
+  </span>
   <button
     onClick={undefined}
   >

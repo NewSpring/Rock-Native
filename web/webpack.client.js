@@ -1,20 +1,26 @@
 const path = require("path");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
-const OfflinePlugin = require('offline-plugin');
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const OfflinePlugin = require("offline-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 
 const sharedConfig = require("./webpack.base");
 
 module.exports = env => {
   const isDevBuild = !(env && env.prod);
+  const client = [path.join(__dirname, "..", "./index.browser.js")];
+  if (isDevBuild) {
+    client.unshift("webpack/hot/only-dev-server");
+    client.unshift("webpack-dev-server/client?http://localhost:8080");
+    client.unshift("react-hot-loader/babel");
+  }
 
   // Configuration for client-side bundle suitable for running in browsers
   const clientBundleOutputDir = "./dist/client";
   const clientBundleConfig = merge(sharedConfig(isDevBuild), {
-    entry: { "client": path.join(__dirname, "..", "./index.browser.js") },
-    resolve: {  extensions: [".browser.js"] },
+    entry: { client },
+    resolve: { extensions: [".browser.js"] },
     module: {
       rules: [
         // { test: /\.css$/, use: ExtractTextPlugin.extract({ use: 'css-loader' }) },
@@ -23,33 +29,35 @@ module.exports = env => {
     },
     output: {
       path: path.join(__dirname, clientBundleOutputDir),
-      filename: '[name]-[hash].js',
-      chunkFilename: '[id]-[hash].js',
+      filename: isDevBuild ? "[name].js" : "[name]-[hash].js",
+      chunkFilename: "[id]-[hash].js",
+      publicPath: "http://localhost:8080/dist/client",
     },
     devServer: {
       // clientLogLevel: "none",
       stats: "errors-only",
       compress: true,
-      inline: true,
       publicPath: "http://localhost:8080/dist/client",
       hot: true,
       quiet: true,
       headers: {
         "Access-Control-Allow-Origin": "http://localhost:3000",
         "Access-Control-Allow-Credentials": "true",
-      }
+      },
     },
     plugins: [
       new webpack.DllReferencePlugin({
         context: __dirname,
         manifest: require(
           path.join(__dirname, clientBundleOutputDir, "vendor-manifest.json")
-        )
+        ),
       }),
       new WebpackAssetsManifest({
         output: "../manifests/client.json",
-        publicPath: isDevBuild ? "//localhost:8080/dist/client/": process.env.CDN_URL,
-      }),
+        publicPath: (
+          isDevBuild ? "//localhost:8080/dist/client/" : process.env.CDN_URL
+        ),
+      })
     ].concat(
       isDevBuild
         ? [
@@ -63,7 +71,7 @@ module.exports = env => {
               ), // Point sourcemap entries to the original file locations on disk
             }),
             new webpack.NoEmitOnErrorsPlugin(),
-            new webpack.NamedModulesPlugin(),
+            new webpack.NamedModulesPlugin()
           ]
         : [
             // Plugins that apply in production builds only
@@ -71,14 +79,18 @@ module.exports = env => {
             new BundleAnalyzerPlugin({
               analyzerMode: "disabled",
               generateStatsFile: true,
-              statsFilename:  path.join(__dirname,  "dist", "stats", "client.json"),
-              logLevel: 'silent'
+              statsFilename: path.join(
+                __dirname,
+                "dist",
+                "stats",
+                "client.json"
+              ),
+              logLevel: "silent",
             }),
-            // new OfflinePlugin(),
+            new OfflinePlugin()
           ]
     ),
   });
-
 
   return clientBundleConfig;
 };

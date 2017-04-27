@@ -44,7 +44,7 @@ module.exports = env => {
     },
     output: {
       path: path.join(__dirname, "dist", "client"),
-      filename: '[name]-[hash].js',
+      filename: isDevBuild ? "[name].js" : "[name]-[hash].js",
       chunkFilename: '[id]-[hash].js',
     },
     module: {

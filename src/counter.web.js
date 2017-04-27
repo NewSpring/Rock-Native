@@ -15,7 +15,7 @@ export const Counter = (
     <Meta>
       <title>Awesome counter app</title>
     </Meta>
-    <h6>Counter is at {counter} on web</h6>
+    <span>Counter is at {counter} on web</span>
     <button onClick={increment}>Increment</button>
     <button onClick={decrement}>Decrement</button>
   </div>

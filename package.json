@@ -19,7 +19,7 @@
     "android": "react-native run-android",
     "windows": "react-native run-windows",
     "build-manifests": "cd ./web && webpack --config webpack.vendor.js --hide-modules && webpack --config webpack.client.js --hide-modules",
-    "server": "npm run build-manifests && cd ./web && concurrently \"serverless offline start --location ./dist/server\" \"webpack --config webpack.server.js --watch --hide-modules\" \"webpack-dev-server --config webpack.client.js --hot --inline \"",
+    "server": "npm run build-manifests && cd ./web && concurrently \"serverless offline start --location ./dist/server\" \"webpack --config webpack.server.js --watch --hide-modules\" \"webpack-dev-server --config webpack.client.js \"",
     "server-build": "cd ./web && webpack --config webpack.vendor.js --env.prod --optimize-minimize && webpack --config webpack.client.js -p && webpack --config webpack.server.js -p",
     "server-deploy": "cd ./web && serverless deploy",
     "danger": "danger run --verbose",
@@ -28,8 +28,9 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint",
-      "jest --bail --findRelatedTests"
+      "eslint --fix",
+      "jest --bail --findRelatedTests",
+      "git add"
     ]
   },
   "pre-commit": "lint-staged",
