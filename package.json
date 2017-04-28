@@ -38,7 +38,7 @@
     "react-native": "0.42.3",
     "react-native-web": "^0.0.80",
     "react-native-windows": "^0.42.0",
-    "recompose": "^0.22.0",
+    "recompose": "^0.23.0",
     "serve": "^5.1.1"
   },
   "devDependencies": {
