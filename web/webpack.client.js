@@ -7,6 +7,13 @@ const WebpackAssetsManifest = require("webpack-assets-manifest");
 
 const sharedConfig = require("./webpack.base");
 
+// babel things to add to we builds
+// ["env", {
+//       "targets": {
+//         "browsers": ["last 2 versions", "safari >= 7"]
+//       }
+//     }]
+
 module.exports = env => {
   const isDevBuild = !(env && env.prod);
   const client = [path.join(__dirname, "..", "./index.browser.js")];
@@ -49,7 +56,7 @@ module.exports = env => {
       new webpack.DllReferencePlugin({
         context: __dirname,
         manifest: require(
-          path.join(__dirname, clientBundleOutputDir, "vendor-manifest.json")
+          path.join(__dirname, clientBundleOutputDir, "vendor-manifest.json"),
         ),
       }),
       new WebpackAssetsManifest({
@@ -57,7 +64,7 @@ module.exports = env => {
         publicPath: (
           isDevBuild ? "//localhost:8080/dist/client/" : process.env.CDN_URL
         ),
-      })
+      }),
     ].concat(
       isDevBuild
         ? [
@@ -67,11 +74,11 @@ module.exports = env => {
               // filename: "[file].map", // Remove this line if you prefer inline source maps
               moduleFilenameTemplate: path.relative(
                 clientBundleOutputDir,
-                "[resourcePath]"
+                "[resourcePath]",
               ), // Point sourcemap entries to the original file locations on disk
             }),
             new webpack.NoEmitOnErrorsPlugin(),
-            new webpack.NamedModulesPlugin()
+            new webpack.NamedModulesPlugin(),
           ]
         : [
             // Plugins that apply in production builds only
@@ -83,12 +90,12 @@ module.exports = env => {
                 __dirname,
                 "dist",
                 "stats",
-                "client.json"
+                "client.json",
               ),
               logLevel: "silent",
             }),
-            new OfflinePlugin()
-          ]
+            new OfflinePlugin(),
+          ],
     ),
   });
 
