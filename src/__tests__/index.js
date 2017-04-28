@@ -2,7 +2,8 @@ import React from "react";
 // import renderer from "react-test-renderer";
 import { shallow } from "enzyme";
 import { shallowToJson } from "enzyme-to-json";
-import { state, actions, Counter, counterStyle } from "../";
+import { state, actions, counterStyle } from "../";
+import Counter from "../counter.native";
 
 const defaultProps = { increment: jest.fn(), decrement: jest.fn(), counter: 0 };
 const generateComponent = addlProps => (

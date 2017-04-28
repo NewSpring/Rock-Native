@@ -2,7 +2,7 @@ dist: trusty
 sudo: required
 language: node_js
 node_js:
-- '6'
+  - '6'
 cache:
   yarn: true
   directories:
@@ -12,23 +12,33 @@ addons:
     username: $SAUCE_USERNAME
     access_key: $SAUCE_ACCESS_KEY
 before_install:
+- export CHROME_BIN=/usr/bin/google-chrome
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sudo apt-get update
+- sudo apt-get install -y libappindicator1 fonts-liberation
+- wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+- sudo dpkg -i google-chrome*.deb
 - npm i -g now commit-status
-- yarn
-- yarn web-build
-- yarn serve &
+- yarn --ignore-engines
+- yarn server-build
+- yarn server &
+# skip install since its done above
+install: true
 script:
+- jdk_switcher use oraclejdk8
 - yarn danger
 - yarn lint
 - yarn flow
-- yarn test-all
+- yarn test-all # need to upgrade sauce labs
 - yarn coverage
-deploy:
-  skip_cleanup: true
-  provider: script
-  script: sh $TRAVIS_BUILD_DIR/web/deploy.sh
-  on:
-    all_branches: true
-    condition: "$TRAVIS_PULL_REQUEST == true"
+# deploy:
+#   skip_cleanup: true
+#   provider: script
+#   script: sh $TRAVIS_BUILD_DIR/web/deploy.sh
+#   on:
+#     all_branches: true
+#     condition: "$TRAVIS_PULL_REQUEST == true"
 notifications:
   slack:
     secure: K7QHkmHJr3n+hT7buOU/lQGNzBchPy7RjMWwm8uo8fhCyb4dxt+6Db1JUsZJFHs0pOTaPVWdEZKgXnZfjhG6Ge0q+Qdy8ywIyZ9k67KPkRihnvSEIbDKaSZUAJxgmaTp/8CYHHjT8udQNLjgiPH6hBcoDd+jT2810lBEPlPUHpBgYZkTwYVsTxtFb5Ybh7OAHZkENwT7ZiE4OZPRHi+uentoF4HlqociThlU/L5o2lNAkd8ZrlMNKP8o6On5RXsd3oDcqaW/y3jDVRqrknp+iCe9P0LHLa/NZjgl68V7JnnC7HWf3JbSzoJXga+14JnKyZPbzcMg/tiU8xDxCR+4MpZaF9t2kHsYI32loCeW+LjIhAZnuxUafHxK5SeoZLWDliuSnV+GHE2NSz3M7siOX+KfY31GyxxadIo52x4l+YJACO5Dmo3OOVyFsScIY+hCEuRjO3eYzfyVD/Z560nexRsnhhrO3HpSHiKsRGNWEJfXZzcXPBCncj7nZW6gHZxSrolr3ZRVWZRuBi6M2ZNZoJhMbmg19blBdLsKtU82n8e45MLuaRBL6S2BjiKu/e29WXo7iQnjCp/A0N1rNNNJzlhD2NaVu8lmNlmuSTWqs1IWUCQdO3gTspCxRat758zuRoRGCt9qeZp+G8Pj8GxuDtB68/LOZJSzvDXWkkyzqKQ=

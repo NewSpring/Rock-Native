@@ -4,9 +4,23 @@
     "react-native"
   ],
   "plugins": [
+    "transform-react-require",
     "transform-flow-strip-types",
+    "transform-class-properties",
     ["babel-plugin-root-import", {
       "rootPathSuffix": "src"
-    }]
-  ]
+    }],
+    ["lodash", { "id": ["recompose", "ramda"] }]
+  ],
+  "env": {
+    "browser": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "browsers": ["last 2 versions", "safari >= 7"]
+          }
+        }]
+      ]
+    }
+  }
 }

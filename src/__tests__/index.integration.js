@@ -13,14 +13,12 @@ describe("counter", () => {
 
   it("should load page", () => {
     return driver.getTitle().then(x => {
-      expect(x).toEqual("RockNative");
+      expect(x).toEqual("Awesome counter app");
     });
   });
   it("finds buttons", async () => {
     await driver.findElements(By.tagName("button")).then(elements => {
-      return elements[0]
-        .getAttribute("tabindex")
-        .then(x => expect(x).toEqual("0"));
+      expect(elements.length).toEqual(2);
     });
   });
   it("should find total count", async () => {

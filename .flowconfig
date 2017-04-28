@@ -10,12 +10,14 @@
 .*/node_modules/animated/.*
 .*/node_modules/react-native-web/.*
 .*/node_modules/react-native-windows/.*
+.*/node_modules/flow-coverage-report/.*
 
 # Directories to ignore.
 .*/__tests__/.*
 .*/\.git/.*
 .*/\.travis/.*
 .*/dangerfile.js
+web/
 
 [libs]
 node_modules/react-native/Libraries/react-native/react-native-interface.js
@@ -24,6 +26,15 @@ flow-typed/
 
 [options]
 module.system=haste
+
+# prefer native files over web for type checking
+# https://github.com/facebook/flow/issues/945
+module.file_ext=.native.js
+module.file_ext=.ios.js
+module.file_ext=.web.js
+module.file_ext=.browser.js
+module.file_ext=.js
+module.file_ext=.jsx
 
 emoji=true
 

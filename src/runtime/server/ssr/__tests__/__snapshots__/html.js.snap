@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`html includes a body 1`] = `
+"
+  <!doctype html>
+  <html >
+    <head>
+      <meta charset=\\"utf-8\\" />
+      <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\" />
+      <title>Sample</title>
+      
+      <meta>stylesheet goes here</meta>
+    </head>
+    <body >
+      <div id=\\"rock-native\\"><div>hello world</div></div>
+      
+    </body>
+  </html>
+"
+`;
+
+exports[`html places scripts at the bottom of the body 1`] = `
+"
+  <!doctype html>
+  <html >
+    <head>
+      <meta charset=\\"utf-8\\" />
+      <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\" />
+      <title>Sample</title>
+      
+      <meta>stylesheet goes here</meta>
+    </head>
+    <body >
+      <div id=\\"rock-native\\"><div>hello world</div></div>
+      <script></script>
+    </body>
+  </html>
+"
+`;
+
+exports[`html returns back a known shape of stringified markup 1`] = `
+"
+  <!doctype html>
+  <html >
+    <head>
+      <meta charset=\\"utf-8\\" />
+      <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\" />
+      <title>Sample</title>
+      
+      <meta>stylesheet goes here</meta>
+    </head>
+    <body >
+      <div id=\\"rock-native\\">foo</div>
+      
+    </body>
+  </html>
+"
+`;
+
+exports[`withHtml converts scripts, body, and metadata into an html key 1`] = `
+"
+  <!doctype html>
+  <html >
+    <head>
+      <meta charset=\\"utf-8\\" />
+      <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\" />
+      <title>Sample</title>
+      
+      <meta>stylesheet goes here</meta>
+    </head>
+    <body >
+      <div id=\\"rock-native\\"><div>hello world</div></div>
+      <script src=\\"bar\\"></script><script src=\\"foo\\"></script>
+    </body>
+  </html>
+"
+`;

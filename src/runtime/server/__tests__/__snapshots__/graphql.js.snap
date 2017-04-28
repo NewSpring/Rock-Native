@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`typeDefs should match a snapshot 1`] = `
+"
+type Response {
+  code: Int!
+  message: String
+}
+
+# the schema allows the following query:
+type Query {
+  sample: Response
+}
+
+schema {
+  query: Query
+}
+"
+`;

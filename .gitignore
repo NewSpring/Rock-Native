@@ -48,3 +48,11 @@ android/.gradle
 android/build
 android/app/build
 dist
+*.zip
+
+# Editor configuration
+.vscode
+.vs
+
+# Serverless directories
+.serverless
