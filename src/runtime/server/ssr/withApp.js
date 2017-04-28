@@ -14,7 +14,7 @@ export type IResponseData = {
 
 export type ILambdaContext = {
   done: (err: Error, payload: any) => void,
-  succeed: (IResponseData) => void,
+  succeed: IResponseData => void,
 };
 
 export type ILambdaEvent = {
@@ -28,20 +28,19 @@ export type IConfig = {
   manifests?: ?{ [key: string]: string },
 };
 
-export default (App: Component, config: IConfig) =>
-  (
-    event: ILambdaEvent,
-    ctx: ILambdaContext,
-  ): {
-    path: string,
-    ctx: ILambdaContext,
-    context: StaticRouterContext,
-    App: Component,
-    config: IConfig,
-  } => ({
-    path: event.path,
-    ctx,
-    context: {},
-    App,
-    config,
-  });
+export default (App: Component, config: IConfig) => (
+  event: ILambdaEvent,
+  ctx: ILambdaContext,
+): {
+  path: string,
+  ctx: ILambdaContext,
+  context: StaticRouterContext,
+  App: Component,
+  config: IConfig,
+} => ({
+  path: event.path,
+  ctx,
+  context: {},
+  App,
+  config,
+});

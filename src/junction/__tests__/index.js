@@ -17,13 +17,11 @@ const actions = withHandlers({
   decrement: ({ setCounter }) => () => setCounter(n => n - 1),
 });
 
-const Counter = (
-  {
-    increment,
-    counter,
-    decrement,
-  }: { increment: Function, counter: number, decrement: Function },
-) => (
+const Counter = ({
+  increment,
+  counter,
+  decrement,
+}: { increment: Function, counter: number, decrement: Function }) => (
   <View>
     <Text>Counter is at {counter} on {Platform.OS}</Text>
     <Button onPress={increment} title="Increment" />

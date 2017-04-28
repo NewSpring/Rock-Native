@@ -49,13 +49,13 @@
     "react-native-windows": "^0.42.0",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
-    "recompose": "^0.22.0"
+    "recompose": "^0.23.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.1",
     "babel-jest": "19.0.0",
-    "babel-loader": "^6.4.1",
+    "babel-loader": "^7.0.0",
     "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-root-import": "^5.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -87,10 +87,10 @@
     "now": "^4.10.2",
     "offline-plugin": "^4.7.0",
     "pre-commit": "^1.2.2",
-    "prettier": "^0.22.0",
+    "prettier": "^1.2.2",
     "react-addons-test-utils": "^15.4.2",
     "react-hot-loader": "^3.0.0-beta.6",
-    "react-test-renderer": "~15.4.1",
+    "react-test-renderer": "~15.5.4",
     "rnpm-plugin-windows": "^0.2.4",
     "selenium-webdriver": "^3.3.0",
     "serverless": "^1.12.1",

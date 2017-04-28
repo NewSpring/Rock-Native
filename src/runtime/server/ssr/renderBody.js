@@ -24,15 +24,13 @@ type IRenderResult = {
   config: IConfig,
 };
 
-export default (
-  {
-    path,
-    context,
-    ctx,
-    App,
-    config,
-  }: IRenderShape,
-): IRenderResult => ({
+export default ({
+  path,
+  context,
+  ctx,
+  App,
+  config,
+}: IRenderShape): IRenderResult => ({
   context,
   ctx,
   config,

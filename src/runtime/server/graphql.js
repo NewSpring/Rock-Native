@@ -57,11 +57,13 @@ export type ILambdaOutput = {
 export type ILambdaCallback = (error: mixed, output: ILambdaOutput) => void;
 
 // enable cors
-export const withCors = (cb: ILambdaCallback): ILambdaCallback =>
-  (error, output) => {
-    output.headers["Access-Control-Allow-Origin"] = "*";
-    cb(error, output);
-  };
+export const withCors = (cb: ILambdaCallback): ILambdaCallback => (
+  error,
+  output,
+) => {
+  output.headers["Access-Control-Allow-Origin"] = "*";
+  cb(error, output);
+};
 
 export const graphqlEndpoint = (
   event: ILambdaEvent,

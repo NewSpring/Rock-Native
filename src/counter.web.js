@@ -4,13 +4,7 @@ import Meta from "react-helmet";
 import type { IWithHandlers } from "./";
 import { counterStyle } from "./";
 
-export const Counter = (
-  {
-    increment,
-    counter,
-    decrement,
-  }: IWithHandlers,
-) => (
+export const Counter = ({ increment, counter, decrement }: IWithHandlers) => (
   <div style={counterStyle.resolve()}>
     <Meta>
       <title>Awesome counter app</title>

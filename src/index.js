@@ -16,12 +16,10 @@ export const state = withState(
   ({ defaultValue }) => defaultValue || 0, // default
 );
 
-export type IWithHandlers =
-  & {
-    increment: Function,
-    decrement: Function,
-  }
-  & IWithState;
+export type IWithHandlers = {
+  increment: Function,
+  decrement: Function,
+} & IWithState;
 
 export const actions = withHandlers({
   increment: ({ setCounter }) => () => setCounter(n => n + 1),

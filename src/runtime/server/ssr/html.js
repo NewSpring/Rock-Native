@@ -33,19 +33,17 @@ export const html = (
   </html>
 `;
 
-export default (
-  {
-    body,
-    metadata,
-    config,
-    ...rest
-  }: {
-    config: IConfig,
-    body: string,
-    metadata: Head,
-    rest: {},
-  },
-) => ({
+export default ({
+  body,
+  metadata,
+  config,
+  ...rest
+}: {
+  config: IConfig,
+  body: string,
+  metadata: Head,
+  rest: {},
+}) => ({
   ...rest,
   html: html(metadata, body, createScripts(config)),
 });

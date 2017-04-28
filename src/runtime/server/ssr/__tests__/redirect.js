@@ -11,7 +11,7 @@ it("calls done on the context", () => {
 
 it("calls done with the correct url", () => {
   const ctx = {
-    done: jest.fn(err => ctx._error = err),
+    done: jest.fn(err => (ctx._error = err)),
   };
   const context = { url: "/home" };
   redirect({ ctx, context });
@@ -21,7 +21,7 @@ it("calls done with the correct url", () => {
 
 it("calls done with the correct error", () => {
   const ctx = {
-    done: jest.fn(err => ctx._error = err),
+    done: jest.fn(err => (ctx._error = err)),
   };
   const context = { url: "/home" };
   redirect({ ctx, context });
