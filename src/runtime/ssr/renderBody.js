@@ -11,7 +11,7 @@ import {
 } from "react-apollo";
 
 import createNetworkInterface from "../../data/graphql/networkInterface.server";
-import { createContextFromRequestEvent } from "../graphql";
+// import { createContextFromRequestEvent } from "../graphql";
 
 import type { ILambdaContext, ILambdaEvent, IConfig } from "./withApp";
 
@@ -35,22 +35,24 @@ type IRenderResult = {
   initialState: mixed,
 };
 
-export default async ({
-  event,
-  context,
-  ctx,
-  App,
-  config,
-}: IRenderShape): Promise<IRenderResult> => {
+export default async (
+  {
+    event,
+    context,
+    ctx,
+    App,
+    config,
+  }: IRenderShape,
+): Promise<IRenderResult> => {
   const networkInterface = createNetworkInterface();
-  networkInterface.use([
-    {
-      applyMiddleware: (payload: { context: mixed }, next) => {
-        payload.context = createContextFromRequestEvent(event);
-        next();
-      },
-    },
-  ]);
+  // networkInterface.use([
+  //   {
+  //     applyMiddleware: (payload: { context: mixed }, next) => {
+  //       payload.context = createContextFromRequestEvent(event);
+  //       next();
+  //     },
+  //   },
+  // ]);
 
   // this is where we would add custom middleware for creating context
   const client = new ApolloClient({
