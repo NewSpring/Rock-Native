@@ -35,15 +35,13 @@ type IRenderResult = {
   initialState: mixed,
 };
 
-export default async (
-  {
-    event,
-    context,
-    ctx,
-    App,
-    config,
-  }: IRenderShape,
-): Promise<IRenderResult> => {
+export default async ({
+  event,
+  context,
+  ctx,
+  App,
+  config,
+}: IRenderShape): Promise<IRenderResult> => {
   const networkInterface = createNetworkInterface();
   // networkInterface.use([
   //   {
