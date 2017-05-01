@@ -11,66 +11,84 @@ describe("counter", () => {
     driver.quit();
   });
 
-  it("should load page", () => {
-    return driver.getTitle().then(x => {
-      expect(x).toEqual("Awesome counter app");
-    });
+  it("should load page", async () => {
+    const title = await driver.getTitle();
+    expect(title).toEqual("Awesome counter app");
   });
+
+  it("has data from the server", async () => {
+    const elements = await driver.findElements(By.tagName("h4"));
+    const text = await elements[0].getText();
+    expect(text).toEqual("GraphQL returned hello world with a response of 200");
+  });
+
   it("finds buttons", async () => {
-    await driver.findElements(By.tagName("button")).then(elements => {
-      expect(elements.length).toEqual(2);
-    });
+    const elements = await driver.findElements(By.tagName("button"));
+    expect(elements.length).toEqual(2);
   });
+
   it("should find total count", async () => {
-    await driver.findElements(By.tagName("span")).then(elements => {
-      return elements[0].getText().then(text => expect(text).toContain("0"));
-    });
+    const elements = await driver.findElements(By.tagName("span"));
+    const text = await elements[0].getText();
+    expect(text).toContain("0");
   });
+
   it("should identify platform web", async () => {
-    await driver.findElements(By.tagName("span")).then(elements => {
-      return elements[0].getText().then(text => expect(text).toContain("web"));
-    });
+    const elements = await driver.findElements(By.tagName("span"));
+    const text = await elements[0].getText();
+    expect(text).toContain("web");
   });
+
   it("should increment with click on increment button", async () => {
-    await driver.findElements(By.tagName("button")).then(els => {
-      return els[0].click();
-    });
-    await driver.findElements(By.tagName("span")).then(elements => {
-      return elements[0].getText().then(text => expect(text).toContain("1"));
-    });
+    const [increment] = await driver.findElements(By.tagName("button"));
+
+    increment.click();
+
+    const [count] = await driver.findElements(By.tagName("span"));
+    const text = await count.getText();
+    expect(text).toContain("1");
   });
+
   it("should decrement with click on decrement button", async () => {
-    await driver.findElements(By.tagName("button")).then(els => {
-      return els[1].click();
-    });
-    await driver.findElements(By.tagName("span")).then(elements => {
-      return elements[0].getText().then(text => expect(text).toContain("-1"));
-    });
+    const els = await driver.findElements(By.tagName("button"));
+    const decrement = els[1];
+
+    decrement.click();
+
+    const [count] = await driver.findElements(By.tagName("span"));
+    const text = await count.getText();
+    expect(text).toContain("-1");
   });
+
   it("should allow to be decremented to negative values", async () => {
-    await driver.findElements(By.tagName("button")).then(els => {
-      els[1].click();
-      els[1].click();
-    });
-    await driver.findElements(By.tagName("span")).then(elements => {
-      return elements[0].getText().then(text => expect(text).toContain("-2"));
-    });
+    const els = await driver.findElements(By.tagName("button"));
+
+    const decrement = els[1];
+
+    decrement.click();
+    decrement.click();
+
+    const [count] = await driver.findElements(By.tagName("span"));
+    const text = await count.getText();
+    expect(text).toContain("-2");
   });
+
   it("should follow multiple interactions", async () => {
-    await driver.findElements(By.tagName("button")).then(els => {
-      els[1].click();
-      els[1].click();
-      els[0].click();
-      els[0].click();
-      els[1].click();
-      els[0].click();
-      els[0].click();
-      els[1].click();
-      els[0].click();
-      els[0].click();
-    });
-    await driver.findElements(By.tagName("span")).then(elements => {
-      return elements[0].getText().then(text => expect(text).toContain("2"));
-    });
+    const [up, down] = await driver.findElements(By.tagName("button"));
+
+    down.click();
+    down.click();
+    up.click();
+    up.click();
+    down.click();
+    up.click();
+    up.click();
+    down.click();
+    up.click();
+    up.click();
+
+    const [count] = await driver.findElements(By.tagName("span"));
+    const text = await count.getText();
+    expect(text).toContain("2");
   });
 });
