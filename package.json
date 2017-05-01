@@ -20,7 +20,7 @@
     "windows": "react-native run-windows",
     "build-manifests": "cd ./web && cross-env BABEL_ENV=browser webpack --config webpack.vendor.js --hide-modules && cross-env BABEL_ENV=browser webpack --config webpack.client.js --hide-modules",
     "server": "npm run build-manifests && cd ./web && concurrently \"serverless offline start --location ./dist/server\" \"cross-env BABEL_ENV=node webpack --config webpack.server.js --watch --hide-modules\" \"cross-env BABEL_ENV=browser webpack-dev-server --config webpack.client.js \"",
-    "server-build": "cd ./web && cross-env BABEL_ENV=browser webpack --config webpack.vendor.js --env.prod --optimize-minimize && cross-env BABEL_ENV=browser webpack --config webpack.client.js --env.prod --optimize-minimize && cross-env BABEL_ENV=node webpack --config webpack.server.js --env.prod --optimize-minimize",
+    "server-build": "cd ./web && cross-env BABEL_ENV=browser webpack --config webpack.vendor.js --env.prod --optimize-minimize && cross-env BABEL_ENV=browser webpack --config webpack.client.js --env.prod --optimize-minimize && cross-env BABEL_ENV=node webpack --config webpack.server.js --env.prod",
     "server-deploy": "cd ./web && serverless deploy -f ssr",
     "danger": "danger run --verbose",
     "stat-vendor": "webpack-bundle-analyzer ./web/dist/stats/vendor.json",
