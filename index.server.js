@@ -1,9 +1,9 @@
 // @flow
-import render from "./src/runtime/server/ssr";
+import render from "./src/runtime/ssr";
 import {
   graphqlEndpoint as graphql,
   graphiqlEndpoint as graphiql,
-} from "./src/runtime/server/graphql";
+} from "./src/runtime/graphql";
 
 // load the app
 import RockNative from "./src";

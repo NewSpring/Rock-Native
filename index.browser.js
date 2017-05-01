@@ -1,7 +1,9 @@
 // @flow
 import { render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+import { ApolloClient, ApolloProvider as Provider } from "react-apollo";
 
+import createNetworkInterface from "./src/data/graphql/networkInterface";
 import RockNative from "./src";
 
 // offline support
@@ -10,9 +12,15 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const start = Component => {
+  const client = new ApolloClient({
+    networkInterface: createNetworkInterface(),
+    connectToDevTools: process.env.NODE_ENV === "production",
+  });
   render(
     <BrowserRouter>
-      <Component />
+      <Provider client={client}>
+        <Component />
+      </Provider>
     </BrowserRouter>,
     document.getElementById("rock-native"),
   );

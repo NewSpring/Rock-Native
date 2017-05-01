@@ -17,7 +17,7 @@ it("renders the body of the app into a static router context", () => {
   const result = render({
     ctx,
     context,
-    path: "/",
+    event: { path: "/" },
     App,
   });
 
@@ -30,7 +30,7 @@ it("renders the body of the app into a static router context based on route", ()
   const result = render({
     ctx,
     context,
-    path: "/hello",
+    event: { path: "/hello" },
     App,
   });
 
