@@ -1,9 +1,25 @@
 // @flow
 import { withState, withHandlers } from "recompose";
 import Style from "@jongold/further";
+import { graphql } from "react-apollo";
+import gql from "graphql-tag";
 
 import Junction from "./junction";
 import Counter from "./counter";
+
+type IWithSampleData = {
+  loading: boolean,
+  sample?: {
+    code: number,
+    message: string,
+  },
+};
+
+export const SAMPLE_QUERY = gql`{ sample { code message } }`;
+// XXX lets make awesome flow typings for this
+export const withSampleData = graphql(SAMPLE_QUERY, {
+  props: ({ data }) => ({ ...data }),
+});
 
 type IWithState = {
   counter: number,
@@ -32,4 +48,12 @@ export const counterStyle = Style.of({
   alignItems: "center",
 });
 
-export default Junction().with(state).with(actions).render(Counter);
+export type ICounter = IWithSampleData & IWithHandlers;
+
+// XXX also how can we make flow typing this killer?
+// ideally each HOC would pass its prop types which would combine
+export default Junction()
+  .with(withSampleData)
+  .with(state)
+  .with(actions)
+  .render(Counter);

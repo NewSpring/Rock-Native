@@ -4,6 +4,7 @@
     "react-native"
   ],
   "plugins": [
+    "transform-async-to-generator",
     "transform-react-require",
     "transform-flow-strip-types",
     "transform-class-properties",

@@ -1,7 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 
 module.exports = env => {
@@ -13,15 +13,17 @@ module.exports = env => {
       extensions: [".js"],
     },
     module: {
-      rules: [
-      ],
+      rules: [],
     },
     entry: {
-      vendor:[
+      vendor: [
         "react",
         "react-dom",
         "react-router",
         "react-helmet",
+        "react-apollo",
+        "apollo-client",
+        "graphql-tag",
       ],
     },
     output: {
@@ -37,15 +39,13 @@ module.exports = env => {
   };
 
   const clientBundleConfig = merge(sharedConfig, {
-     entry: {
-      vendor: [
-        "react-router-dom",
-      ],
+    entry: {
+      vendor: ["react-router-dom"],
     },
     output: {
       path: path.join(__dirname, "dist", "client"),
       filename: isDevBuild ? "[name].js" : "[name]-[hash].js",
-      chunkFilename: '[id]-[hash].js',
+      chunkFilename: "[id]-[hash].js",
     },
     module: {
       rules: [],
@@ -57,17 +57,28 @@ module.exports = env => {
       }),
       new WebpackAssetsManifest({
         output: "../manifests/vendor.json",
-        publicPath: isDevBuild ? "//localhost:8080/dist/client/": process.env.CDN_URL,
+        publicPath: (
+          isDevBuild ? "//localhost:8080/dist/client/" : process.env.CDN_URL
+        ),
       }),
-    ].concat(isDevBuild ? [] : [
-      new webpack.optimize.UglifyJsPlugin(),
-      new BundleAnalyzerPlugin({
-        analyzerMode: "disabled",
-        generateStatsFile: true,
-        statsFilename:  path.join(__dirname, "dist", "stats", "vendor.json"),
-        logLevel: 'silent'
-      })
-    ]),
+    ].concat(
+      isDevBuild
+        ? []
+        : [
+            new webpack.optimize.UglifyJsPlugin(),
+            new BundleAnalyzerPlugin({
+              analyzerMode: "disabled",
+              generateStatsFile: true,
+              statsFilename: path.join(
+                __dirname,
+                "dist",
+                "stats",
+                "vendor.json"
+              ),
+              logLevel: "silent",
+            }),
+          ]
+    ),
   });
 
   const serverBundleConfig = merge(sharedConfig, {
@@ -86,16 +97,11 @@ module.exports = env => {
         "graphql-server-lambda",
         "graphql",
         "graphql-tools",
-      ]
+      ],
     },
     plugins: [
       new webpack.DllPlugin({
-        path: path.join(
-          __dirname,
-          "dist",
-          "server",
-          "[name]-manifest.json"
-        ),
+        path: path.join(__dirname, "dist", "server", "[name]-manifest.json"),
         name: "[name]_[hash]",
       }),
     ],

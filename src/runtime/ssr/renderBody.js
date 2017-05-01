@@ -1,9 +1,14 @@
 // @flow
+// import "babel-polyfill";
 import React from "react";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router";
 
-import { ApolloClient, ApolloProvider as Provider } from "react-apollo";
+import {
+  getDataFromTree,
+  ApolloClient,
+  ApolloProvider as Provider,
+} from "react-apollo";
 
 import createNetworkInterface from "../../data/graphql/networkInterface.server";
 import { createContextFromRequestEvent } from "../graphql";
@@ -27,15 +32,16 @@ type IRenderResult = {
   ctx: ILambdaContext,
   body: string,
   config: IConfig,
+  initialState: mixed,
 };
 
-export default ({
+export default async ({
   event,
   context,
   ctx,
   App,
   config,
-}: IRenderShape): IRenderResult => {
+}: IRenderShape): Promise<IRenderResult> => {
   const networkInterface = createNetworkInterface();
   networkInterface.use([
     {
@@ -45,21 +51,29 @@ export default ({
       },
     },
   ]);
+
   // this is where we would add custom middleware for creating context
   const client = new ApolloClient({
     networkInterface,
     ssrMode: true,
   });
+
+  const RockNative = (
+    <StaticRouter location={event.path} context={context}>
+      <Provider client={client}>
+        <App />
+      </Provider>
+    </StaticRouter>
+  );
+
+  // load data from db using graphql connected components
+  await getDataFromTree(RockNative);
+
   return {
     context,
     ctx,
     config,
-    body: renderToString(
-      <StaticRouter location={event.path} context={context}>
-        <Provider client={client}>
-          <App />
-        </Provider>
-      </StaticRouter>,
-    ),
+    body: renderToString(RockNative),
+    initialState: { apollo: client.getInitialState() },
   };
 };

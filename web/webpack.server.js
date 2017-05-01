@@ -12,7 +12,7 @@ module.exports = env => {
   // Configuration for server-side (prerendering) bundle suitable for running in Node
   const serverBundleConfig = merge(sharedConfig(isDevBuild), {
     resolve: { mainFields: ["main"], extensions: [".server.js"] },
-    entry: { "server": path.join(__dirname, "..", "./index.server.js") },
+    entry: { server: ["regenerator-runtime/runtime", path.join(__dirname, "..", "./index.server.js")] },
     plugins: [
       new webpack.DllReferencePlugin({
         context: __dirname,
