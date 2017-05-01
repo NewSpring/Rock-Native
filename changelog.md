@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
   - initial repo management and project setup (@delianides)
   - windows universal app platform as build target (@jbaxleyiii)
-  - dotnet core based server setup with SSR and local dev for react (@jbaxleyiii)
+  - setup graphql and server to be run on AWS Lambda + API Gateway (@jbaxleyiii)
+  - intergrated apollo with SSR and client / native (@jbaxleyiii)
 
 ### Fixed
 
