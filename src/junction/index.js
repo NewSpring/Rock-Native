@@ -50,6 +50,7 @@ Junction.prototype.map = function(f) {
 
 // #with ::
 Junction.prototype.with = function(f) {
+  if (f instanceof Junction) f = f.__value;
   return this.map(g => A => g(f(A)));
 };
 
