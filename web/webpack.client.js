@@ -46,6 +46,7 @@ module.exports = env => {
       },
     },
     plugins: [
+      new webpack.ContextReplacementPlugin(/blocks/, /index\.js/, false),
       new webpack.DllReferencePlugin({
         context: __dirname,
         manifest: require(
