@@ -29,7 +29,7 @@ export const recombineLoadedComponent = ({
     Component: loadedComponent,
   }));
 
-const dynmicallyImportComponent = (
+const dynamicallyImportComponent = (
   loader: IDynamicImport,
   // XXX figure out more exact type
   stateUpdater: () => void,
@@ -47,7 +47,7 @@ const dynmicallyImportComponent = (
 export const newLifecycle = (dynamicallyImport: IDynamicImport) =>
   lifecycle({
     componentDidMount() {
-      dynmicallyImportComponent(
+      dynamicallyImportComponent(
         dynamicallyImport,
         this.props.load,
         this.props.components,
