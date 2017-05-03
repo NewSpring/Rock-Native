@@ -100,17 +100,17 @@ const onlyTestFiles = jsTestChanges.filter(x => {
 raiseIssueAboutPaths(fail, onlyTestFiles, "an `only` was left in the test");
 
 // Politely ask for their name on the entry too
-if (hasChangelog) {
-  const changelogDiff = danger.git.diffForFile("changelog.md");
-  const contributorName = danger.github.pr.user.login;
-  if (changelogDiff && changelogDiff.indexOf(contributorName) === -1) {
-    warn(
-      'Please add your GitHub name ("' +
-        contributorName +
-        '") to the changelog entry.',
-    );
-  }
-}
+// if (hasChangelog) {
+//   const changelogDiff = danger.git.diffForFile("changelog.md");
+//   const contributorName = danger.github.pr.user.login;
+//   if (changelogDiff && changelogDiff.indexOf(contributorName) === -1) {
+//     warn(
+//       'Please add your GitHub name ("' +
+//         contributorName +
+//         '") to the changelog entry.',
+//     );
+//   }
+// }
 
 // Warns if there are changes to package.json without changes to yarn.lock.
 const packageChanged = any(
