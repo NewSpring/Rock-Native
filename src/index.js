@@ -16,7 +16,6 @@ export const layoutStyle = Style.of({
 
 // XXX will be replaced with graphql query
 const props = defaultProps({ registry });
-console.log(props);
 
 export default Junction()
   // XXX load data from graphql

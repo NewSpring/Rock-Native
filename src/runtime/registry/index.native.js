@@ -1,6 +1,5 @@
 // @flow
 
-import type, { Component } from "react";
 import { mapProps } from "recompose";
 import Junction from "../../junction";
 

@@ -6,12 +6,6 @@
 */
 
 import Junction from "../../junction";
-import type {
-  IBlockDescription,
-  IRegistryRequest,
-  IState,
-  IRegistryProps,
-} from "./util/types.js";
 import { newLifecycle, state, shouldShowLoader } from "./util/browser";
 
 /*

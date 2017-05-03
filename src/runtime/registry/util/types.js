@@ -1,4 +1,6 @@
-export type IBlockDescrpition = {
+import type { Component } from "react";
+
+export type IBlockDescription = {
   path: string,
   Component?: Component,
 };

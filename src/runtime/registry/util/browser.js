@@ -1,13 +1,8 @@
 // @flow
-import { withState, lifecycle, branch } from "recompose";
 import type { Component } from "react";
+import { withState, lifecycle, branch } from "recompose";
 // import Junction from "../../../junction";
-import type {
-  IBlockDescription,
-  IRegistryRequest,
-  IState,
-  IRegistryProps,
-} from "./types.js";
+import type { IBlockDescription, IRegistryRequest, IState } from "./types.js";
 
 // XXX lookup how to do recompose types
 export const state = withState(
@@ -23,13 +18,13 @@ export const shouldShowLoader = branch(
 );
 
 // type for dynamic import of a react component
-type IDynamicImport = (path: string) => Promise<{ default: React$Component }>;
+type IDynamicImport = (path: string) => Promise<{ default: Component }>;
 
 export const recombineLoadedComponent = ({
   ...rest,
   Component,
 }: IBlockDescription): Promise<IBlockDescription> =>
-  Component.then((loadedComponent: React$Component) => ({
+  Component.then((loadedComponent: Component) => ({
     ...rest,
     Component: loadedComponent,
   }));
@@ -44,9 +39,7 @@ const dynmicallyImportComponent = (
     components
       .map(({ path, ...rest }) => ({
         ...rest,
-        Component: loader(path).then(
-          (x: { default: React$Component }) => x.default,
-        ),
+        Component: loader(path).then((x: { default: Component }) => x.default),
       }))
       .map(recombineLoadedComponent),
   ).then(stateUpdater);

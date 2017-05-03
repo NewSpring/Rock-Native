@@ -38,7 +38,7 @@ export const resolvers = {
 export const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 export const safeQuery = (query: string | DocumentNode): string =>
-  typeof query === "string" ? query : print(query);
+  (typeof query === "string" ? query : print(query));
 // this is a curried schema execution function
 // use it to execute queries for SSR and testing
 export const graphql = (
