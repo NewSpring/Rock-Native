@@ -1,4 +1,4 @@
-/*//@flow
+//@flow
 import { Text, View, Platform, Button } from "react-native";
 
 import type { ICounter } from "./";
@@ -23,4 +23,4 @@ export const Counter = ({
   </View>
 );
 
-export default Counter;*/
+export default Counter;

@@ -1,13 +1,18 @@
 // @flow
 import { defaultProps } from "recompose";
 
+import Style from "@jongold/further";
 import Junction from "./junction";
 import loadBlocks from "./runtime/registry";
 import Layout from "./layout";
 
 const registry = {
-  blocks: [{ path: "Counter", id: 1 }, { path: "HelloWorld", id: 2 }],
+  blocks: [{ path: "HelloWorld", id: 2 }, { path: "Counter", id: 1 }],
 };
+
+export const layoutStyle = Style.of({
+  flex: 1,
+});
 
 // XXX will be replaced with graphql query
 const props = defaultProps({ registry });

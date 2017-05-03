@@ -1,2 +1,15 @@
 // @flow
-export default () => <h1>Hello World</h1>;
+
+import Style from "@jongold/further";
+import HelloWorld from "./helloWorld";
+
+export const helloStyle = Style.of({
+  flex: 1,
+  marginTop: 16,
+  paddingTop: 32,
+  justifyContent: "center",
+  alignItems: "center",
+  textAlign: "center",
+});
+
+export default HelloWorld;
