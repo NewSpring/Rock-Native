@@ -17,8 +17,7 @@ export const html = (
   body: string,
   scripts: string = "",
   initialState: mixed = {},
-): string =>
-  `
+): string => `
   <!doctype html>
   <html ${metadata.htmlAttributes.toString()}>
     <head>

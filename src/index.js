@@ -18,7 +18,9 @@ type IWithSampleData = {
 export const SAMPLE_QUERY = gql`{ sample { code message } }`;
 export const sampleDataPropsReducer = ({
   data,
-}: { data: IWithSampleData }): IWithSampleData => ({ ...data });
+}: {
+  data: IWithSampleData,
+}): IWithSampleData => ({ ...data });
 // XXX lets make awesome flow typings for this
 export const withSampleData = graphql(SAMPLE_QUERY, {
   props: sampleDataPropsReducer,
