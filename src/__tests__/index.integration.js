@@ -1,4 +1,4 @@
-import Driver from "../test-utils/WebDriver";
+import Driver from "../../../test-utils/WebDriver";
 
 const { By } = Driver.utils;
 const driver = Driver.create();

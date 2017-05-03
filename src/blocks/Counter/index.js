@@ -16,11 +16,13 @@ type IWithSampleData = {
 };
 
 export const SAMPLE_QUERY = gql`{ sample { code message } }`;
-export const sampleDataPropsReducer = ({
-  data,
-}: {
-  data: IWithSampleData,
-}): IWithSampleData => ({ ...data });
+export const sampleDataPropsReducer = (
+  {
+    data,
+  }: {
+    data: IWithSampleData,
+  },
+): IWithSampleData => ({ ...data });
 // XXX lets make awesome flow typings for this
 export const withSampleData = graphql(SAMPLE_QUERY, {
   props: sampleDataPropsReducer,
@@ -37,10 +39,12 @@ export const state = withState(
   ({ defaultValue }) => defaultValue || 0, // default
 );
 
-export type IWithHandlers = {
-  increment: Function,
-  decrement: Function,
-} & IWithState;
+export type IWithHandlers =
+  & {
+    increment: Function,
+    decrement: Function,
+  }
+  & IWithState;
 
 export const actions = withHandlers({
   increment: ({ setCounter }) => () => setCounter(n => n + 1),
