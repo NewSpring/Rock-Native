@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === "production") {
 const start = Component => {
   const client = new ApolloClient({
     networkInterface: createNetworkInterface(),
-    connectToDevTools: process.env.NODE_ENV === "production",
+    connectToDevTools: process.env.NODE_ENV !== "production",
     initialState: window.__APOLLO_STATE__ || {},
   });
   render(
