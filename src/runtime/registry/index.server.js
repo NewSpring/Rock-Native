@@ -17,6 +17,7 @@ export const load = mapProps(({ ...rest, registry }) => ({
   components: registry.blocks.map(({ ...details, path }) => ({
     ...details,
     path,
+    // $FlowIgnore
     Component: require(`../../blocks/${path}/index.js`).default,
   })),
 }));

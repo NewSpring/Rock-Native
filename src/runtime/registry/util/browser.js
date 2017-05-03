@@ -23,10 +23,12 @@ export const shouldShowLoader = branch(
 // its use case is to map over objects, wait until all promises are done
 // then go back to original shape
 // XXX should this be abastracted into a promise loading util?
-export const recombineLoadedComponent = ({
-  ...rest,
-  Component,
-}: IBlockDescription): Promise<IBlockDescription> =>
+export const recombineLoadedComponent = (
+  {
+    ...rest,
+    Component,
+  }: IBlockDescription,
+): Promise<IBlockDescription> =>
   // return a promise so it can be waited on
   Component.then((loadedComponent: Component) => ({
     ...rest,
