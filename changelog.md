@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   - dotnet core based server setup with SSR and local dev for react (@jbaxleyiii)
 
 ### Fixed
+  - updating the changelog is a warning
 
 ### Changed
   - Updated the LICENSE file and the package.json to include the license.

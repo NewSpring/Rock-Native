@@ -48,10 +48,11 @@ if (someoneAssigned === null) {
 }
 
 // Make sure there are changelog entries
-const hasChangelog = danger.git.modified_files.includes("changelog.md") ||
+const hasChangelog =
+  danger.git.modified_files.includes("changelog.md") ||
   danger.git.created_files.includes("changelog.md");
 if (!hasChangelog) {
-  fail("No Changelog changes!");
+  warn("No Changelog changes!");
 }
 
 // only look in the /src/ folder
@@ -61,7 +62,8 @@ const jsModifiedFiles = danger.git.created_files
 const hasAppChanges = jsModifiedFiles.length > 0;
 
 const jsTestChanges = jsModifiedFiles.filter(filepath =>
-  filepath.includes("__tests__"));
+  filepath.includes("__tests__"),
+);
 const hasTestChanges = jsTestChanges.length > 0;
 
 // Warn when there is a big PR
@@ -83,7 +85,7 @@ if (hasAppChanges && !hasTestChanges) {
 // new js files should have `@flow` at the top
 const unFlowedFiles = jsModifiedFiles.filter(filepath => {
   // don't required flow for tests
-  if (filepath.match(/__tests__\/$/gmi)) return true;
+  if (filepath.match(/__tests__\/$/gim)) return true;
   const content = fs.readFileSync(filepath);
   return !content.includes("@flow");
 });
@@ -98,17 +100,17 @@ const onlyTestFiles = jsTestChanges.filter(x => {
 raiseIssueAboutPaths(fail, onlyTestFiles, "an `only` was left in the test");
 
 // Politely ask for their name on the entry too
-if (hasChangelog) {
-  const changelogDiff = danger.git.diffForFile("changelog.md");
-  const contributorName = danger.github.pr.user.login;
-  if (changelogDiff && changelogDiff.indexOf(contributorName) === -1) {
-    warn(
-      'Please add your GitHub name ("' +
-        contributorName +
-        '") to the changelog entry.',
-    );
-  }
-}
+// if (hasChangelog) {
+//   const changelogDiff = danger.git.diffForFile("changelog.md");
+//   const contributorName = danger.github.pr.user.login;
+//   if (changelogDiff && changelogDiff.indexOf(contributorName) === -1) {
+//     warn(
+//       'Please add your GitHub name ("' +
+//         contributorName +
+//         '") to the changelog entry.',
+//     );
+//   }
+// }
 
 // Warns if there are changes to package.json without changes to yarn.lock.
 const packageChanged = any(
