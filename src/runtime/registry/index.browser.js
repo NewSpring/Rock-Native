@@ -1,9 +1,18 @@
-// @flow
-import { withState, lifecycle, branch } from "recompose";
-
-import type { Component } from "react";
+/*
+  XXX: We can't flowtype this file without v.0.45.0, because that
+  was the version that dynamic import support was added. We can't
+  upgrade to 0.45.0 yet, because react-native isn't typed with that version
+  https://github.com/facebook/flow/pull/3544
+*/
 
 import Junction from "../../junction";
+import type {
+  IBlockDescription,
+  IRegistryRequest,
+  IState,
+  IRegistryProps,
+} from "./util/types.js";
+import { newLifecycle, state, shouldShowLoader } from "./util/browser";
 
 /*
  * Dynamic import registry for the browser
@@ -16,56 +25,7 @@ import Junction from "../../junction";
  *
  */
 
-export type IBlockDescrpition = {
-  path: string,
-  Component?: Component,
-};
-
-export type IRegistryRequest = {
-  blocks: IBlockDescription[],
-};
-
-// Component needs to have state, needs to have a state updater (this will be used for rendering the blocks after they are loaded)
-
-export type IState = {
-  components: IBlockDescription[],
-};
-
-const state = withState(
-  "components",
-  "load",
-  (props: { registry: IRegistryRequest }) => props.registry.blocks,
-);
-
-export type IRegistryProps = {
-  registry: IRegistryRequest,
-};
-
-const loader = lifecycle({
-  componentDidMount() {
-    const { load, components } = this.props;
-
-    const promises: Promise<IBlockDescription>[] = components
-      .map(({ path, ...rest }) => ({
-        ...rest,
-        Component: import(`../../blocks/${path}/index.js`),
-      }))
-      .map(({ ...rest, Component }) =>
-        Component.then(loadedComponent => ({
-          ...rest,
-          Component: loadedComponent.default,
-        })),
-      );
-
-    Promise.all(promises).then(load);
-  },
-});
-
-const shouldShowLoader = branch(
-  props =>
-    props.components.map(x => x.Component).filter(x => Boolean(x)).length === 0,
-  () => () => null,
-);
+const loader = newLifecycle(path => import(`../../blocks/${path}/index.js`));
 
 export default Junction()
   .with(state) // sync
