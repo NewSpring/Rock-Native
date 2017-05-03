@@ -19,8 +19,15 @@ export type ILambdaContext = {
 
 export type ILambdaEvent = {
   path: string,
+  headers: {
+    [key: string]: string,
+    authorization?: string,
+  },
   requestContext: {
     stage: string,
+    identity?: {
+      sourceIp: string,
+    },
   },
 };
 
@@ -32,13 +39,13 @@ export default (App: Component, config: IConfig) => (
   event: ILambdaEvent,
   ctx: ILambdaContext,
 ): {
-  path: string,
+  event: ILambdaEvent,
   ctx: ILambdaContext,
   context: StaticRouterContext,
   App: Component,
   config: IConfig,
 } => ({
-  path: event.path,
+  event,
   ctx,
   context: {},
   App,

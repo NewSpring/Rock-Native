@@ -12,7 +12,7 @@ it("adds ctx, event, and the component to a resulting object", () => {
   const result = withApp(App)(event, ctx);
   expect(result).toEqual({
     ctx,
-    path: "here",
+    event,
     context: {},
     App,
   });

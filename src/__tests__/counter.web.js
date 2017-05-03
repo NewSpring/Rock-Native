@@ -9,6 +9,17 @@ it("shows a counter count on web", () => {
   expect(tree).toMatchSnapshot();
 });
 
+it("loading state", () => {
+  const tree = renderer.create(<Counter counter={1} loading={true} />);
+  expect(tree).toMatchSnapshot();
+});
+
+it("shows data from the server", () => {
+  const sample = { code: 200, message: "hello world" };
+  const tree = renderer.create(<Counter counter={1} sample={sample} />);
+  expect(tree).toMatchSnapshot();
+});
+
 it("handles a click for increment", () => {
   const increment = jest.fn();
   const wrapper = shallow(<Counter counter={1} increment={increment} />);

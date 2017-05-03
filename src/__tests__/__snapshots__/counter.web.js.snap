@@ -1,5 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`loading state 1`] = `
+<div
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <h4>
+    loading...
+  </h4>
+  <span>
+    Counter is at 
+    1
+     on web
+  </span>
+  <br />
+  <button
+    onClick={undefined}
+  >
+    Increment
+  </button>
+  <button
+    onClick={undefined}
+  >
+    Decrement
+  </button>
+</div>
+`;
+
 exports[`shows a counter count on web 1`] = `
 <div
   style={
@@ -15,6 +47,42 @@ exports[`shows a counter count on web 1`] = `
     1
      on web
   </span>
+  <br />
+  <button
+    onClick={undefined}
+  >
+    Increment
+  </button>
+  <button
+    onClick={undefined}
+  >
+    Decrement
+  </button>
+</div>
+`;
+
+exports[`shows data from the server 1`] = `
+<div
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <h4>
+    GraphQL returned 
+    hello world
+     with a response of 
+    200
+  </h4>
+  <span>
+    Counter is at 
+    1
+     on web
+  </span>
+  <br />
   <button
     onClick={undefined}
   >

@@ -13,6 +13,7 @@ exports[`html includes a body 1`] = `
     </head>
     <body >
       <div id=\\"rock-native\\"><div>hello world</div></div>
+      <script>window.__APOLLO_STATE__={}</script>
       
     </body>
   </html>
@@ -32,6 +33,7 @@ exports[`html places scripts at the bottom of the body 1`] = `
     </head>
     <body >
       <div id=\\"rock-native\\"><div>hello world</div></div>
+      <script>window.__APOLLO_STATE__={}</script>
       <script></script>
     </body>
   </html>
@@ -51,6 +53,7 @@ exports[`html returns back a known shape of stringified markup 1`] = `
     </head>
     <body >
       <div id=\\"rock-native\\">foo</div>
+      <script>window.__APOLLO_STATE__={}</script>
       
     </body>
   </html>
@@ -70,6 +73,7 @@ exports[`withHtml converts scripts, body, and metadata into an html key 1`] = `
     </head>
     <body >
       <div id=\\"rock-native\\"><div>hello world</div></div>
+      <script>window.__APOLLO_STATE__={}</script>
       <script src=\\"bar\\"></script><script src=\\"foo\\"></script>
     </body>
   </html>

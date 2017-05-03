@@ -26,25 +26,25 @@ describe("ssr", () => {
     delete context.__result;
   });
 
-  it("resolves a simple app correctly", () => {
-    handler(App)(event, context);
+  it("resolves a simple app correctly", async () => {
+    await handler(App)(event, context);
     expect(context.succeed).toBeCalled();
     expect(context.__result.body).toMatch(/Hello World/);
   });
 
-  it("resolves an app with a route correctly", () => {
+  it("resolves an app with a route correctly", async () => {
     const Hello = () => <h1>Hai World</h1>;
     const LocalApp = () => (
       <div>
         <Route exact path="/" component={Hello} />
       </div>
     );
-    handler(LocalApp)(event, context);
+    await handler(LocalApp)(event, context);
     expect(context.succeed).toBeCalled();
     expect(context.__result.body).toMatch(/Hai World/);
   });
 
-  it("resolves an app with a route correctly", () => {
+  it("resolves an app with a route correctly", async () => {
     const LocalApp = () => (
       <div>
         <Redirect
@@ -54,7 +54,7 @@ describe("ssr", () => {
         />
       </div>
     );
-    handler(LocalApp)(event, context);
+    await handler(LocalApp)(event, context);
     expect(context.succeed.mock.calls.length).toEqual(0);
     expect(context.done).toBeCalled();
     expect(context.__result.name).toEqual("/login");

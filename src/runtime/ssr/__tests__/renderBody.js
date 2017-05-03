@@ -11,26 +11,26 @@ const App = () => (
   </div>
 );
 
-it("renders the body of the app into a static router context", () => {
+it("renders the body of the app into a static router context", async () => {
   const ctx = {};
   const context = {};
-  const result = render({
+  const result = await render({
     ctx,
     context,
-    path: "/",
+    event: { path: "/" },
     App,
   });
 
   expect(result.body).toMatchSnapshot();
 });
 
-it("renders the body of the app into a static router context based on route", () => {
+it("renders the body of the app into a static router context based on route", async () => {
   const ctx = {};
   const context = {};
-  const result = render({
+  const result = await render({
     ctx,
     context,
-    path: "/hello",
+    event: { path: "/hello" },
     App,
   });
 

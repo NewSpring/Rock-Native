@@ -13,6 +13,11 @@
     ["lodash", { "id": ["recompose", "ramda"] }]
   ],
   "env": {
+    "node": {
+      "presets": [
+        "babili"
+      ]
+    },
     "browser": {
       "presets": [
         ["env", {

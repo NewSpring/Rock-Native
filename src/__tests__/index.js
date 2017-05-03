@@ -2,13 +2,23 @@ import React from "react";
 // import renderer from "react-test-renderer";
 import { shallow } from "enzyme";
 import { shallowToJson } from "enzyme-to-json";
-import { state, actions, counterStyle } from "../";
+import { sampleDataPropsReducer, state, actions, counterStyle } from "../";
 import Counter from "../counter.native";
 
 const defaultProps = { increment: jest.fn(), decrement: jest.fn(), counter: 0 };
 const generateComponent = addlProps => (
   <Counter {...defaultProps} {...addlProps} />
 );
+
+describe("sampleDataPropsReducer", () => {
+  it("spreads the data onto props", () => {
+    const response = { data: { loading: false, sample: { code: 200 } } };
+    expect(sampleDataPropsReducer(response)).toEqual({
+      loading: false,
+      sample: { code: 200 },
+    });
+  });
+});
 
 describe("state", () => {
   it("works", async done => {

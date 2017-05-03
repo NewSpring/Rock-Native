@@ -2,6 +2,7 @@ import { values } from "ramda";
 import type { Head } from "react-helmet";
 
 import type { IConfig } from "./withApp";
+import type { IRenderResult } from "./renderBody";
 
 export const createScripts = (
   { manifests: { client, vendor } }: IConfig = { manifests: {} },
@@ -15,6 +16,7 @@ export const html = (
   metadata: Head,
   body: string,
   scripts: string = "",
+  initialState: mixed = {},
 ): string =>
   `
   <!doctype html>
@@ -28,6 +30,7 @@ export const html = (
     </head>
     <body ${metadata.bodyAttributes.toString()}>
       <div id="rock-native">${body}</div>
+      <script>window.__APOLLO_STATE__=${JSON.stringify(initialState)}</script>
       ${scripts}
     </body>
   </html>
@@ -35,15 +38,11 @@ export const html = (
 
 export default ({
   body,
+  initialState,
   metadata,
   config,
   ...rest
-}: {
-  config: IConfig,
-  body: string,
-  metadata: Head,
-  rest: {},
-}) => ({
+}): IRenderResult => ({
   ...rest,
-  html: html(metadata, body, createScripts(config)),
+  html: html(metadata, body, createScripts(config), initialState),
 });
