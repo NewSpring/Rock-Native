@@ -5,7 +5,7 @@ exports[`loading state 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "flex": 1,
+      "flex": 16,
       "justifyContent": "center",
     }
   }
@@ -37,7 +37,7 @@ exports[`shows a counter count on web 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "flex": 1,
+      "flex": 16,
       "justifyContent": "center",
     }
   }
@@ -66,7 +66,7 @@ exports[`shows data from the server 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "flex": 1,
+      "flex": 16,
       "justifyContent": "center",
     }
   }

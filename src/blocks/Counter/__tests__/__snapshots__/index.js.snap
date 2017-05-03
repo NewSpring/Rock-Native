@@ -5,7 +5,7 @@ exports[`counter should load page 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "flex": 1,
+      "flex": 16,
       "justifyContent": "center",
     }
   }
