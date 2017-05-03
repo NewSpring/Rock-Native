@@ -11,7 +11,8 @@
     ["babel-plugin-root-import", {
       "rootPathSuffix": "src"
     }],
-    ["lodash", { "id": ["recompose", "ramda"] }]
+    ["lodash", { "id": ["recompose", "ramda"] }],
+    "import-glob"
   ],
   "env": {
     "node": {
