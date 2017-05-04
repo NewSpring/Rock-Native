@@ -5,7 +5,7 @@ import { layoutStyle } from "./";
 import type { IBlockDescription } from "./runtime/registry/index.browser.js";
 
 export type ILayoutProps = {
-  components: IBlockDescription,
+  components: IBlockDescription[],
 };
 
 export default ({ components }: ILayoutProps) => (
