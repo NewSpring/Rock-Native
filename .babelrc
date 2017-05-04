@@ -19,6 +19,11 @@
       "presets": [
       ]
     },
+    "test": {
+      "plugins": [
+        "babel-plugin-dynamic-import-node"
+      ]
+    },
     "browser": {
       "presets": [
         ["env", {
