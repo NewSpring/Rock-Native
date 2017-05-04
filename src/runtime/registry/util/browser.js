@@ -17,13 +17,17 @@ export const shouldShowLoader = branch(
   () => () => null,
 );
 
-// type for dynamic import of a react component
-type IDynamicImport = (path: string) => Promise<{ default: Component }>;
-
+// this function takes an obect and returns back a Promise
+// this promise eventually returns back to the original
+// shape of the object
+// its use case is to map over objects, wait until all promises are done
+// then go back to original shape
+// XXX should this be abastracted into a promise loading util?
 export const recombineLoadedComponent = ({
   ...rest,
   Component,
 }: IBlockDescription): Promise<IBlockDescription> =>
+  // return a promise so it can be waited on
   Component.then((loadedComponent: Component) => ({
     ...rest,
     Component,
@@ -66,6 +70,9 @@ export const dynamicallyImportComponent: IDynamicallyImport = (
     components
       .map(({ path, ...rest }) => ({
         ...rest,
+        // this is where the dynamic import actually happens
+        // es6 modules return { default: React$Component }
+        // XXX integrate caching here
         Component: loader(path).then((x: { default: Component }) => x.default),
       }))
       // now that we have kicked off the dynamic import
