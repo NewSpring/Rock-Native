@@ -22,5 +22,6 @@ export const Counter = ({
     <Button onPress={decrement} title="Decrement" />
   </View>
 );
+Counter.displayName = "Counter";
 
 export default Counter;
