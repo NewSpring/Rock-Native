@@ -1,10 +1,9 @@
 /*
-  XXX: We can't flowtype this file without v.0.45.0, because that
-  was the version that dynamic import support was added. We can't
-  upgrade to 0.45.0 yet, because react-native isn't typed with that version
-  https://github.com/facebook/flow/pull/3544
-*/
-
+ * XXX: We can't flowtype this file without v.0.45.0, because that
+ * was the version that dynamic import support was added. We can't
+ * upgrade to 0.45.0 yet, because react-native isn't typed with that version
+ * https://github.com/facebook/flow/pull/3544
+ */
 import Junction from "../../junction";
 import { newLifecycle, state, shouldShowLoader } from "./util/browser";
 
@@ -18,11 +17,13 @@ import { newLifecycle, state, shouldShowLoader } from "./util/browser";
  * It also manages a loading state :yay:
  *
  */
+export const loader = newLifecycle(path =>
+  import(`../../blocks/${path}/index.js`),
+);
 
-const loader = newLifecycle(path => import(`../../blocks/${path}/index.js`));
-
-export default Junction()
-  .with(state) // sync
-  .with(loader) // async (lifecycles)
-  .with(shouldShowLoader); // async
-// .render(AwesomeTown);
+/*
+ * state: sync,
+ * loader: async (lifecycle),
+ * shouldShowLoader: async
+ */
+export default Junction().with(state).with(loader).with(shouldShowLoader);
