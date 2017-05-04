@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Index should render the components 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <Component
+    Component={[Function]}
+    id={2}
+    path="HelloWorld"
+  />
+  <Apollo(withState(withHandlers(Counter)))
+    Component={[Function]}
+    id={1}
+    path="Counter"
+  />
+</View>
+`;
