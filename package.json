@@ -36,7 +36,7 @@
   "pre-commit": "lint-staged",
   "dependencies": {
     "@jongold/further": "1.0.3",
-    "apollo-client": "1.2.0",
+    "apollo-client": "1.2.1",
     "fugazi": "0.5.2",
     "graphql": "0.9.3",
     "graphql-server-lambda": "0.7.2",
