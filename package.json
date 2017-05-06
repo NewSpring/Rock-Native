@@ -102,7 +102,7 @@
     "selenium-webdriver": "3.3.0",
     "serverless": "1.12.1",
     "serverless-offline": "3.13.5",
-    "webpack": "2.5.0",
+    "webpack": "2.5.1",
     "webpack-assets-manifest": "0.6.2",
     "webpack-bundle-analyzer": "2.4.0",
     "webpack-dev-server": "2.4.2",
