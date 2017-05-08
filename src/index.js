@@ -14,17 +14,13 @@ export const layoutStyle = Style.of({
 });
 
 export const loadingCheck = (
-  { loading }: { loading: boolean } = { loading: false },
+  { loading }: { loading: boolean } = { loading: false }
 ) => loading;
 export const Loading = () => null;
 export const loadingState = branch(loadingCheck, () => Loading);
 
 export default Junction()
   .with(withRouter)
-  // .with(mapProps(props => (console.log(props), props)))
-  .with(loadRouteData) // load data from graphql
+  .with(loadRouteData)
   .with(loadingState)
-  .with(loadBlocks)
-  // XXX load layout file
-  // XXX place blocks in layout
-  .render(Layout);
+  .render(({ Layout, components }) => <Layout components={components} />);
