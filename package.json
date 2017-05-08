@@ -6,10 +6,10 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "coverage": "npm run test-unit -- --coverage && codecov",
-    "test": "jest \"^((?!integration).)*$\"",
-    "test-unit": "jest \"^((?!integration).)*$\"",
-    "test-int": "jest \"*.integration.js\"",
-    "test-all": "jest",
+    "test": "BABEL_ENV=test jest \"^((?!integration).)*$\"",
+    "test-unit": "BABEL_ENV=test jest \"^((?!integration).)*$\"",
+    "test-int": "BABEL_ENV=test jest \"*.integration.js\"",
+    "test-all": "BABEL_ENV=test jest",
     "lint": "eslint ./src index.*",
     "lint-staged": "lint-staged",
     "flow": "flow",
@@ -61,8 +61,11 @@
     "babel-eslint": "7.2.1",
     "babel-jest": "20.0.0",
     "babel-loader": "7.0.0",
+    "babel-plugin-dynamic-import-node": "^1.0.1",
+    "babel-plugin-import-glob": "^1.0.1",
     "babel-plugin-lodash": "3.2.11",
     "babel-plugin-root-import": "5.1.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-class-properties": "6.24.1",
     "babel-plugin-transform-flow-strip-types": "6.22.0",
     "babel-plugin-transform-react-require": "1.0.1",
@@ -75,7 +78,7 @@
     "codecov": "2.1.0",
     "concurrently": "3.4.0",
     "copy-webpack-plugin": "4.0.1",
-    "cross-env": "4.0.0",
+    "cross-env": "^4.0.0",
     "danger": "0.18.0",
     "enzyme": "2.8.0",
     "enzyme-to-json": "1.5.0",
@@ -154,7 +157,8 @@
       "react-native/split-platform-components": 2,
       "react-native/no-inline-styles": 2,
       "react-native/no-color-literals": 2,
-      "react/react-in-jsx-scope": 0
+      "react/react-in-jsx-scope": 0,
+      "react/display-name": 0
     }
   }
 }

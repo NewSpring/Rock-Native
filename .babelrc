@@ -7,15 +7,21 @@
     "transform-react-require",
     "transform-flow-strip-types",
     "transform-class-properties",
+    "syntax-dynamic-import",
     ["babel-plugin-root-import", {
       "rootPathSuffix": "src"
     }],
-    ["lodash", { "id": ["recompose", "ramda"] }]
+    ["lodash", { "id": ["recompose", "ramda"] }],
+    "import-glob"
   ],
   "env": {
     "node": {
       "presets": [
-        "babili"
+      ]
+    },
+    "test": {
+      "plugins": [
+        "babel-plugin-dynamic-import-node"
       ]
     },
     "browser": {

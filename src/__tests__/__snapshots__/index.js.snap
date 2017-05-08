@@ -1,32 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`counter should load page 1`] = `
+exports[`Index should render the components 1`] = `
 <View
   style={
     Object {
-      "alignItems": "center",
       "flex": 1,
-      "justifyContent": "center",
     }
   }
 >
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-  >
-    Counter is at 
-    0
-     on 
-    ios
-  </Text>
-  <Button
-    onPress={[Function]}
-    title="Increment"
+  <Component
+    Component={[Function]}
+    id={2}
+    path="HelloWorld"
   />
-  <Button
-    onPress={[Function]}
-    title="Decrement"
+  <Apollo(withState(withHandlers(Counter)))
+    Component={[Function]}
+    id={1}
+    path="Counter"
   />
 </View>
 `;

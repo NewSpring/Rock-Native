@@ -46,17 +46,20 @@ module.exports = env => {
       },
     },
     plugins: [
+      new webpack.ContextReplacementPlugin(/blocks/, /^index\.js/, false),
       new webpack.DllReferencePlugin({
         context: __dirname,
-        manifest: require(
-          path.join(__dirname, clientBundleOutputDir, "vendor-manifest.json")
-        ),
+        manifest: require(path.join(
+          __dirname,
+          clientBundleOutputDir,
+          "vendor-manifest.json"
+        )),
       }),
       new WebpackAssetsManifest({
         output: "../manifests/client.json",
-        publicPath: (
-          isDevBuild ? "//localhost:8080/dist/client/" : process.env.CDN_URL
-        ),
+        publicPath: isDevBuild
+          ? "//localhost:8080/dist/client/"
+          : process.env.CDN_URL,
       }),
     ].concat(
       isDevBuild

@@ -15,12 +15,13 @@ export const Counter = ({
     {loading && <Text>loading...</Text>}
     {sample &&
       <Text>
-        GraphQL returned {sample.message} with a repsponse of {sample.code}
+        GraphQL returned {sample.message} with a response of {sample.code}
       </Text>}
     <Text>Counter is at {counter} on {Platform.OS}</Text>
     <Button onPress={increment} title="Increment" />
     <Button onPress={decrement} title="Decrement" />
   </View>
 );
+Counter.displayName = "Counter";
 
 export default Counter;

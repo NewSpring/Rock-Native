@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`counter should load page 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 16,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+  >
+    Counter is at 
+    0
+     on 
+    ios
+  </Text>
+  <Button
+    onPress={[Function]}
+    title="Increment"
+  />
+  <Button
+    onPress={[Function]}
+    title="Decrement"
+  />
+</View>
+`;

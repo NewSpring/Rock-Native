@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ApolloClient, ApolloProvider as Provider } from "react-apollo";
 
 import createNetworkInterface from "./src/data/graphql/networkInterface";
+
 import RockNative from "./src";
 
 // offline support
