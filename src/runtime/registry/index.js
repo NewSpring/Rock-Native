@@ -1,13 +1,14 @@
 // @flow
 
 import { mapProps } from "recompose";
-import Junction from "../../junction";
 import type { IRegistryRequest } from "./util/types";
 
 // $FlowIgnore
 import * as availableBlocks from "glob:../../blocks/*";
+// $FlowIgnore
+import * as availableLayouts from "glob:../../layouts/*";
 
-export const mapper = ({
+export const mapOverBlocks = ({
   ...rest,
   registry,
 }: {
@@ -23,6 +24,12 @@ export const mapper = ({
     : [],
 });
 
-export const load = mapProps(mapper);
+export const loadBlocks = mapProps(mapOverBlocks);
 
-export default Junction().with(load);
+export const loadLayout = mapProps(
+  ({ ...rest, registry }: { registry: IRegistryRequest }) => ({
+    ...rest,
+    registry,
+    Layout: availableLayouts[registry.layout],
+  }),
+);
