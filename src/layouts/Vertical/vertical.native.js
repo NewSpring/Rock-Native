@@ -13,7 +13,7 @@ export type ILayoutProps = {
 export default ({ components }: ILayoutProps) => (
   <View>
     <View>
-      <Text style={{ color: "#6BAC43", position: "relative", top: "100%" }}>
+      <Text>
         Native Vertical Layout
       </Text>
     </View>

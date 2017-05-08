@@ -5,7 +5,7 @@ import { layoutStyle } from "./";
 
 export default ({ components }: ILayoutProps) => (
   <div>
-    <div style={{ color: "#6BAC43", position: "relative", top: "100%" }}>
+    <div>
       Web Horizontal Layout
     </div>
     <div style={layoutStyle.resolve()}>
