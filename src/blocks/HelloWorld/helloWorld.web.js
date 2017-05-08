@@ -1,7 +1,6 @@
-// @flow
-import { Link } from "react-router-dom";
-import { helloStyle } from "./";
-
-export default () => (
-  <Link to="/hello"><h1 style={helloStyle.resolve()}>Hello World</h1></Link>
-);
+stdin: SyntaxError: Duplicate export for `default` (9:0)
+   7 | );
+   8 | 
+>  9 | export default HelloWorld;
+     | ^
+  10 | 

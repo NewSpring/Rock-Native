@@ -1,10 +1,6 @@
-// @flow
-import { Text } from "react-native";
-import { Link } from "react-router-native";
-import { helloStyle } from "./";
-
-export default () => (
-  <Link to={"/hello"} style={helloStyle.resolve()}>
-    <Text>Hello World</Text>
-  </Link>
-);
+stdin: SyntaxError: Duplicate export for `default` (12:0)
+  10 | );
+  11 | 
+> 12 | export default HelloWorld;
+     | ^
+  13 | 
