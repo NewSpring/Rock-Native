@@ -6,6 +6,7 @@ export type IBlockDescription = {
 };
 
 export type IRegistryRequest = {
+  layout: string,
   blocks: IBlockDescription[],
 };
 
