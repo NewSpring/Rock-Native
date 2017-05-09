@@ -120,6 +120,10 @@
       "src/**/*.js",
       "!**/node_modules/**",
       "!src/test-utils/**"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|react-router-native)/",
+      "node_modules/(?!react-native|react-router)/"
     ]
   },
   "eslintConfig": {
