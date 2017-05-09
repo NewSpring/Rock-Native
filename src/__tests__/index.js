@@ -9,19 +9,16 @@ import Comps, {
 } from "../index.js";
 
 const registry = {
-  blocks: [{ path: "HelloWorld", id: 2 }, { path: "Counter", id: 1 }],
+  layout: "Vertical",
+  blocks: [
+    { id: 1, path: "HelloWorld", zone: 0, order: 0 },
+    { id: 2, path: "Counter", zone: 0, order: 1 },
+  ],
 };
 const props = defaultProps({ registry });
 const generateComponent = additionalProps => (
   <Comps {...props} {...additionalProps} />
 );
-
-describe("Layout Style", () => {
-  it("should resolve to object and match styles", () => {
-    expect(typeof layoutStyle.resolve()).toBe("object");
-    expect(layoutStyle.resolve()).toEqual({ flex: 1 });
-  });
-});
 
 describe("Index", () => {
   // XXX figure out how to test this with react-router
