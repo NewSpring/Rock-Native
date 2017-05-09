@@ -23,6 +23,8 @@ export const createContextFromRequestEvent = (
 ): IContext => {
   const { headers, requestContext } = event;
   return {
+    platform: headers && headers.platform,
+    version: headers && headers.version,
     userId: headers && headers.authorization,
     ip: requestContext &&
       requestContext.identity &&
@@ -32,13 +34,11 @@ export const createContextFromRequestEvent = (
 };
 
 // enable cors
-export const withCors = (cb: ILambdaCallback): ILambdaCallback => (
-  error,
-  output,
-) => {
-  output.headers["Access-Control-Allow-Origin"] = "*";
-  cb(error, output);
-};
+export const withCors = (cb: ILambdaCallback): ILambdaCallback =>
+  (error, output) => {
+    output.headers["Access-Control-Allow-Origin"] = "*";
+    cb(error, output);
+  };
 
 export const graphqlEndpoint = (
   event: ILambdaEvent,

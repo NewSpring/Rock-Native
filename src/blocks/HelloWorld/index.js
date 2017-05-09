@@ -9,7 +9,6 @@ export const helloStyle = Style.of({
   paddingTop: 32,
   justifyContent: "center",
   alignItems: "center",
-  textAlign: "center",
 });
 
 export default HelloWorld;

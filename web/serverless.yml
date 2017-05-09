@@ -16,7 +16,7 @@ functions:
     events:
       - http:
           method: get
-          path: /
+          path: /{proxy+}
   graphql:
     handler: handler.graphql
     events:
@@ -29,4 +29,3 @@ functions:
       - http:
           method: get
           path: /graphql
-

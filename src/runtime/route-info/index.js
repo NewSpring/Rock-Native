@@ -3,7 +3,6 @@ This component gets called/updated with every route change.
 Using the route info, it makes an API call and returns a json object
 with block information.
 */
-import Junction from "../../junction";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 

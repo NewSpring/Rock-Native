@@ -7,17 +7,18 @@ import type { IRegistryRequest } from "./util/types";
 // $FlowIgnore
 import * as availableBlocks from "glob:../../blocks/*";
 
-export const mapper = ({ ...rest, registry }: { registry: IRegistryRequest }) =>
-  (console.log("loadBlocks", rest), {
-    ...rest,
-    components: registry
-      ? registry.blocks.map(({ ...details, path }) => ({
-          ...details,
-          path,
-          Component: availableBlocks[path],
-        }))
-      : [],
-  });
+export const mapper = (
+  { ...rest, registry }: { registry: IRegistryRequest },
+) => ({
+  ...rest,
+  components: registry
+    ? registry.blocks.map(({ ...details, path }) => ({
+        ...details,
+        path,
+        Component: availableBlocks[path],
+      }))
+    : [],
+});
 
 export const load = mapProps(mapper);
 
