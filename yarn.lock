@@ -30,6 +30,10 @@
   version "0.0.33"
   resolved "https://registry.yarnpkg.com/@types/isomorphic-fetch/-/isomorphic-fetch-0.0.33.tgz#3ea1b86f8b73e6a7430d01d4dbd5b1f63fd72718"
 
+"@types/isomorphic-fetch@0.0.34":
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/@types/isomorphic-fetch/-/isomorphic-fetch-0.0.34.tgz#3c3483e606c041378438e951464f00e4e60706d6"
+
 "@types/mz@0.0.30":
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/mz/-/mz-0.0.30.tgz#58daa9f35811d607037bab1f9cc7d4a23e6aafae"
@@ -203,7 +207,7 @@ anymatch@^1.3.0:
     arrify "^1.0.0"
     micromatch "^2.1.5"
 
-apollo-client@1.0.4, apollo-client@^1.0.2:
+apollo-client@1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-1.0.4.tgz#af75db8cdd27e08a835ddfb39807849e178540f9"
   dependencies:
@@ -217,6 +221,21 @@ apollo-client@1.0.4, apollo-client@^1.0.2:
     "@types/async" "^2.0.31"
     "@types/graphql" "^0.9.0"
     "@types/isomorphic-fetch" "0.0.33"
+
+apollo-client@^1.1.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-1.2.2.tgz#5ec656bf19197ebd77156c58d2e0e765bef648a7"
+  dependencies:
+    graphql "^0.9.3"
+    graphql-anywhere "^3.0.1"
+    graphql-tag "^2.0.0"
+    redux "^3.4.0"
+    symbol-observable "^1.0.2"
+    whatwg-fetch "^2.0.0"
+  optionalDependencies:
+    "@types/async" "^2.0.31"
+    "@types/graphql" "^0.9.0"
+    "@types/isomorphic-fetch" "0.0.34"
 
 app-root-path@^2.0.0:
   version "2.0.1"
@@ -7422,11 +7441,11 @@ react-addons-test-utils@15.4.2:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
-react-apollo@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-1.1.1.tgz#136a6be6e0ed7bfa5292e67073e1829fe12e1e17"
+react-apollo@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-1.2.0.tgz#4dc3f61bad9b2fe2c450bc7fbd4fab52004de474"
   dependencies:
-    apollo-client "^1.0.2"
+    apollo-client "^1.1.2"
     graphql-anywhere "^3.0.0"
     graphql-tag "^2.0.0"
     hoist-non-react-statics "^1.2.0"
@@ -7438,7 +7457,7 @@ react-apollo@1.1.1:
     object-assign "^4.0.1"
     prop-types "^15.5.8"
   optionalDependencies:
-    react-dom "0.14.x || 15.* || ^15.0.0"
+    react-dom "0.14.x || 15.* || ^15.0.0 || ^16.0.0-alpha"
 
 react-clone-referenced-element@^1.0.1:
   version "1.0.1"
@@ -7452,7 +7471,7 @@ react-deep-force-update@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-2.0.1.tgz#4f7f6c12c3e7de42f345992a3c518236fa1ecad3"
 
-"react-dom@0.14.x || 15.* || ^15.0.0", react-dom@15.5.4:
+"react-dom@0.14.x || 15.* || ^15.0.0 || ^16.0.0-alpha", react-dom@15.5.4:
   version "15.5.4"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.5.4.tgz#ba0c28786fd52ed7e4f2135fe0288d462aef93da"
   dependencies:

@@ -7,9 +7,20 @@ type Response {
   message: String
 }
 
+type Page {
+  id: Int!
+  blocks: [Block]
+}
+
+type Block {
+  id: Int!
+  path: String!
+}
+
 # the schema allows the following query:
 type Query {
   sample: Response
+  getRouteInfo(path: String!): Page
 }
 
 schema {
