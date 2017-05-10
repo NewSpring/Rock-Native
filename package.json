@@ -123,7 +123,8 @@
     ],
     "transformIgnorePatterns": [
       "node_modules/(?!react-native|react-router-native)/",
-      "node_modules/(?!react-native|react-router)/"
+      "node_modules/(?!react-native|react-router)/",
+      "node_modules/selenium-webdriver/"
     ]
   },
   "eslintConfig": {
