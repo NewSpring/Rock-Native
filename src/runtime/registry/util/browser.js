@@ -30,12 +30,6 @@ export const recombineLoadedComponent = ({
   // return a promise so it can be waited on
   Component.then((loadedComponent: Component) => ({
     ...rest,
-    Component,
-  }: IBlockDescription,
-): Promise<IBlockDescription> =>
-  // return a promise so it can be waited on
-  Component.then((loadedComponent: Component) => ({
-    ...rest,
     // using the scope capture from the wrapper function,
     // reapply the object (using ...rest)
     // and update the Component (was a promise) with the result
