@@ -103,7 +103,7 @@
     "react-test-renderer": "15.5.4",
     "rnpm-plugin-windows": "0.2.4",
     "selenium-webdriver": "3.3.0",
-    "serverless": "1.12.1",
+    "serverless": "1.13.0",
     "serverless-offline": "3.14.0",
     "webpack": "2.5.1",
     "webpack-assets-manifest": "0.6.2",
