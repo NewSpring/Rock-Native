@@ -46,6 +46,13 @@ module.exports = env => {
       },
     },
     plugins: [
+      new webpack.DefinePlugin({
+        "process.env": {
+          "NODE_ENV": isDevBuild ? JSON.stringify("development"): JSON.stringify("production"),
+          "__DEV__": !isDevBuild,
+          "BUILD": JSON.stringify(require("../package.json").version),
+        },
+      }),
       new webpack.ContextReplacementPlugin(/blocks/, /^index\.js/, false),
       new webpack.DllReferencePlugin({
         context: __dirname,
