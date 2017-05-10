@@ -18,7 +18,8 @@ import { newLifecycle, state, shouldShowLoader } from "./util/browser";
  *
  */
 export const loader = newLifecycle(path =>
-  import(`../../blocks/${path}/index.js`));
+  import(`../../blocks/${path}/index.js`),
+);
 
 /*
  * state: sync,
