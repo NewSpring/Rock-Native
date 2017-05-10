@@ -1,6 +1,6 @@
 // @flow
 import { render } from "react-dom";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { ApolloClient, ApolloProvider as Provider } from "react-apollo";
 
 import createNetworkInterface from "./src/data/graphql/networkInterface";

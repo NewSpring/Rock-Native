@@ -13,7 +13,9 @@ export const layoutStyle = Style.of({
   flex: 1,
 });
 
-export const loadingCheck = ({ loading } = { loading: false }) => loading;
+export const loadingCheck = (
+  { loading }: { loading: boolean } = { loading: false },
+) => loading;
 export const Loading = () => null;
 export const loadingState = branch(loadingCheck, () => Loading);
 

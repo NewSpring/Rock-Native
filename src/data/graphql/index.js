@@ -36,10 +36,20 @@ type ISample = {
   message: string,
 };
 
+type IBlock = {
+  id: number,
+  path: string,
+};
+
+type IPage = {
+  id: number,
+  blocks: IBlock[],
+};
+
 export const resolvers = {
   Query: {
     sample: (): ISample => ({ code: 200, message: "hello world" }),
-    getRouteInfo: (_, { path }) => {
+    getRouteInfo: (_: mixed, { path }: { path: string }) => {
       const sampleRegistry = {
         id: 1,
         blocks: [{ path: "HelloWorld", id: 2 }, { path: "Counter", id: 1 }],
@@ -56,12 +66,12 @@ export const resolvers = {
     message: ({ message }: ISample): string => message,
   },
   Page: {
-    id: ({ id }) => id,
-    blocks: ({ blocks }) => blocks,
+    id: ({ id }: IPage) => id,
+    blocks: ({ blocks }: IPage) => blocks,
   },
   Block: {
-    id: ({ id }) => id,
-    path: ({ path }) => path,
+    id: ({ id }: IBlock) => id,
+    path: ({ path }: IBlock) => path,
   },
 };
 

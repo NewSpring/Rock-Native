@@ -1,6 +1,6 @@
 // @flow
 import { AppRegistry } from "react-native";
-import { NativeRouter, Route } from "react-router-native";
+import { NativeRouter } from "react-router-native";
 import { ApolloClient, ApolloProvider as Provider } from "react-apollo";
 
 import createNetworkInterface from "./src/data/graphql/networkInterface";
