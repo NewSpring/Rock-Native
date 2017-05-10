@@ -5,14 +5,21 @@ import { withState, lifecycle, branch } from "recompose";
 import type { IBlockDescription, IRegistryRequest, IState } from "./types.js";
 
 // XXX lookup how to do recompose types
-export const state = withState(
+export const blockState = withState(
   "components",
   "load",
   (props: { registry: IRegistryRequest }) => props.registry.blocks,
 );
 
+export const layoutState = withState(
+  "Layout",
+  "loadLayout",
+  (props: { registry: IRegistryRequest }) => props.registry.layout,
+);
+
 export const shouldShowLoader = branch(
-  ({ components }: IState) =>
+  ({ components, Layout }: IState) =>
+    typeof Layout === "string" &&
     components.map(x => x.Component).filter(x => Boolean(x)).length === 0,
   () => () => null,
 );
@@ -77,13 +84,21 @@ export const dynamicallyImportComponent: IDynamicallyImport = (
   ).then(stateUpdater);
 
 export const newLifecycle = (
-  dynamicLoader: IDynamicImport,
-  dynamicallyImportComponent: IDynamicallyImport = dynamicallyImportComponent,
+  dynamicBlockLoader: IDynamicImport,
+  dynamicLayoutLoader: IDynamicImport,
+  // dynamicallyImportComponent: IDynamicallyImport = dynamicallyImportComponent,
 ) =>
   lifecycle({
     componentDidMount() {
+      // XXX this will render twice since we are using two different stateUpdaters
+      // we should combine them together after both the layout and blocks are
+      // loaded from the http request and update all at once
+      dynamicLayoutLoader(this.props.Layout).then(component =>
+        this.props.loadLayout(component.default),
+      );
+      console.log(this.props);
       dynamicallyImportComponent(
-        dynamicLoader,
+        dynamicBlockLoader,
         this.props.load,
         this.props.components,
         recombineLoadedComponent,

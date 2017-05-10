@@ -5,9 +5,7 @@ import Style from "@jongold/further";
 import { branch } from "recompose";
 import { withRouter } from "react-router";
 import Junction from "./junction";
-import loadBlocks from "./runtime/registry";
-import Layout from "./layout";
-import loadRouteData from "./runtime/route-info";
+import loadComponents from "./runtime/registry";
 
 export const layoutStyle = Style.of({
   flex: 1,
@@ -23,4 +21,5 @@ export default Junction()
   .with(withRouter)
   .with(loadRouteData)
   .with(loadingState)
+  .with(loadComponents)
   .render(({ Layout, components }) => <Layout components={components} />);

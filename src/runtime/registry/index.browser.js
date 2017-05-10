@@ -5,7 +5,12 @@
  * https://github.com/facebook/flow/pull/3544
  */
 import Junction from "../../junction";
-import { newLifecycle, state, shouldShowLoader } from "./util/browser";
+import {
+  newLifecycle,
+  blockState,
+  layoutState,
+  shouldShowLoader,
+} from "./util/browser";
 
 /*
  * Dynamic import registry for the browser
@@ -17,8 +22,10 @@ import { newLifecycle, state, shouldShowLoader } from "./util/browser";
  * It also manages a loading state :yay:
  *
  */
-export const loader = newLifecycle(path =>
-  import(`../../blocks/${path}/index.js`),
+export const loader = newLifecycle(
+  path => (console.log({ path }), import(`../../blocks/${path}/index.js`)), // load da blocks
+  layout =>
+    (console.log({ layout }), import(`../../blocks/${layout}/index.js`)), // load da layouts
 );
 
 /*
@@ -26,4 +33,8 @@ export const loader = newLifecycle(path =>
  * loader: async (lifecycle),
  * shouldShowLoader: async
  */
-export default Junction().with(state).with(loader).with(shouldShowLoader);
+export default Junction()
+  .with(blockState)
+  .with(layoutState)
+  .with(loader)
+  .with(shouldShowLoader);

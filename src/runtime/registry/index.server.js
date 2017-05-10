@@ -1,6 +1,8 @@
 // @flow
 
 import { mapProps } from "recompose";
+import Junction from "../../junction";
+
 import type { IRegistryRequest } from "./util/types";
 
 // $FlowIgnore
@@ -33,3 +35,5 @@ export const loadLayout = mapProps(
     Layout: availableLayouts[registry.layout],
   }),
 );
+
+export default Junction().with(loadLayout).with(loadBlocks);
