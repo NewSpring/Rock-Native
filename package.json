@@ -108,7 +108,7 @@
     "serverless-offline": "3.14.0",
     "webpack": "2.5.1",
     "webpack-assets-manifest": "0.6.2",
-    "webpack-bundle-analyzer": "2.7.0",
+    "webpack-bundle-analyzer": "2.8.0",
     "webpack-dev-server": "2.4.2",
     "webpack-hot-middleware": "2.18.0",
     "webpack-merge": "4.1.0",
