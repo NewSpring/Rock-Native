@@ -12,6 +12,7 @@ export type IRegistryRequest = {
 
 export type IState = {
   components: IBlockDescription[],
+  Layout?: React$Component<*, *, *>,
 };
 
 export type IRegistryProps = {

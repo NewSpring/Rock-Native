@@ -20,7 +20,7 @@ module.exports = env => {
   const clientBundleOutputDir = "./dist/client";
   const clientBundleConfig = merge(sharedConfig(isDevBuild), {
     entry: { client },
-    resolve: { extensions: [".browser.js"] },
+    resolve: { extensions: [".browser.js", ".web.js", ".js"] },
     module: {
       rules: [
         // { test: /\.css$/, use: ExtractTextPlugin.extract({ use: 'css-loader' }) },
@@ -48,12 +48,18 @@ module.exports = env => {
     plugins: [
       new webpack.DefinePlugin({
         "process.env": {
-          "NODE_ENV": isDevBuild ? JSON.stringify("development"): JSON.stringify("production"),
-          "__DEV__": !isDevBuild,
-          "BUILD": JSON.stringify(require("../package.json").version),
+          NODE_ENV: isDevBuild
+            ? JSON.stringify("development")
+            : JSON.stringify("production"),
+          __DEV__: !isDevBuild,
+          BUILD: JSON.stringify(require("../package.json").version),
         },
       }),
-      new webpack.ContextReplacementPlugin(/blocks/, /^index\.js/, false),
+      new webpack.ContextReplacementPlugin(
+        /(blocks|layouts)/,
+        /^\.\/.[a-zA-Z]+\/index\.js$/,
+        false
+      ),
       new webpack.DllReferencePlugin({
         context: __dirname,
         manifest: require(path.join(

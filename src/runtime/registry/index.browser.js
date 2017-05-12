@@ -7,15 +7,15 @@
 import Junction from "../../junction";
 import {
   newLifecycle,
-  blockState,
-  layoutState,
+  state,
+  mapImports,
   shouldShowLoader,
 } from "./util/browser";
 
 /*
  * Dynamic import registry for the browser
  * It returns a component which dynamically loads blocks from the /blocks folder
- * as well as loads a layout from the layout folders XXX
+ * as well as loads a layout from the layout folders
  * given a data shape describing what needs to be loaded
  *
  * It is an async rerender component so it has local state of the blocks in use
@@ -23,9 +23,10 @@ import {
  *
  */
 export const loader = newLifecycle(
-  path => (console.log({ path }), import(`../../blocks/${path}/index.js`)), // load da blocks
-  layout =>
-    (console.log({ layout }), import(`../../blocks/${layout}/index.js`)), // load da layouts
+  // layout => Promise.resolve({ default: () => <h5>{layout}</h5> }),
+  path => import(`./../../blocks/${path}/index.js`), // load da blocks
+  layout => import(`./../../layouts/${layout}/index.js`) // load da layouts
+  // layout => Promise.resolve(() => <h5>{layout}</h5>)
 );
 
 /*
@@ -34,7 +35,7 @@ export const loader = newLifecycle(
  * shouldShowLoader: async
  */
 export default Junction()
-  .with(blockState)
-  .with(layoutState)
+  .with(state)
   .with(loader)
+  .with(mapImports)
   .with(shouldShowLoader);

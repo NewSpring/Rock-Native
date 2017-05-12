@@ -1,6 +1,6 @@
 import { mount } from "enzyme";
 import {
-  state,
+  blockState,
   shouldShowLoader,
   recombineLoadedComponent,
   dynamicallyImportComponent,
@@ -28,7 +28,7 @@ const sampleProps = {
 describe("state wrapper", () => {
   it("should wrap component with state and updater", async () => {
     const tester = jest.fn(() => <div />);
-    const Wrapped = state(tester);
+    const Wrapped = blockState(tester);
     mount(<Wrapped {...sampleProps} />);
     const props = tester.mock.calls[0][0];
     expect(props.components).toBeDefined();
@@ -48,13 +48,13 @@ describe("shouldShowLoader", () => {
 
   it("should follow left if no components", () => {
     const WithRight = shouldShowLoader(() => <div />);
-    expect(mount(<WithRight components={[]} />).html()).toBe(null);
+    expect(mount(<WithRight Layout="foo" components={[]} />).html()).toBe(null);
   });
 
   it("should follow right if there are components", () => {
     const WithRight = shouldShowLoader(() => <div />);
     const withComponents = mount(
-      <WithRight components={[{ Component: "hey" }]} />,
+      <WithRight components={[{ Component: "hey" }]} />
     );
     expect(withComponents.html()).toBe("<div></div>");
   });
@@ -99,13 +99,13 @@ describe("dynamicallyImportComponent", () => {
       Component.then(result => ({
         ...rest,
         Component: result,
-      })),
+      }))
     );
     await dynamicallyImportComponent(
       loader,
       stateUpdater,
       components,
-      recombine,
+      recombine
     );
     const result = await recombine.mock.calls[0][0].Component;
 
@@ -121,13 +121,13 @@ describe("dynamicallyImportComponent", () => {
       Component.then(result => ({
         ...rest,
         Component: result,
-      })),
+      }))
     );
     await dynamicallyImportComponent(
       loader,
       stateUpdater,
       components,
-      recombine,
+      recombine
     );
     await recombine.mock.calls[0][0].Component;
     expect(stateUpdater).toBeCalledWith([{ Component: "dat ape" }]);
@@ -148,7 +148,7 @@ describe("newLifecycle", () => {
     const Tester = jest.fn(() => <div />);
     const loader = jest.fn(() => Promise.resolve({ default: "dat ape" }));
     const dynamicallyImport = jest.fn();
-    const hasLifecycle = newLifecycle(loader, dynamicallyImport);
+    const hasLifecycle = newLifecycle(loader, loader, dynamicallyImport);
     const Wrapped = hasLifecycle(Tester);
     mount(<Wrapped />);
     expect(dynamicallyImport).toBeCalled();

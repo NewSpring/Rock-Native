@@ -1,27 +1,24 @@
 // @flow
 import type { Component } from "react";
-import { withState, lifecycle, branch } from "recompose";
+import { withState, lifecycle, branch, mapProps } from "recompose";
 // import Junction from "../../../junction";
 import type { IBlockDescription, IRegistryRequest, IState } from "./types.js";
 
-// XXX lookup how to do recompose types
-export const blockState = withState(
-  "components",
-  "load",
-  (props: { registry: IRegistryRequest }) => props.registry.blocks,
-);
+export const state = withState("imports", "load", { components: [] });
 
-export const layoutState = withState(
-  "Layout",
-  "loadLayout",
-  (props: { registry: IRegistryRequest }) => props.registry.layout,
-);
+// reshape to match registry shape
+export const mapImports = mapProps((props: { registry: IRegistryRequest }) => ({
+  ...props,
+  components: props.imports.components,
+  Layout: props.imports.Layout,
+}));
 
+// determine if a loading state should be shown while importing blocks
 export const shouldShowLoader = branch(
   ({ components, Layout }: IState) =>
-    typeof Layout === "string" &&
+    !Layout &&
     components.map(x => x.Component).filter(x => Boolean(x)).length === 0,
-  () => () => null,
+  () => () => null
 );
 
 // this function takes an obect and returns back a Promise
@@ -51,57 +48,67 @@ type IDynamicallyImport = (
   loader: IDynamicImport,
   stateUpdater: () => void, // XXX figure out more exact type
   components: IBlockDescription[],
-  recombineLoadedComponent: (
-    a: IBlockDescription,
-  ) => Promise<IBlockDescription>,
+  recombineLoadedComponent: (a: IBlockDescription) => Promise<IBlockDescription>
 ) => Promise<void>;
 
-export const dynamicallyImportComponent: IDynamicallyImport = (
-  loader,
-  stateUpdater,
+// dynamic imports load es6 modules as { default: export default }
+// so we map then to the intended export
+export const es6module = (x: { default: Component }) => x.default;
+// the dynamicallyImportComponent returns an array of promises with the layout
+// first, then all loaded components following. Since this number is dynamic
+// we use a rest argument to join them into an array (thank you es6)
+export const mapPromises = ([Layout, ...components]) => ({
   components,
-  recombineLoadedComponent = recombineLoadedComponent,
+  Layout,
+});
+
+export const dynamicallyImportComponent: IDynamicallyImport = (
+  blockLoader,
+  layoutLoader,
+  stateUpdater,
+  registry,
+  recombineLoadedComponent = recombineLoadedComponent
 ) =>
   // return an array of promises so we can wait until
   // all of the blocks are loaded before updating the state
   // otherwise when each block would load, it would rerender the app
   // causing a bad experience
   Promise.all(
-    // components need to be reshaped into a promise
-    components
-      .map(({ path, ...rest }) => ({
-        ...rest,
-        // this is where the dynamic import actually happens
-        // es6 modules return { default: React$Component }
-        // XXX integrate caching here
-        Component: loader(path).then((x: { default: Component }) => x.default),
-      }))
-      // now that we have kicked off the dynamic import
-      // we reshape the array into an array of promises
-      .map(recombineLoadedComponent),
+    // load layout component
+    [layoutLoader(registry.layout).then(es6module)].concat(
+      // components need to be reshaped into a promise
+      registry.blocks
+        .map(({ path, ...rest }) => ({
+          ...rest,
+          // this is where the dynamic import actually happens
+          // es6 modules return { default: React$Component }
+          // XXX integrate caching here
+          Component: blockLoader(path).then(es6module),
+        }))
+        // now that we have kicked off the dynamic import
+        // we reshape the array into an array of promises
+        .map(recombineLoadedComponent)
+    )
+  )
     // now that all promises are done, we can update the parent component
     // state and render the app with all of the blocks loaded
-  ).then(stateUpdater);
+
+    .then(mapPromises)
+    .then(stateUpdater);
 
 export const newLifecycle = (
   dynamicBlockLoader: IDynamicImport,
   dynamicLayoutLoader: IDynamicImport,
-  // dynamicallyImportComponent: IDynamicallyImport = dynamicallyImportComponent,
+  importFunc: IDynamicallyImport = dynamicallyImportComponent
 ) =>
   lifecycle({
     componentDidMount() {
-      // XXX this will render twice since we are using two different stateUpdaters
-      // we should combine them together after both the layout and blocks are
-      // loaded from the http request and update all at once
-      dynamicLayoutLoader(this.props.Layout).then(component =>
-        this.props.loadLayout(component.default),
-      );
-      console.log(this.props);
-      dynamicallyImportComponent(
+      importFunc(
         dynamicBlockLoader,
+        dynamicLayoutLoader,
         this.props.load,
-        this.props.components,
-        recombineLoadedComponent,
+        this.props.registry,
+        recombineLoadedComponent
       );
     },
   });

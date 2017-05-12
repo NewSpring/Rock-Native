@@ -12,6 +12,7 @@ type Response {
 
 type Page {
   id: Int!
+  layout: String!
   blocks: [Block]
 }
 
@@ -43,6 +44,7 @@ type IBlock = {
 
 type IPage = {
   id: number,
+  layout: string,
   blocks: IBlock[],
 };
 
@@ -52,6 +54,7 @@ export const resolvers = {
     getRouteInfo: (_: mixed, { path }: { path: string }) => {
       const sampleRegistry = {
         id: 1,
+        layout: "Horizontal",
         blocks: [{ path: "HelloWorld", id: 2 }, { path: "Counter", id: 1 }],
       };
       if (path === "/") return sampleRegistry;
@@ -67,6 +70,7 @@ export const resolvers = {
   },
   Page: {
     id: ({ id }: IPage) => id,
+    layout: ({ layout }: IPage) => layout,
     blocks: ({ blocks }: IPage) => blocks,
   },
   Block: {
@@ -86,6 +90,6 @@ export const graphql = (
   root?: mixed,
   context?: mixed,
   variables?: ?{ [key: string]: mixed },
-  operationName?: ?string,
+  operationName?: ?string
 ): Promise<ExecutionResult> =>
   graphqljs(schema, safeQuery(query), root, context, variables, operationName);
