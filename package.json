@@ -6,10 +6,10 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "coverage": "npm run test-unit -- --coverage && codecov",
-    "test": "BABEL_ENV=test jest \"^((?!integration).)*$\"",
-    "test-unit": "BABEL_ENV=test jest \"^((?!integration).)*$\"",
-    "test-int": "BABEL_ENV=test jest \"*.integration.js\"",
-    "test-all": "BABEL_ENV=test jest",
+    "test": "cross-env-shell BABEL_ENV=test jest \\\"^((?!integration).)*$\\\"",
+    "test-unit": "cross-env-shell BABEL_ENV=test jest \\\"^((?!integration).)*$\\\"",
+    "test-int": "cross-env-shell BABEL_ENV=test jest \\\"*.integration.js\\\"",
+    "test-all": "cross-env-shell BABEL_ENV=test jest",
     "lint": "eslint ./src index.*",
     "lint-staged": "lint-staged",
     "flow": "flow",
@@ -79,7 +79,7 @@
     "codecov": "2.2.0",
     "concurrently": "3.4.0",
     "copy-webpack-plugin": "4.0.1",
-    "cross-env": "^4.0.0",
+    "cross-env": "^5.0.0",
     "danger": "0.18.0",
     "enzyme": "2.8.0",
     "enzyme-to-json": "1.5.0",
@@ -125,7 +125,8 @@
     "transformIgnorePatterns": [
       "node_modules/(?!react-native|react-router-native)/",
       "node_modules/(?!react-native|react-router)/",
-      "node_modules/selenium-webdriver/"
+      "node_modules/selenium-webdriver/",
+      "node_modules/fugazi"
     ]
   },
   "eslintConfig": {
