@@ -7,7 +7,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "coverage": "npm run test-unit -- --coverage && codecov",
     "test": "cross-env-shell BABEL_ENV=test jest \\\"^((?!integration).)*$\\\"",
-    "test-unit": "BABEL_ENV=test jest \\\"^((?!integration).)*$\\\"",
+    "test-unit": "BABEL_ENV=test jest \"^((?!integration).)*$\"",
     "test-int": "cross-env-shell BABEL_ENV=test jest \\\"*.integration.js\\\"",
     "test-all": "cross-env-shell BABEL_ENV=test jest",
     "lint": "eslint ./src index.*",
