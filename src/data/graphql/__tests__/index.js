@@ -26,6 +26,7 @@ describe("resolvers", () => {
     it("returns a sample registry if path is root", () => {
       expect(getRouteInfo(null, { path: "/" })).toEqual({
         id: 1,
+        layout: "Horizontal",
         blocks: [{ id: 2, path: "HelloWorld" }, { id: 1, path: "Counter" }],
       });
     });
@@ -33,6 +34,8 @@ describe("resolvers", () => {
     it("returns reversed blocks if other path", () => {
       expect(getRouteInfo(null, { path: "/hey" })).toEqual({
         id: 1,
+
+        layout: "Horizontal",
         blocks: [{ id: 1, path: "Counter" }, { id: 2, path: "HelloWorld" }],
       });
     });

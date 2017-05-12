@@ -9,6 +9,7 @@ type Response {
 
 type Page {
   id: Int!
+  layout: String!
   blocks: [Block]
 }
 

@@ -1,12 +1,8 @@
 import { shallow } from "enzyme";
 import { shallowToJson } from "enzyme-to-json";
 import { defaultProps } from "recompose";
-import Comps, {
-  layoutStyle,
-  loadingState,
-  loadingCheck,
-  Loading,
-} from "../index.js";
+import Comps, { loadingState, loadingCheck, Loading } from "../index.js";
+// layoutStyle,
 
 const registry = {
   layout: "Vertical",

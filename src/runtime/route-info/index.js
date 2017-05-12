@@ -16,6 +16,8 @@ export const LOCATION_QUERY = gql`
       layout
       blocks {
         id
+        zone
+        order
         path
       }
     }

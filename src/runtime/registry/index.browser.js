@@ -25,7 +25,7 @@ import {
 export const loader = newLifecycle(
   // layout => Promise.resolve({ default: () => <h5>{layout}</h5> }),
   path => import(`./../../blocks/${path}/index.js`), // load da blocks
-  layout => import(`./../../layouts/${layout}/index.js`) // load da layouts
+  layout => import(`./../../layouts/${layout}/index.js`), // load da layouts
   // layout => Promise.resolve(() => <h5>{layout}</h5>)
 );
 

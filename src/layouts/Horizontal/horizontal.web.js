@@ -1,22 +1,25 @@
 // @flow
 
-import type { ILayoutProps } from "./";
+import { render } from "../";
 import { layoutStyle } from "./";
 
-export default ({ components }: ILayoutProps) =>
-  (console.log(components), (
+import type { ILayoutProps } from "../../../runtime/registry/util/types";
+
+export default ({ zones }: ILayoutProps) =>
+  (console.log(zones), (
     <div>
       <div>
         Web Horizontal Layout
       </div>
       <div style={layoutStyle.resolve()}>
-        {components
-          .sort((a, b) => {
-            return b.order - a.order;
-          })
-          .map(({ ...rest, id, Component }) => (
-            <Component key={id} {...rest} />
-          ))}
+        {/* main zone */}
+        <div>
+          {zones.main.map(render)}
+        </div>
+        {/* secondary zone */}
+        <div>
+          {zones.secondary.map(render)}
+        </div>
       </div>
     </div>
   ));

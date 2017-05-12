@@ -2,12 +2,17 @@
 import type { Component } from "react";
 import { withState, lifecycle, branch, mapProps } from "recompose";
 // import Junction from "../../../junction";
-import type { IBlockDescription, IRegistryRequest, IState } from "./types.js";
+import type {
+  IBlockDescription,
+  IRegistryRequest,
+  IRegistryProps,
+  IState,
+} from "./types.js";
 
 export const state = withState("imports", "load", { components: [] });
 
 // reshape to match registry shape
-export const mapImports = mapProps((props: { registry: IRegistryRequest }) => ({
+export const mapImports = mapProps((props: IRegistryProps) => ({
   ...props,
   components: props.imports.components,
   Layout: props.imports.Layout,
@@ -45,9 +50,10 @@ export const recombineLoadedComponent = ({
 type IDynamicImport = (path: string) => Promise<{ default: Component }>;
 
 type IDynamicallyImport = (
-  loader: IDynamicImport,
+  blockLoader: IDynamicImport,
+  layoutLoader: IDynamicImport,
   stateUpdater: () => void, // XXX figure out more exact type
-  components: IBlockDescription[],
+  components: IRegistryRequest,
   recombineLoadedComponent: (a: IBlockDescription) => Promise<IBlockDescription>
 ) => Promise<void>;
 
@@ -57,7 +63,7 @@ export const es6module = (x: { default: Component }) => x.default;
 // the dynamicallyImportComponent returns an array of promises with the layout
 // first, then all loaded components following. Since this number is dynamic
 // we use a rest argument to join them into an array (thank you es6)
-export const mapPromises = ([Layout, ...components]) => ({
+export const mapPromises = ([Layout, ...components]: Component[]) => ({
   components,
   Layout,
 });

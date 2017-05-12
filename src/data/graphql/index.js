@@ -19,6 +19,8 @@ type Page {
 type Block {
   id: Int!
   path: String!
+  zone: String!,
+  order: Int!,
 }
 
 # the schema allows the following query:
@@ -40,6 +42,8 @@ type ISample = {
 type IBlock = {
   id: number,
   path: string,
+  order: number,
+  zone: string,
 };
 
 type IPage = {
@@ -55,7 +59,11 @@ export const resolvers = {
       const sampleRegistry = {
         id: 1,
         layout: "Horizontal",
-        blocks: [{ path: "HelloWorld", id: 2 }, { path: "Counter", id: 1 }],
+        blocks: [
+          { path: "HelloWorld", id: 3, zone: "main", order: 1 },
+          { path: "HelloWorld", id: 2, zone: "secondary", order: 1 },
+          { path: "Counter", id: 1, zone: "secondary", order: 0 },
+        ],
       };
       if (path === "/") return sampleRegistry;
       return {
@@ -75,6 +83,8 @@ export const resolvers = {
   },
   Block: {
     id: ({ id }: IBlock) => id,
+    zone: ({ zone }: IBlock) => zone,
+    order: ({ order }: IBlock) => order,
     path: ({ path }: IBlock) => path,
   },
 };

@@ -1,6 +1,6 @@
 import { mount } from "enzyme";
 import {
-  blockState,
+  state,
   shouldShowLoader,
   recombineLoadedComponent,
   dynamicallyImportComponent,
@@ -28,10 +28,10 @@ const sampleProps = {
 describe("state wrapper", () => {
   it("should wrap component with state and updater", async () => {
     const tester = jest.fn(() => <div />);
-    const Wrapped = blockState(tester);
+    const Wrapped = state(tester);
     mount(<Wrapped {...sampleProps} />);
     const props = tester.mock.calls[0][0];
-    expect(props.components).toBeDefined();
+    expect(props.imports).toBeDefined();
     expect(props.load).toBeDefined();
   });
 });
@@ -48,13 +48,13 @@ describe("shouldShowLoader", () => {
 
   it("should follow left if no components", () => {
     const WithRight = shouldShowLoader(() => <div />);
-    expect(mount(<WithRight Layout="foo" components={[]} />).html()).toBe(null);
+    expect(mount(<WithRight components={[]} />).html()).toBe(null);
   });
 
   it("should follow right if there are components", () => {
     const WithRight = shouldShowLoader(() => <div />);
     const withComponents = mount(
-      <WithRight components={[{ Component: "hey" }]} />
+      <WithRight components={[{ Component: "hey" }]} />,
     );
     expect(withComponents.html()).toBe("<div></div>");
   });
@@ -81,56 +81,85 @@ describe("recombineLoadedComponent", () => {
 describe("dynamicallyImportComponent", () => {
   it("calls loader with correct path", () => {
     const loader = jest.fn(() => Promise.resolve({ default: null }));
+    const loader2 = jest.fn(() => Promise.resolve({ default: null }));
     const stateUpdater = jest.fn();
-    const components = [{ path: "A" }];
-    dynamicallyImportComponent(loader, stateUpdater, components, () => {});
+    const registry = {
+      layout: "foo",
+      blocks: [{ path: "A" }],
+    };
+    dynamicallyImportComponent(
+      loader,
+      loader2,
+      stateUpdater,
+      registry,
+      () => {},
+    );
     expect(loader).toBeCalledWith("A");
+    expect(loader2).toBeCalledWith("foo");
   });
 
   it("calls recombineLoadedComponent with with correct component info", async () => {
     // loader is a mock for import("./foo");
-    const loader = jest.fn(() => Promise.resolve({ default: "dat ape" }));
+    const loader = jest.fn(() => Promise.resolve({ default: "hello world" }));
+    const loader2 = jest.fn(() => Promise.resolve({ default: "layout" }));
+
     // stateUpdater is a mock for this.setState({})
     const stateUpdater = jest.fn();
     // actual data to load from the file system
-    const components = [{ path: "A" }];
+    const registry = {
+      layout: "foo",
+      blocks: [{ path: "A" }],
+    };
     // reshape to map resolved component back to array of components
     const recombine = jest.fn(({ Component, ...rest }) =>
       Component.then(result => ({
         ...rest,
         Component: result,
-      }))
+      })),
     );
     await dynamicallyImportComponent(
       loader,
+      loader2,
       stateUpdater,
-      components,
-      recombine
+      registry,
+      recombine,
     );
     const result = await recombine.mock.calls[0][0].Component;
 
-    expect(result).toEqual("dat ape");
-    expect(stateUpdater).toBeCalledWith([{ Component: "dat ape" }]);
+    expect(result).toEqual("hello world");
+    expect(stateUpdater).toBeCalledWith({
+      Layout: "layout",
+      components: [{ Component: "hello world" }],
+    });
   });
 
   it("calls updateState with the correct info", async () => {
-    const loader = jest.fn(() => Promise.resolve({ default: "dat ape" }));
+    const loader = jest.fn(() => Promise.resolve({ default: "hello world" }));
+    const loader2 = jest.fn(() => Promise.resolve({ default: "layout" }));
+
     const stateUpdater = jest.fn();
-    const components = [{ path: "A" }];
+    const registry = {
+      layout: "foo",
+      blocks: [{ path: "A" }],
+    };
     const recombine = jest.fn(({ Component, ...rest }) =>
       Component.then(result => ({
         ...rest,
         Component: result,
-      }))
+      })),
     );
     await dynamicallyImportComponent(
       loader,
+      loader2,
       stateUpdater,
-      components,
-      recombine
+      registry,
+      recombine,
     );
     await recombine.mock.calls[0][0].Component;
-    expect(stateUpdater).toBeCalledWith([{ Component: "dat ape" }]);
+    expect(stateUpdater).toBeCalledWith({
+      Layout: "layout",
+      components: [{ Component: "hello world" }],
+    });
   });
 });
 
