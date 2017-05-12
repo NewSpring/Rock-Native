@@ -1,18 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Hello World Web should render the Hello World component for web 1`] = `
-<h1
-  style={
-    Object {
-      "alignItems": "center",
-      "flex": 1,
-      "justifyContent": "center",
-      "marginTop": 16,
-      "paddingTop": 32,
-      "textAlign": "center",
-    }
-  }
+<Link
+  replace={false}
+  to="/hello"
 >
-  Hello World
-</h1>
+  <h1
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "marginTop": 16,
+        "paddingTop": 32,
+      }
+    }
+  >
+    Hello World
+  </h1>
+</Link>
 `;

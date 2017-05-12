@@ -1,27 +1,29 @@
 // @flow
-import { defaultProps } from "recompose";
 
 import Style from "@jongold/further";
+// import { ifElse } from "ramda";
+import { branch } from "recompose";
+import { withRouter } from "react-router";
 import Junction from "./junction";
 import loadBlocks from "./runtime/registry";
 import Layout from "./layout";
-
-const registry = {
-  blocks: [{ path: "HelloWorld", id: 2 }, { path: "Counter", id: 1 }],
-};
+import loadRouteData from "./runtime/route-info";
 
 export const layoutStyle = Style.of({
   flex: 1,
 });
 
-// XXX will be replaced with graphql query
-const props = defaultProps({ registry });
+export const loadingCheck = (
+  { loading }: { loading: boolean } = { loading: false },
+) => loading;
+export const Loading = () => null;
+export const loadingState = branch(loadingCheck, () => Loading);
 
 export default Junction()
-  // XXX load data from graphql
-  // .with(loadRouteData)
-  // XXX remove the default value on the next line
-  .with(props)
+  .with(withRouter)
+  // .with(mapProps(props => (console.log(props), props)))
+  .with(loadRouteData) // load data from graphql
+  .with(loadingState)
   .with(loadBlocks)
   // XXX load layout file
   // XXX place blocks in layout

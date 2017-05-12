@@ -6,10 +6,10 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "coverage": "npm run test-unit -- --coverage && codecov",
-    "test": "BABEL_ENV=test jest \"^((?!integration).)*$\"",
+    "test": "cross-env-shell BABEL_ENV=test jest \\\"^((?!integration).)*$\\\"",
     "test-unit": "BABEL_ENV=test jest \"^((?!integration).)*$\"",
-    "test-int": "BABEL_ENV=test jest \"*.integration.js\"",
-    "test-all": "BABEL_ENV=test jest",
+    "test-int": "cross-env-shell BABEL_ENV=test jest \\\"*.integration.js\\\"",
+    "test-all": "cross-env-shell BABEL_ENV=test jest",
     "lint": "eslint ./src index.*",
     "lint-staged": "lint-staged",
     "flow": "flow",
@@ -19,7 +19,7 @@
     "android": "react-native run-android",
     "windows": "react-native run-windows",
     "build-manifests": "cd ./web && cross-env BABEL_ENV=browser webpack --config webpack.vendor.js --hide-modules && cross-env BABEL_ENV=browser webpack --config webpack.client.js --hide-modules",
-    "server": "npm run build-manifests && cd ./web && concurrently \"serverless offline start --location ./dist/server\" \"cross-env BABEL_ENV=node webpack --config webpack.server.js --watch --hide-modules\" \"cross-env BABEL_ENV=browser webpack-dev-server --config webpack.client.js \"",
+    "server": "npm run build-manifests && cd ./web && concurrently \"serverless offline start --location ./dist/server --dontPrintOutput\" \"cross-env BABEL_ENV=node webpack --config webpack.server.js --watch --hide-modules\" \"cross-env BABEL_ENV=browser webpack-dev-server --config webpack.client.js \"",
     "server-build": "cd ./web && cross-env BABEL_ENV=browser webpack --config webpack.vendor.js --env.prod --optimize-minimize && cross-env BABEL_ENV=browser webpack --config webpack.client.js --env.prod --optimize-minimize && cross-env BABEL_ENV=node webpack --config webpack.server.js --env.prod",
     "server-deploy": "cd ./web && serverless deploy",
     "danger": "danger run --verbose",
@@ -50,6 +50,7 @@
     "react-dom": "15.5.4",
     "react-helmet": "5.0.3",
     "react-native": "0.42.3",
+    "react-native-device-info": "^0.10.2",
     "react-native-windows": "0.42.0",
     "react-router": "4.1.1",
     "react-router-dom": "4.1.1",
@@ -78,7 +79,7 @@
     "codecov": "2.2.0",
     "concurrently": "3.4.0",
     "copy-webpack-plugin": "4.0.1",
-    "cross-env": "^4.0.0",
+    "cross-env": "^5.0.0",
     "danger": "0.18.0",
     "enzyme": "2.8.0",
     "enzyme-to-json": "1.5.0",
@@ -120,6 +121,12 @@
       "src/**/*.js",
       "!**/node_modules/**",
       "!src/test-utils/**"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|react-router-native)/",
+      "node_modules/(?!react-native|react-router)/",
+      "node_modules/selenium-webdriver/",
+      "node_modules/fugazi"
     ]
   },
   "eslintConfig": {

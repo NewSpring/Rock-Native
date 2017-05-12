@@ -15,7 +15,6 @@ describe("Hello Style", () => {
       paddingTop: 32,
       justifyContent: "center",
       alignItems: "center",
-      textAlign: "center",
     });
   });
 });

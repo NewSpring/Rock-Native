@@ -12,18 +12,43 @@ if (process.env.NODE_ENV === "production") {
   require("offline-plugin/runtime").install();
 }
 
+const withHeader = {
+  applyBatchMiddleware(request, next) {
+    if (!request.options.headers) {
+      if (fetch.Headers) {
+        request.options.headers = new fetch.Headers();
+      } else {
+        request.options.headers = new Headers();
+      }
+    }
+    next();
+  },
+};
+const identifierMiddleware = {
+  applyBatchMiddleware(req, next) {
+    // req.headers.platform = "WEB";
+    // req.headers.version = "1.2.0"; // ENV variables
+    next();
+  },
+};
+
 const start = Component => {
+  const networkInterface = createNetworkInterface().use([
+    withHeader,
+    identifierMiddleware /*, withUser */,
+  ]);
+
   const client = new ApolloClient({
-    networkInterface: createNetworkInterface(),
+    networkInterface,
     connectToDevTools: process.env.NODE_ENV !== "production",
     initialState: window.__APOLLO_STATE__ || {},
   });
   render(
-    <BrowserRouter>
-      <Provider client={client}>
+    <Provider client={client}>
+      <BrowserRouter>
         <Component />
-      </Provider>
-    </BrowserRouter>,
+      </BrowserRouter>
+    </Provider>,
     document.getElementById("rock-native"),
   );
 };

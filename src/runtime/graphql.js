@@ -23,6 +23,8 @@ export const createContextFromRequestEvent = (
 ): IContext => {
   const { headers, requestContext } = event;
   return {
+    platform: headers && headers.platform,
+    version: headers && headers.version,
     userId: headers && headers.authorization,
     ip: requestContext &&
       requestContext.identity &&

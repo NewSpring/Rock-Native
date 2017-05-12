@@ -11,11 +11,11 @@ const client = new ApolloClient({
 });
 
 const App = () => (
-  <NativeRouter>
-    <Provider client={client}>
+  <Provider client={client}>
+    <NativeRouter>
       <RockNative />
-    </Provider>
-  </NativeRouter>
+    </NativeRouter>
+  </Provider>
 );
 
 AppRegistry.registerComponent("RockNative", () => App);

@@ -14,11 +14,13 @@ export const mapper = ({
   registry: IRegistryRequest,
 }) => ({
   ...rest,
-  components: registry.blocks.map(({ ...details, path }) => ({
-    ...details,
-    path,
-    Component: availableBlocks[path],
-  })),
+  components: registry
+    ? registry.blocks.map(({ ...details, path }) => ({
+        ...details,
+        path,
+        Component: availableBlocks[path],
+      }))
+    : [],
 });
 
 export const load = mapProps(mapper);
