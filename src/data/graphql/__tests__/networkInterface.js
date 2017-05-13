@@ -30,4 +30,13 @@ describe("middleware", () => {
       headers: { clientId: "com.wow_ios", version: "1.2.3" },
     });
   });
+  it("modifies existing headers", () => {
+    const networkInterface = createNetworkInterface();
+    const middleware = networkInterface._middlewares[0].applyBatchMiddleware;
+    const options = { headers: { foo: "bar" } };
+    middleware({ options }, jest.fn());
+    expect(options).toEqual({
+      headers: { clientId: "com.wow_ios", version: "1.2.3", foo: "bar" },
+    });
+  });
 });

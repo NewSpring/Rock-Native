@@ -1,10 +1,11 @@
-import { mount } from "enzyme";
+import { shallow, mount } from "enzyme";
 import {
   state,
   shouldShowLoader,
   recombineLoadedComponent,
   dynamicallyImportComponent,
   newLifecycle,
+  mapImports,
 } from "../browser";
 
 // for enzyme mount
@@ -31,8 +32,25 @@ describe("state wrapper", () => {
     const Wrapped = state(tester);
     mount(<Wrapped {...sampleProps} />);
     const props = tester.mock.calls[0][0];
-    expect(props.components).toBeDefined();
+    expect(props.imports).toBeDefined();
     expect(props.load).toBeDefined();
+  });
+});
+
+describe("mapImports", () => {
+  it("maps props into the correct shape", () => {
+    const Test = mapImports(props => {
+      expect(props.components).toEqual([]);
+      expect(props.Layout).toEqual("string");
+      return null;
+    });
+    const props = {
+      imports: {
+        Layout: "string",
+        components: [],
+      },
+    };
+    shallow(<Test {...props} />);
   });
 });
 
@@ -81,19 +99,35 @@ describe("recombineLoadedComponent", () => {
 describe("dynamicallyImportComponent", () => {
   it("calls loader with correct path", () => {
     const loader = jest.fn(() => Promise.resolve({ default: null }));
+    const loader2 = jest.fn(() => Promise.resolve({ default: null }));
     const stateUpdater = jest.fn();
-    const components = [{ path: "A" }];
-    dynamicallyImportComponent(loader, stateUpdater, components, () => {});
+    const registry = {
+      layout: "foo",
+      blocks: [{ path: "A" }],
+    };
+    dynamicallyImportComponent(
+      loader,
+      loader2,
+      stateUpdater,
+      registry,
+      () => {},
+    );
     expect(loader).toBeCalledWith("A");
+    expect(loader2).toBeCalledWith("foo");
   });
 
   it("calls recombineLoadedComponent with with correct component info", async () => {
     // loader is a mock for import("./foo");
-    const loader = jest.fn(() => Promise.resolve({ default: "dat ape" }));
+    const loader = jest.fn(() => Promise.resolve({ default: "hello world" }));
+    const loader2 = jest.fn(() => Promise.resolve({ default: "layout" }));
+
     // stateUpdater is a mock for this.setState({})
     const stateUpdater = jest.fn();
     // actual data to load from the file system
-    const components = [{ path: "A" }];
+    const registry = {
+      layout: "foo",
+      blocks: [{ path: "A" }],
+    };
     // reshape to map resolved component back to array of components
     const recombine = jest.fn(({ Component, ...rest }) =>
       Component.then(result => ({
@@ -103,20 +137,29 @@ describe("dynamicallyImportComponent", () => {
     );
     await dynamicallyImportComponent(
       loader,
+      loader2,
       stateUpdater,
-      components,
+      registry,
       recombine,
     );
     const result = await recombine.mock.calls[0][0].Component;
 
-    expect(result).toEqual("dat ape");
-    expect(stateUpdater).toBeCalledWith([{ Component: "dat ape" }]);
+    expect(result).toEqual("hello world");
+    expect(stateUpdater).toBeCalledWith({
+      Layout: "layout",
+      components: [{ Component: "hello world" }],
+    });
   });
 
   it("calls updateState with the correct info", async () => {
-    const loader = jest.fn(() => Promise.resolve({ default: "dat ape" }));
+    const loader = jest.fn(() => Promise.resolve({ default: "hello world" }));
+    const loader2 = jest.fn(() => Promise.resolve({ default: "layout" }));
+
     const stateUpdater = jest.fn();
-    const components = [{ path: "A" }];
+    const registry = {
+      layout: "foo",
+      blocks: [{ path: "A" }],
+    };
     const recombine = jest.fn(({ Component, ...rest }) =>
       Component.then(result => ({
         ...rest,
@@ -125,12 +168,16 @@ describe("dynamicallyImportComponent", () => {
     );
     await dynamicallyImportComponent(
       loader,
+      loader2,
       stateUpdater,
-      components,
+      registry,
       recombine,
     );
     await recombine.mock.calls[0][0].Component;
-    expect(stateUpdater).toBeCalledWith([{ Component: "dat ape" }]);
+    expect(stateUpdater).toBeCalledWith({
+      Layout: "layout",
+      components: [{ Component: "hello world" }],
+    });
   });
 });
 
@@ -148,7 +195,7 @@ describe("newLifecycle", () => {
     const Tester = jest.fn(() => <div />);
     const loader = jest.fn(() => Promise.resolve({ default: "dat ape" }));
     const dynamicallyImport = jest.fn();
-    const hasLifecycle = newLifecycle(loader, dynamicallyImport);
+    const hasLifecycle = newLifecycle(loader, loader, dynamicallyImport);
     const Wrapped = hasLifecycle(Tester);
     mount(<Wrapped />);
     expect(dynamicallyImport).toBeCalled();

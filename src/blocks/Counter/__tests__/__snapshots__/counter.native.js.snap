@@ -4,9 +4,7 @@ exports[`loading state 1`] = `
 <View
   style={
     Object {
-      "alignItems": "center",
-      "flex": 16,
-      "justifyContent": "center",
+      "flex": 1,
     }
   }
 >
@@ -138,9 +136,7 @@ exports[`shows a counter count on native 1`] = `
 <View
   style={
     Object {
-      "alignItems": "center",
-      "flex": 16,
-      "justifyContent": "center",
+      "flex": 1,
     }
   }
 >
@@ -265,9 +261,7 @@ exports[`shows data from the server 1`] = `
 <View
   style={
     Object {
-      "alignItems": "center",
-      "flex": 16,
-      "justifyContent": "center",
+      "flex": 1,
     }
   }
 >

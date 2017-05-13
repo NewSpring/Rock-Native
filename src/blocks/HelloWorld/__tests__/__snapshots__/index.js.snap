@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Hello World should render Hello World component 1`] = `
-<Link
-  component={[Function]}
-  replace={false}
+<Text
+  accessible={true}
+  allowFontScaling={true}
+  ellipsizeMode="tail"
   style={
     Object {
       "alignItems": "center",
@@ -13,14 +14,7 @@ exports[`Hello World should render Hello World component 1`] = `
       "paddingTop": 32,
     }
   }
-  to="/hello"
 >
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-  >
-    Hello World
-  </Text>
-</Link>
+  Hello World
+</Text>
 `;

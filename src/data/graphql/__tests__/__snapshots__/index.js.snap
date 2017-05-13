@@ -9,12 +9,15 @@ type Response {
 
 type Page {
   id: Int!
+  layout: String!
   blocks: [Block]
 }
 
 type Block {
   id: Int!
   path: String!
+  zone: String!,
+  order: Int!,
 }
 
 # the schema allows the following query:

@@ -12,12 +12,15 @@ type Response {
 
 type Page {
   id: Int!
+  layout: String!
   blocks: [Block]
 }
 
 type Block {
   id: Int!
   path: String!
+  zone: String!,
+  order: Int!,
 }
 
 # the schema allows the following query:
@@ -39,25 +42,28 @@ type ISample = {
 type IBlock = {
   id: number,
   path: string,
+  order: number,
+  zone: string,
 };
 
 type IPage = {
   id: number,
+  layout: string,
   blocks: IBlock[],
 };
 
 export const resolvers = {
   Query: {
     sample: (): ISample => ({ code: 200, message: "hello world" }),
-    getRouteInfo: (_: mixed, { path }: { path: string }) => {
-      const sampleRegistry = {
-        id: 1,
-        blocks: [{ path: "HelloWorld", id: 2 }, { path: "Counter", id: 1 }],
-      };
-      if (path === "/") return sampleRegistry;
+    getRouteInfo: () => {
       return {
-        ...sampleRegistry,
-        blocks: sampleRegistry.blocks.reverse(),
+        id: 1,
+        layout: "Horizontal",
+        blocks: [
+          { path: "HelloWorld", id: 3, zone: "main", order: 1 },
+          { path: "HelloWorld", id: 2, zone: "secondary", order: 1 },
+          { path: "Counter", id: 1, zone: "secondary", order: 0 },
+        ],
       };
     },
   },
@@ -67,10 +73,13 @@ export const resolvers = {
   },
   Page: {
     id: ({ id }: IPage) => id,
+    layout: ({ layout }: IPage) => layout,
     blocks: ({ blocks }: IPage) => blocks,
   },
   Block: {
     id: ({ id }: IBlock) => id,
+    zone: ({ zone }: IBlock) => zone,
+    order: ({ order }: IBlock) => order,
     path: ({ path }: IBlock) => path,
   },
 };

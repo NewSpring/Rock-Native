@@ -26,14 +26,12 @@ describe("resolvers", () => {
     it("returns a sample registry if path is root", () => {
       expect(getRouteInfo(null, { path: "/" })).toEqual({
         id: 1,
-        blocks: [{ id: 2, path: "HelloWorld" }, { id: 1, path: "Counter" }],
-      });
-    });
-
-    it("returns reversed blocks if other path", () => {
-      expect(getRouteInfo(null, { path: "/hey" })).toEqual({
-        id: 1,
-        blocks: [{ id: 1, path: "Counter" }, { id: 2, path: "HelloWorld" }],
+        layout: "Horizontal",
+        blocks: [
+          { id: 3, order: 1, zone: "main", path: "HelloWorld" },
+          { id: 2, order: 1, zone: "secondary", path: "HelloWorld" },
+          { id: 1, order: 0, zone: "secondary", path: "Counter" },
+        ],
       });
     });
   });
@@ -50,9 +48,12 @@ describe("resolvers", () => {
   });
 
   describe("Page", () => {
-    const { id, blocks } = Page;
+    const { id, blocks, layout } = Page;
     it("has an id method", () => {
       expect(id({ id: 5 })).toEqual(5);
+    });
+    it("has a layout method", () => {
+      expect(layout({ layout: "foo" })).toEqual("foo");
     });
     it("has a blocks method", () => {
       expect(blocks({ blocks: [{ id: 1 }, { id: 2 }] })).toEqual([
@@ -63,9 +64,15 @@ describe("resolvers", () => {
   });
 
   describe("Block", () => {
-    const { id, path } = Block;
+    const { id, path, zone, order } = Block;
     it("has an id method", () => {
       expect(id({ id: 1 })).toEqual(1);
+    });
+    it("has a zone method", () => {
+      expect(zone({ zone: "main" })).toEqual("main");
+    });
+    it("has an order method", () => {
+      expect(order({ order: 1 })).toEqual(1);
     });
     it("has a path method", () => {
       expect(path({ path: "Hello" })).toEqual("Hello");

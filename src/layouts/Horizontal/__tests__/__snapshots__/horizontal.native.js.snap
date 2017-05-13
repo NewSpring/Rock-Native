@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Horizontal Native Layout should render Horizontal layout component 1`] = `
+<View>
+  <View>
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+    >
+      Native Horizontal Layout
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "height": "100%",
+        "justifyContent": "center",
+        "marginTop": "50%",
+      }
+    }
+  >
+    <View>
+      <HelloWorld
+        Component={[Function]}
+        id={2}
+        order={1}
+        path="HelloWorld"
+      />
+    </View>
+    <View>
+      <Apollo(withState(withHandlers(Counter)))
+        Component={[Function]}
+        id={1}
+        order={0}
+        path="Counter"
+      />
+    </View>
+  </View>
+</View>
+`;

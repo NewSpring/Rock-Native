@@ -4,9 +4,7 @@ exports[`counter should load page 1`] = `
 <View
   style={
     Object {
-      "alignItems": "center",
-      "flex": 16,
-      "justifyContent": "center",
+      "flex": 1,
     }
   }
 >

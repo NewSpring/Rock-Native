@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Vertical Web Layout should render Vertical layout component 1`] = `
+<div>
+  <div>
+    Web Vertical Layout
+  </div>
+  <div
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "column",
+        "height": "50%",
+      }
+    }
+  >
+    <div>
+      <Apollo(withState(withHandlers(Counter)))
+        Component={[Function]}
+        id={1}
+        path="Counter"
+      />
+      <HelloWorld
+        Component={[Function]}
+        id={2}
+        path="HelloWorld"
+      />
+    </div>
+    <div>
+      <HelloWorld
+        Component={[Function]}
+        id={2}
+        path="HelloWorld"
+      />
+    </div>
+  </div>
+</div>
+`;

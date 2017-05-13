@@ -11,7 +11,10 @@ module.exports = env => {
 
   // Configuration for server-side (prerendering) bundle suitable for running in Node
   const serverBundleConfig = merge(sharedConfig(isDevBuild), {
-    resolve: { mainFields: ["main"], extensions: [".server.js"] },
+    resolve: {
+      mainFields: ["main"],
+      extensions: [".server.js", ".web.js", ".js"],
+    },
     entry: {
       server: [
         "regenerator-runtime/runtime",

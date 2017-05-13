@@ -48,9 +48,7 @@ export const actions = withHandlers({
 });
 
 export const counterStyle = Style.of({
-  flex: 16,
-  justifyContent: "center",
-  alignItems: "center",
+  flex: 1,
 });
 
 export type ICounter = IWithSampleData & IWithHandlers;

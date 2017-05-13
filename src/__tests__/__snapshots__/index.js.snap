@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Index should render the components 1`] = `
+exports[`App entry point should render the components 1`] = `
 <Route
   render={[Function]}
 />

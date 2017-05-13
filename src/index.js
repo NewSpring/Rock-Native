@@ -1,30 +1,53 @@
 // @flow
-
 import Style from "@jongold/further";
-// import { ifElse } from "ramda";
-import { branch } from "recompose";
+import {
+  compose,
+  curry,
+  groupBy,
+  adjust,
+  sortBy,
+  map,
+  fromPairs,
+  toPairs,
+  lensProp,
+  defaultTo,
+  view,
+} from "ramda";
+import { branch, mapProps } from "recompose";
 import { withRouter } from "react-router";
+
 import Junction from "./junction";
-import loadBlocks from "./runtime/registry";
-import Layout from "./layout";
+
+import loadComponents from "./runtime/registry";
 import loadRouteData from "./runtime/route-info";
 
-export const layoutStyle = Style.of({
-  flex: 1,
-});
+import type { ILayoutProps, IState } from "./runtime/registry/util/types";
 
-export const loadingCheck = (
-  { loading }: { loading: boolean } = { loading: false },
-) => loading;
+export const layoutStyle = Style.of({ flex: 1 });
+
 export const Loading = () => null;
+export const loadingCheck = compose(
+  defaultTo(false),
+  view(lensProp("loading")),
+);
 export const loadingState = branch(loadingCheck, () => Loading);
+
+export const groupObject = curry((fn, keys) => groupBy(fn, keys));
+export const zoneFromBlock = view(lensProp("zone"));
+export const mapValues = curry((fn, obj) =>
+  fromPairs(map(adjust(fn, 1), toPairs(obj))),
+);
+export const order = mapValues(sortBy(view(lensProp("order"))));
+
+export const blocksToZones = mapProps((props: IState) => ({
+  Layout: props.Layout,
+  zones: order(groupObject(zoneFromBlock, props.components)),
+}));
 
 export default Junction()
   .with(withRouter)
-  // .with(mapProps(props => (console.log(props), props)))
-  .with(loadRouteData) // load data from graphql
+  .with(loadRouteData)
   .with(loadingState)
-  .with(loadBlocks)
-  // XXX load layout file
-  // XXX place blocks in layout
-  .render(Layout);
+  .with(loadComponents)
+  .with(blocksToZones)
+  .render(({ Layout, zones }: ILayoutProps) => <Layout zones={zones} />);

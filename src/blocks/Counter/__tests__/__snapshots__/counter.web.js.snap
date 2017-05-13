@@ -4,9 +4,7 @@ exports[`loading state 1`] = `
 <div
   style={
     Object {
-      "alignItems": "center",
-      "flex": 16,
-      "justifyContent": "center",
+      "flex": 1,
     }
   }
 >
@@ -36,9 +34,7 @@ exports[`shows a counter count on web 1`] = `
 <div
   style={
     Object {
-      "alignItems": "center",
-      "flex": 16,
-      "justifyContent": "center",
+      "flex": 1,
     }
   }
 >
@@ -65,9 +61,7 @@ exports[`shows data from the server 1`] = `
 <div
   style={
     Object {
-      "alignItems": "center",
-      "flex": 16,
-      "justifyContent": "center",
+      "flex": 1,
     }
   }
 >

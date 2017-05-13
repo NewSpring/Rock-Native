@@ -37,6 +37,7 @@
   "dependencies": {
     "@jongold/further": "1.0.3",
     "apollo-client": "1.2.2",
+    "enzyme": "^2.8.2",
     "fugazi": "0.5.2",
     "graphql": "0.9.3",
     "graphql-server-lambda": "0.7.2",
@@ -101,7 +102,7 @@
     "react-addons-test-utils": "15.4.2",
     "react-flow-types": "0.1.1",
     "react-hot-loader": "3.0.0-beta.6",
-    "react-test-renderer": "15.5.4",
+    "react-test-renderer": "^15.5.4",
     "rnpm-plugin-windows": "0.2.4",
     "selenium-webdriver": "3.3.0",
     "serverless": "1.12.1",

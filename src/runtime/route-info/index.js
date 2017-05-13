@@ -13,8 +13,11 @@ export const LOCATION_QUERY = gql`
   query GetRouteInfo($path: String!){
     getRouteInfo(path: $path) {
       id
+      layout
       blocks {
         id
+        zone
+        order
         path
       }
     }
