@@ -55,8 +55,8 @@ type IPage = {
 export const resolvers = {
   Query: {
     sample: (): ISample => ({ code: 200, message: "hello world" }),
-    getRouteInfo: (_: mixed, { path }: { path: string }) => {
-      const sampleRegistry = {
+    getRouteInfo: () => {
+      return {
         id: 1,
         layout: "Horizontal",
         blocks: [
@@ -64,11 +64,6 @@ export const resolvers = {
           { path: "HelloWorld", id: 2, zone: "secondary", order: 1 },
           { path: "Counter", id: 1, zone: "secondary", order: 0 },
         ],
-      };
-      if (path === "/") return sampleRegistry;
-      return {
-        ...sampleRegistry,
-        blocks: sampleRegistry.blocks.reverse(),
       };
     },
   },
@@ -100,6 +95,6 @@ export const graphql = (
   root?: mixed,
   context?: mixed,
   variables?: ?{ [key: string]: mixed },
-  operationName?: ?string
+  operationName?: ?string,
 ): Promise<ExecutionResult> =>
   graphqljs(schema, safeQuery(query), root, context, variables, operationName);

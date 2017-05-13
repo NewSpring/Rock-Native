@@ -21,18 +21,22 @@ exports[`Horizontal Native Layout should render Horizontal layout component 1`] 
       }
     }
   >
-    <HelloWorld
-      Component={[Function]}
-      id={2}
-      order={1}
-      path="HelloWorld"
-    />
-    <Apollo(withState(withHandlers(Counter)))
-      Component={[Function]}
-      id={1}
-      order={0}
-      path="Counter"
-    />
+    <View>
+      <HelloWorld
+        Component={[Function]}
+        id={2}
+        order={1}
+        path="HelloWorld"
+      />
+    </View>
+    <View>
+      <Apollo(withState(withHandlers(Counter)))
+        Component={[Function]}
+        id={1}
+        order={0}
+        path="Counter"
+      />
+    </View>
   </View>
 </View>
 `;

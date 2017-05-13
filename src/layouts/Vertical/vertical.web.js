@@ -1,17 +1,23 @@
 // @flow
 
-import type { ILayoutProps } from "./vertical.native.js";
+import { render } from "../";
 import { layoutStyle } from "./";
 
-export default ({ components }: ILayoutProps) => (
+import type { ILayoutProps } from "../../runtime/registry/util/types";
+
+export default ({ zones }: ILayoutProps) => (
   <div>
     <div>
       Web Vertical Layout
     </div>
     <div style={layoutStyle.resolve()}>
-      {components.map(({ ...rest, id, Component }) => (
-        <Component key={id} {...rest} />
-      ))}
+      <div>
+        {zones.main && zones.main.map(render)}
+      </div>
+      {/* secondary zone */}
+      <div>
+        {zones.secondary && zones.secondary.map(render)}
+      </div>
     </div>
   </div>
 );

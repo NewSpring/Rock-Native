@@ -1,10 +1,12 @@
 // @flow
-
 import { View, Text } from "react-native";
-import { layoutStyle } from "./";
-import type { ILayoutProps } from "./";
 
-export default ({ components }: ILayoutProps) => (
+import { render } from "../";
+import { layoutStyle } from "./";
+
+import type { ILayoutProps } from "../../runtime/registry/util/types";
+
+export default ({ zones }: ILayoutProps) => (
   <View>
     <View>
       <Text>
@@ -12,11 +14,17 @@ export default ({ components }: ILayoutProps) => (
       </Text>
     </View>
     <View style={layoutStyle.resolve()}>
-      {components
-        .sort((a, b) => {
-          return b.order - a.order;
-        })
-        .map(({ ...rest, id, Component }) => <Component key={id} {...rest} />)}
+
+      {/* main zone */}
+      <View>
+        {zones.main.map(render)}
+      </View>
+
+      {/* secondary zone */}
+      <View>
+        {zones.secondary.map(render)}
+      </View>
+
     </View>
   </View>
 );

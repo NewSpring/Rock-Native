@@ -5,9 +5,7 @@ import {
   curry,
   groupBy,
   adjust,
-  reverse,
-  sort,
-  subtract,
+  sortBy,
   map,
   fromPairs,
   toPairs,
@@ -23,23 +21,23 @@ import Junction from "./junction";
 import loadComponents from "./runtime/registry";
 import loadRouteData from "./runtime/route-info";
 
-import type { IBlockDescription, IState } from "./runtime/registry/util/types";
+import type { ILayoutProps, IState } from "./runtime/registry/util/types";
 
 export const layoutStyle = Style.of({ flex: 1 });
 
 export const Loading = () => null;
 export const loadingCheck = compose(
   defaultTo(false),
-  view(lensProp("loading"))
+  view(lensProp("loading")),
 );
 export const loadingState = branch(loadingCheck, () => Loading);
 
 export const groupObject = curry((fn, keys) => groupBy(fn, keys));
 export const zoneFromBlock = view(lensProp("zone"));
 export const mapValues = curry((fn, obj) =>
-  fromPairs(map(adjust(fn, 1), toPairs(obj)))
+  fromPairs(map(adjust(fn, 1), toPairs(obj))),
 );
-export const order = mapValues(compose(reverse, sort(subtract)));
+export const order = mapValues(sortBy(view(lensProp("order"))));
 
 export const blocksToZones = mapProps((props: IState) => ({
   Layout: props.Layout,

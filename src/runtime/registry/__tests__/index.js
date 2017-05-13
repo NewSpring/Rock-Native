@@ -19,6 +19,9 @@ const sampleProps = {
 };
 
 describe("props mapOverBlocks", () => {
+  it("returns a default array if no registry", () => {
+    expect(mapOverBlocks({ id: 1 })).toEqual({ id: 1, components: [] });
+  });
   it("passes additional props without change", () => {
     expect(mapOverBlocks(sampleProps).randomStuff).toBe("waddup");
   });

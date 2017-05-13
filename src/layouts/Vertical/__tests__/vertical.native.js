@@ -5,10 +5,10 @@ import Counter from "../../../blocks/Counter";
 import HelloWorld from "../../../blocks/HelloWorld";
 
 const layoutProps = {
-  components: [
-    { id: 1, path: "Counter", Component: Counter },
-    { id: 2, path: "HelloWorld", Component: HelloWorld },
-  ],
+  zones: {
+    main: [{ id: 1, path: "Counter", Component: Counter }],
+    secondary: [{ id: 2, path: "HelloWorld", Component: HelloWorld }],
+  },
 };
 
 const generateComponent = additionalProps => (

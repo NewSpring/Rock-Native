@@ -14,16 +14,25 @@ exports[`Vertical Web Layout should render Vertical layout component 1`] = `
       }
     }
   >
-    <Apollo(withState(withHandlers(Counter)))
-      Component={[Function]}
-      id={1}
-      path="Counter"
-    />
-    <HelloWorld
-      Component={[Function]}
-      id={2}
-      path="HelloWorld"
-    />
+    <div>
+      <Apollo(withState(withHandlers(Counter)))
+        Component={[Function]}
+        id={1}
+        path="Counter"
+      />
+      <HelloWorld
+        Component={[Function]}
+        id={2}
+        path="HelloWorld"
+      />
+    </div>
+    <div>
+      <HelloWorld
+        Component={[Function]}
+        id={2}
+        path="HelloWorld"
+      />
+    </div>
   </div>
 </div>
 `;

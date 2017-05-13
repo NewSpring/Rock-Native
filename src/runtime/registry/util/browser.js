@@ -23,7 +23,7 @@ export const shouldShowLoader = branch(
   ({ components, Layout }: IState) =>
     !Layout &&
     components.map(x => x.Component).filter(x => Boolean(x)).length === 0,
-  () => () => null
+  () => () => null,
 );
 
 // this function takes an obect and returns back a Promise
@@ -54,7 +54,9 @@ type IDynamicallyImport = (
   layoutLoader: IDynamicImport,
   stateUpdater: () => void, // XXX figure out more exact type
   components: IRegistryRequest,
-  recombineLoadedComponent: (a: IBlockDescription) => Promise<IBlockDescription>
+  recombineLoadedComponent: (
+    a: IBlockDescription,
+  ) => Promise<IBlockDescription>,
 ) => Promise<void>;
 
 // dynamic imports load es6 modules as { default: export default }
@@ -73,7 +75,7 @@ export const dynamicallyImportComponent: IDynamicallyImport = (
   layoutLoader,
   stateUpdater,
   registry,
-  recombineLoadedComponent = recombineLoadedComponent
+  recombineLoadedComponent = recombineLoadedComponent,
 ) =>
   // return an array of promises so we can wait until
   // all of the blocks are loaded before updating the state
@@ -93,8 +95,8 @@ export const dynamicallyImportComponent: IDynamicallyImport = (
         }))
         // now that we have kicked off the dynamic import
         // we reshape the array into an array of promises
-        .map(recombineLoadedComponent)
-    )
+        .map(recombineLoadedComponent),
+    ),
   )
     // now that all promises are done, we can update the parent component
     // state and render the app with all of the blocks loaded
@@ -105,7 +107,7 @@ export const dynamicallyImportComponent: IDynamicallyImport = (
 export const newLifecycle = (
   dynamicBlockLoader: IDynamicImport,
   dynamicLayoutLoader: IDynamicImport,
-  importFunc: IDynamicallyImport = dynamicallyImportComponent
+  importFunc: IDynamicallyImport = dynamicallyImportComponent,
 ) =>
   lifecycle({
     componentDidMount() {
@@ -114,7 +116,7 @@ export const newLifecycle = (
         dynamicLayoutLoader,
         this.props.load,
         this.props.registry,
-        recombineLoadedComponent
+        recombineLoadedComponent,
       );
     },
   });

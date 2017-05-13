@@ -15,18 +15,28 @@ exports[`Horizontal Web Layout should render Horizontal layout component 1`] = `
       }
     }
   >
-    <HelloWorld
-      Component={[Function]}
-      id={2}
-      order={1}
-      path="HelloWorld"
-    />
-    <Apollo(withState(withHandlers(Counter)))
-      Component={[Function]}
-      id={1}
-      order={0}
-      path="Counter"
-    />
+    <div>
+      <Apollo(withState(withHandlers(Counter)))
+        Component={[Function]}
+        id={1}
+        order={0}
+        path="Counter"
+      />
+      <HelloWorld
+        Component={[Function]}
+        id={2}
+        order={1}
+        path="HelloWorld"
+      />
+    </div>
+    <div>
+      <HelloWorld
+        Component={[Function]}
+        id={2}
+        order={1}
+        path="HelloWorld"
+      />
+    </div>
   </div>
 </div>
 `;

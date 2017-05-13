@@ -1,10 +1,11 @@
-import { mount } from "enzyme";
+import { shallow, mount } from "enzyme";
 import {
   state,
   shouldShowLoader,
   recombineLoadedComponent,
   dynamicallyImportComponent,
   newLifecycle,
+  mapImports,
 } from "../browser";
 
 // for enzyme mount
@@ -33,6 +34,23 @@ describe("state wrapper", () => {
     const props = tester.mock.calls[0][0];
     expect(props.imports).toBeDefined();
     expect(props.load).toBeDefined();
+  });
+});
+
+describe("mapImports", () => {
+  it("maps props into the correct shape", () => {
+    const Test = mapImports(props => {
+      expect(props.components).toEqual([]);
+      expect(props.Layout).toEqual("string");
+      return null;
+    });
+    const props = {
+      imports: {
+        Layout: "string",
+        components: [],
+      },
+    };
+    shallow(<Test {...props} />);
   });
 });
 

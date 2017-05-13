@@ -16,6 +16,8 @@ type Page {
 type Block {
   id: Int!
   path: String!
+  zone: String!,
+  order: Int!,
 }
 
 # the schema allows the following query:
