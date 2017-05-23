@@ -64,7 +64,7 @@
     "babel-jest": "20.0.0",
     "babel-loader": "7.0.0",
     "babel-plugin-dynamic-import-node": "^1.0.1",
-    "babel-plugin-import-glob": "^1.0.1",
+    "babel-plugin-import-glob": "^2.0.0",
     "babel-plugin-lodash": "3.2.11",
     "babel-plugin-root-import": "5.1.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
