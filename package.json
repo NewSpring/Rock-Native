@@ -1,172 +1,172 @@
 {
-  "name": "rock-native",
-  "version": "0.0.1",
-  "license": "SEE LICENSE IN LICENSE",
-  "private": true,
-  "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "coverage": "npm run test-unit -- --coverage && codecov",
-    "test": "cross-env-shell BABEL_ENV=test jest \\\"^((?!integration).)*$\\\"",
-    "test-unit": "BABEL_ENV=test jest \"^((?!integration).)*$\"",
-    "test-int": "cross-env-shell BABEL_ENV=test jest \\\"*.integration.js\\\"",
-    "test-all": "cross-env-shell BABEL_ENV=test jest",
-    "lint": "eslint ./src index.*",
-    "lint-staged": "lint-staged",
-    "flow": "flow",
-    "flow-stop": "flow stop",
-    "flow-coverage": "flow-coverage-report -i './src/**/*.js'",
-    "ios": "react-native run-ios",
-    "android": "react-native run-android",
-    "windows": "react-native run-windows",
-    "build-manifests": "cd ./web && cross-env BABEL_ENV=browser webpack --config webpack.vendor.js --hide-modules && cross-env BABEL_ENV=browser webpack --config webpack.client.js --hide-modules",
-    "server": "npm run build-manifests && cd ./web && concurrently \"serverless offline start --location ./dist/server --dontPrintOutput\" \"cross-env BABEL_ENV=node webpack --config webpack.server.js --watch --hide-modules\" \"cross-env BABEL_ENV=browser webpack-dev-server --config webpack.client.js \"",
-    "server-build": "cd ./web && cross-env BABEL_ENV=browser webpack --config webpack.vendor.js --env.prod --optimize-minimize && cross-env BABEL_ENV=browser webpack --config webpack.client.js --env.prod --optimize-minimize && cross-env BABEL_ENV=node webpack --config webpack.server.js --env.prod",
-    "server-deploy": "cd ./web && serverless deploy",
-    "danger": "danger run --verbose",
-    "stat-vendor": "webpack-bundle-analyzer ./web/dist/stats/vendor.json",
-    "stat-client": "webpack-bundle-analyzer ./web/dist/stats/client.json"
-  },
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "jest --bail --findRelatedTests",
-      "git add"
-    ]
-  },
-  "pre-commit": "lint-staged",
-  "dependencies": {
-    "@jongold/further": "1.0.3",
-    "apollo-client": "1.2.2",
-    "enzyme": "^2.8.2",
-    "fugazi": "0.5.2",
-    "graphql": "0.9.3",
-    "graphql-server-lambda": "0.7.2",
-    "graphql-tag": "2.1.0",
-    "graphql-tools": "0.11.0",
-    "preact": "8.1.0",
-    "preact-compat": "3.15.0",
-    "ramda": "0.23.0",
-    "react": "15.4.2",
-    "react-apollo": "1.2.0",
-    "react-dom": "15.5.4",
-    "react-helmet": "5.1.3",
-    "react-native": "0.42.3",
-    "react-native-device-info": "^0.10.2",
-    "react-native-windows": "0.42.0",
-    "react-router": "4.1.1",
-    "react-router-dom": "4.1.1",
-    "react-router-native": "4.1.1",
-    "recompose": "0.23.1"
-  },
-  "devDependencies": {
-    "babel-cli": "6.24.1",
-    "babel-eslint": "7.2.1",
-    "babel-jest": "20.0.1",
-    "babel-loader": "7.0.0",
-    "babel-plugin-dynamic-import-node": "^1.0.1",
-    "babel-plugin-import-glob": "^2.0.0",
-    "babel-plugin-lodash": "3.2.11",
-    "babel-plugin-root-import": "5.1.0",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-plugin-transform-class-properties": "6.24.1",
-    "babel-plugin-transform-flow-strip-types": "6.22.0",
-    "babel-plugin-transform-react-require": "1.0.1",
-    "babel-preset-babili": "0.1.1",
-    "babel-preset-env": "1.5.0"
-    "babel-preset-es2015": "6.24.0",
-    "babel-preset-react": "6.23.0",
-    "babel-preset-react-native": "1.9.2",
-    "chromedriver": "2.29.0",
-    "codecov": "2.2.0",
-    "concurrently": "3.4.0",
-    "copy-webpack-plugin": "4.0.1",
-    "cross-env": "^5.0.0",
-    "danger": "0.19.0",
-    "enzyme": "2.8.0",
-    "enzyme-to-json": "1.5.0",
-    "eslint": "3.18.0",
-    "eslint-loader": "1.6.3",
-    "eslint-plugin-prettier": "2.1.0",
-    "eslint-plugin-react": "7.0.1",
-    "eslint-plugin-react-native": "2.3.1",
-    "flow-bin": "0.38.0",
-    "flow-coverage-report": "0.3.0",
-    "html-webpack-plugin": "2.28.0",
-    "jest": "19.0.2",
-    "lambda-wrapper": "0.1.2",
-    "lint-staged": "3.4.2",
-    "now": "5.3.1",
-    "offline-plugin": "4.8.0",
-    "pre-commit": "1.2.2",
-    "prettier": "1.3.1",
-    "react-addons-test-utils": "15.4.2",
-    "react-flow-types": "0.1.1",
-    "react-hot-loader": "3.0.0-beta.6",
-    "react-test-renderer": "^15.5.4",
-    "rnpm-plugin-windows": "0.2.4",
-    "selenium-webdriver": "3.3.0",
-    "serverless": "1.13.0",
-    "serverless-offline": "3.14.0",
-    "webpack": "2.6.0",
-    "webpack-assets-manifest": "0.6.2",
-    "webpack-bundle-analyzer": "2.8.0",
-    "webpack-dev-server": "2.4.2",
-    "webpack-hot-middleware": "2.18.0",
-    "webpack-merge": "4.1.0",
-    "zip-webpack-plugin": "1.1.0"
-  },
-  "jest": {
-    "preset": "react-native",
-    "coverageDirectory": "./coverage/",
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!**/node_modules/**",
-      "!src/test-utils/**"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!react-native|react-router-native)/",
-      "node_modules/(?!react-native|react-router)/",
-      "node_modules/selenium-webdriver/",
-      "node_modules/fugazi"
-    ]
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": [
-      "eslint:recommended",
-      "plugin:react/recommended"
-    ],
-    "env": {
-      "jest": true,
-      "browser": true,
-      "node": true,
-      "es6": true
-    },
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "plugins": [
-      "prettier",
-      "react",
-      "react-native"
-    ],
-    "globals": {
-      "process": true,
-      "jasmine": true
-    },
-    "rules": {
-      "prettier/prettier": [
-        "error",
-        {
-          "trailingComma": "all"
-        }
-      ],
-      "react-native/no-unused-styles": 2,
-      "react-native/split-platform-components": 2,
-      "react-native/no-inline-styles": 2,
-      "react-native/no-color-literals": 2,
-      "react/react-in-jsx-scope": 0,
-      "react/display-name": 0
-    }
-  }
+	"name": "rock-native",
+	"version": "0.0.1",
+	"license": "SEE LICENSE IN LICENSE",
+	"private": true,
+	"scripts": {
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"coverage": "npm run test-unit -- --coverage && codecov",
+		"test": "cross-env-shell BABEL_ENV=test jest \\\"^((?!integration).)*$\\\"",
+		"test-unit": "BABEL_ENV=test jest \"^((?!integration).)*$\"",
+		"test-int": "cross-env-shell BABEL_ENV=test jest \\\"*.integration.js\\\"",
+		"test-all": "cross-env-shell BABEL_ENV=test jest",
+		"lint": "eslint ./src index.*",
+		"lint-staged": "lint-staged",
+		"flow": "flow",
+		"flow-stop": "flow stop",
+		"flow-coverage": "flow-coverage-report -i './src/**/*.js'",
+		"ios": "react-native run-ios",
+		"android": "react-native run-android",
+		"windows": "react-native run-windows",
+		"build-manifests": "cd ./web && cross-env BABEL_ENV=browser webpack --config webpack.vendor.js --hide-modules && cross-env BABEL_ENV=browser webpack --config webpack.client.js --hide-modules",
+		"server": "npm run build-manifests && cd ./web && concurrently \"serverless offline start --location ./dist/server --dontPrintOutput\" \"cross-env BABEL_ENV=node webpack --config webpack.server.js --watch --hide-modules\" \"cross-env BABEL_ENV=browser webpack-dev-server --config webpack.client.js \"",
+		"server-build": "cd ./web && cross-env BABEL_ENV=browser webpack --config webpack.vendor.js --env.prod --optimize-minimize && cross-env BABEL_ENV=browser webpack --config webpack.client.js --env.prod --optimize-minimize && cross-env BABEL_ENV=node webpack --config webpack.server.js --env.prod",
+		"server-deploy": "cd ./web && serverless deploy",
+		"danger": "danger run --verbose",
+		"stat-vendor": "webpack-bundle-analyzer ./web/dist/stats/vendor.json",
+		"stat-client": "webpack-bundle-analyzer ./web/dist/stats/client.json"
+	},
+	"lint-staged": {
+		"*.js": [
+			"eslint --fix",
+			"jest --bail --findRelatedTests",
+			"git add"
+		]
+	},
+	"pre-commit": "lint-staged",
+	"dependencies": {
+		"@jongold/further": "1.0.3",
+		"apollo-client": "1.2.2",
+		"enzyme": "^2.8.2",
+		"fugazi": "0.5.2",
+		"graphql": "0.9.3",
+		"graphql-server-lambda": "0.7.2",
+		"graphql-tag": "2.1.0",
+		"graphql-tools": "0.11.0",
+		"preact": "8.1.0",
+		"preact-compat": "3.15.0",
+		"ramda": "0.23.0",
+		"react": "15.4.2",
+		"react-apollo": "1.2.0",
+		"react-dom": "15.5.4",
+		"react-helmet": "5.1.3",
+		"react-native": "0.42.3",
+		"react-native-device-info": "^0.10.2",
+		"react-native-windows": "0.42.0",
+		"react-router": "4.1.1",
+		"react-router-dom": "4.1.1",
+		"react-router-native": "4.1.1",
+		"recompose": "0.23.1"
+	},
+	"devDependencies": {
+		"babel-cli": "6.24.1",
+		"babel-eslint": "7.2.1",
+		"babel-jest": "20.0.1",
+		"babel-loader": "7.0.0",
+		"babel-plugin-dynamic-import-node": "^1.0.1",
+		"babel-plugin-import-glob": "^2.0.0",
+		"babel-plugin-lodash": "3.2.11",
+		"babel-plugin-root-import": "5.1.0",
+		"babel-plugin-syntax-dynamic-import": "^6.18.0",
+		"babel-plugin-transform-class-properties": "6.24.1",
+		"babel-plugin-transform-flow-strip-types": "6.22.0",
+		"babel-plugin-transform-react-require": "1.0.1",
+		"babel-preset-babili": "0.1.1",
+		"babel-preset-env": "1.5.0",
+		"babel-preset-es2015": "6.24.0",
+		"babel-preset-react": "6.23.0",
+		"babel-preset-react-native": "1.9.2",
+		"chromedriver": "2.29.0",
+		"codecov": "2.2.0",
+		"concurrently": "3.4.0",
+		"copy-webpack-plugin": "4.0.1",
+		"cross-env": "^5.0.0",
+		"danger": "0.19.0",
+		"enzyme": "2.8.0",
+		"enzyme-to-json": "1.5.0",
+		"eslint": "3.18.0",
+		"eslint-loader": "1.6.3",
+		"eslint-plugin-prettier": "2.1.0",
+		"eslint-plugin-react": "7.0.1",
+		"eslint-plugin-react-native": "2.3.1",
+		"flow-bin": "0.38.0",
+		"flow-coverage-report": "0.3.0",
+		"html-webpack-plugin": "2.28.0",
+		"jest": "19.0.2",
+		"lambda-wrapper": "0.1.2",
+		"lint-staged": "3.4.2",
+		"now": "5.3.1",
+		"offline-plugin": "4.8.0",
+		"pre-commit": "1.2.2",
+		"prettier": "1.3.1",
+		"react-addons-test-utils": "15.4.2",
+		"react-flow-types": "0.1.1",
+		"react-hot-loader": "3.0.0-beta.6",
+		"react-test-renderer": "^15.5.4",
+		"rnpm-plugin-windows": "0.2.4",
+		"selenium-webdriver": "3.3.0",
+		"serverless": "1.13.0",
+		"serverless-offline": "3.14.0",
+		"webpack": "2.6.0",
+		"webpack-assets-manifest": "0.6.2",
+		"webpack-bundle-analyzer": "2.8.0",
+		"webpack-dev-server": "2.4.2",
+		"webpack-hot-middleware": "2.18.0",
+		"webpack-merge": "4.1.0",
+		"zip-webpack-plugin": "1.1.0"
+	},
+	"jest": {
+		"preset": "react-native",
+		"coverageDirectory": "./coverage/",
+		"collectCoverageFrom": [
+			"src/**/*.js",
+			"!**/node_modules/**",
+			"!src/test-utils/**"
+		],
+		"transformIgnorePatterns": [
+			"node_modules/(?!react-native|react-router-native)/",
+			"node_modules/(?!react-native|react-router)/",
+			"node_modules/selenium-webdriver/",
+			"node_modules/fugazi"
+		]
+	},
+	"eslintConfig": {
+		"parser": "babel-eslint",
+		"extends": [
+			"eslint:recommended",
+			"plugin:react/recommended"
+		],
+		"env": {
+			"jest": true,
+			"browser": true,
+			"node": true,
+			"es6": true
+		},
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"plugins": [
+			"prettier",
+			"react",
+			"react-native"
+		],
+		"globals": {
+			"process": true,
+			"jasmine": true
+		},
+		"rules": {
+			"prettier/prettier": [
+				"error",
+				{
+					"trailingComma": "all"
+				}
+			],
+			"react-native/no-unused-styles": 2,
+			"react-native/split-platform-components": 2,
+			"react-native/no-inline-styles": 2,
+			"react-native/no-color-literals": 2,
+			"react/react-in-jsx-scope": 0,
+			"react/display-name": 0
+		}
+	}
 }
