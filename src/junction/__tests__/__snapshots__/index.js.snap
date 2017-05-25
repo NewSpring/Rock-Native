@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[` 1`] = `
+<Text
+  accessible={true}
+  allowFontScaling={true}
+  ellipsizeMode="tail"
+>
+  Hello World
+</Text>
+`;
+
 exports[`Counter full integration counter 1`] = `
 <View>
   <Text
@@ -136,16 +146,6 @@ exports[`map renders null if passed 1`] = `
 <View>
    
 </View>
-`;
-
-exports[`undefined 1`] = `
-<Text
-  accessible={true}
-  allowFontScaling={true}
-  ellipsizeMode="tail"
->
-  Hello World
-</Text>
 `;
 
 exports[`with successfully wraps a component 1`] = `

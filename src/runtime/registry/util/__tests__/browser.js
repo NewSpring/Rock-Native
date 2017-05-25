@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { shallow, mount } from "enzyme";
 import {
   state,
@@ -7,13 +11,6 @@ import {
   newLifecycle,
   mapImports,
 } from "../browser";
-
-// for enzyme mount
-import jsdom from "jsdom";
-const doc = jsdom.jsdom("<!doctype html><html><body></body></html>");
-const win = doc.defaultView;
-global.document = doc;
-global.window = win;
 
 const sampleProps = {
   registry: {
