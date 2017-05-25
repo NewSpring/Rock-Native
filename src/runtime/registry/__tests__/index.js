@@ -1,10 +1,9 @@
-import jsdom from "jsdom";
+/**
+ * @jest-environment jsdom
+ */
+
 import { mount } from "enzyme";
-
 import { loadBlocks, mapOverBlocks, loadLayout } from "../";
-
-const doc = jsdom.jsdom("<!doctype html><html><body></body></html>");
-global.document = doc;
 
 const sampleProps = {
   registry: {
