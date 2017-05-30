@@ -126,3 +126,27 @@ if (packageChanged && !lockfileChanged) {
   const idea = "Perhaps you need to run `yarn install`?";
   warn(`${message} - <i>${idea}</i>`);
 }
+
+/* CHECK BUNDLE FILESIZES */
+const warnSize = 150000; // 150kb
+const failSize = 200000; // 200kb
+const buildDir = "./web/dist/client/";
+
+if (fs.existsSync(buildDir)) {
+  // get bundle names
+  const files = fs.readdirSync(buildDir).filter(name => name.match(/.js$/));
+  const reducer = size => (over, filename) =>
+    fs.statSync(`${buildDir}${filename}`).size > size
+      ? over.concat(filename)
+      : over;
+  const fails = files.reduce(reducer(failSize), []);
+  const warns = files.reduce(reducer(warnSize), []);
+  if (warns.length) {
+    warn(`Filesizes are getting large (over ${warnSize}): ${warns.join(", ")}`);
+  }
+  if (fails.length) {
+    fail(`Bundle sizes exceed the max (${failSize}): ${fails.join(", ")}`);
+  }
+} else {
+  fail("build directory not present");
+}
