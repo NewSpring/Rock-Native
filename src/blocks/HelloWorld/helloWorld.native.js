@@ -1,9 +1,14 @@
 // @flow
-import { Text } from "react-native";
+import { Text, View } from "react-native";
+import React from "react";
 import { helloStyle } from "./";
+import { Auth } from "../Biometrics";
 
 export const HelloWorld = () => (
-  <Text style={helloStyle.resolve()}>Hello World</Text>
+  <View>
+    <Text style={helloStyle.resolve()}>Hello World</Text>
+    <Auth />
+  </View>
 );
 HelloWorld.displayName = "HelloWorld";
 
