@@ -58,10 +58,9 @@ export const resolvers = {
     getRouteInfo: () => {
       return {
         id: 1,
-        layout: "Horizontal",
+        layout: "Vertical",
         blocks: [
           { path: "HelloWorld", id: 3, zone: "main", order: 1 },
-          { path: "HelloWorld", id: 2, zone: "secondary", order: 1 },
           { path: "Counter", id: 1, zone: "secondary", order: 0 },
         ],
       };
