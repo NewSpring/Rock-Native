@@ -10,6 +10,7 @@
     "test-unit": "BABEL_ENV=test jest \"^((?!integration).)*$\"",
     "test-int": "cross-env-shell BABEL_ENV=test jest \\\"*.integration.js\\\"",
     "test-all": "cross-env-shell BABEL_ENV=test jest",
+    "e2e": "cross-env-shell BABEL_ENV=test jest ./e2e/",
     "lint": "eslint ./src index.*",
     "lint-staged": "lint-staged",
     "flow": "flow",
@@ -80,6 +81,7 @@
     "copy-webpack-plugin": "4.0.1",
     "cross-env": "^5.0.0",
     "danger": "0.19.0",
+    "detox": "^5.0.12",
     "enzyme": "2.8.0",
     "enzyme-to-json": "1.5.0",
     "eslint": "3.18.0",
@@ -93,6 +95,7 @@
     "jest": "^20.0.4",
     "lambda-wrapper": "0.1.2",
     "lint-staged": "3.4.2",
+    "mocha": "^3.4.2",
     "now": "5.3.1",
     "offline-plugin": "4.8.0",
     "pre-commit": "1.2.2",
@@ -127,6 +130,16 @@
       "node_modules/selenium-webdriver/",
       "node_modules/fugazi"
     ]
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim.release": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/RockNative.app",
+        "build": "xcodebuild -project ios/RockNative.xcodeproj -scheme RockNative -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone 7"
+      }
+    }
   },
   "eslintConfig": {
     "parser": "babel-eslint",

@@ -11,15 +11,15 @@ export const Counter = ({
   loading,
   sample,
 }: ICounter) => (
-  <View style={counterStyle.resolve()}>
+  <View testID="counterView" style={counterStyle.resolve()}>
     {loading && <Text>loading...</Text>}
     {sample &&
       <Text>
         GraphQL returned {sample.message} with a response of {sample.code}
       </Text>}
-    <Text>Counter is at {counter} on {Platform.OS}</Text>
-    <Button onPress={increment} title="Increment" />
-    <Button onPress={decrement} title="Decrement" />
+    <Text testID="counterOutput">Counter is at {counter} on {Platform.OS}</Text>
+    <Button testID="increment" onPress={increment} title="Increment" />
+    <Button testID="decrement" onPress={decrement} title="Decrement" />
   </View>
 );
 Counter.displayName = "Counter";

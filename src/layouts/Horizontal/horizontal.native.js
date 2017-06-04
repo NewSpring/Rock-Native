@@ -16,12 +16,12 @@ export default ({ zones }: ILayoutProps) => (
     <View style={layoutStyle.resolve()}>
 
       {/* main zone */}
-      <View>
+      <View testID="mainZone">
         {zones.main.map(render)}
       </View>
 
       {/* secondary zone */}
-      <View>
+      <View testID="secondaryZone">
         {zones.secondary.map(render)}
       </View>
 
