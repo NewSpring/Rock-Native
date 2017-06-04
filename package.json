@@ -53,6 +53,7 @@
     "react-native": "0.42.3",
     "react-native-device-info": "^0.10.2",
     "react-native-touch-id": "^3.0.0",
+    "react-native-touch-id-android": "0.0.5",
     "react-native-windows": "0.42.0",
     "react-router": "4.1.1",
     "react-router-dom": "4.1.1",

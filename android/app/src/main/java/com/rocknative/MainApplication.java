@@ -3,6 +3,8 @@ package com.rocknative;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.github.ajalt.reprint.core.Reprint; // touchid
+import co.eleken.react_native_touch_id_android.FingerprintPackage; // touchid
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -24,6 +26,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FingerprintPackage(),
             new RNDeviceInfo()
       );
     }
@@ -38,5 +41,6 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+    Reprint.initialize(this); // touchid
   }
 }
