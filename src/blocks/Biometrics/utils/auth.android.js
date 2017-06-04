@@ -8,7 +8,7 @@
 
 import auth from "react-native-touch-id-android";
 
-auth.isSupported = auth.isSensorAvailable;
-auth.authenticate = auth.requestTouch;
-
-export default auth;
+export default {
+  isSupported: auth.isSensorAvailable,
+  authenticate: auth.requestTouch,
+};
