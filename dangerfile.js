@@ -159,18 +159,18 @@ if (fs.existsSync(buildDir)) {
 
   if (warns.length) {
     warn(`
-      <table>
+      \n<table>
         <tr><th>Filename</th><th>Size</th><th>Status</th></tr>
-        ${warns.map(printRow)}
+        ${warns.map(printRow).join("")}
       </table>
     `);
   }
   if (fails.length) {
     // XXX set to warn just until we get everything in order :)
     warn(`
-      <table>
+      \n<table>
         <tr><th>Filename</th><th>Size</th><th>Status</th></tr>
-        ${fails.map(printRow)}
+        ${fails.map(printRow).join("")}
       </table>
     `);
   }
