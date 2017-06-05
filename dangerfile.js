@@ -131,6 +131,12 @@ if (packageChanged && !lockfileChanged) {
 const warnSize = 150000; // 150kb
 const failSize = 200000; // 200kb
 const buildDir = "./web/dist/client/";
+const printRow = file =>
+  `<tr>
+    <td>${file.filename}</td>
+    <td>${file.size / 1000}kb</td>
+    <td>${file.status}</td>
+  </tr>`;
 
 if (fs.existsSync(buildDir)) {
   // get bundle names
@@ -142,25 +148,31 @@ if (fs.existsSync(buildDir)) {
           size: fs.statSync(`${buildDir}${filename}`).size,
         })
       : over;
-  // const fails = files.reduce(reducer(failSize), []).map(x => `${x.filename}:${x.size/1000}kb`);
-  const over = files.reduce(reducer(warnSize), []);
-  const warns = over
+
+  const over = files.reduce(reducer(warnSize), []); // files over the warning
+  const warns = over // files over the warning but under the max
     .filter(x => x.size < failSize)
-    .map(x => `${x.filename}:${x.size / 1000}kb`);
-  const fails = over
+    .map(x => ({ ...x, status: `${(failSize - x.size) / 1000}kb under max` }));
+  const fails = over // files over the max
     .filter(x => x.size >= failSize)
-    .map(x => `${x.filename}:${x.size / 1000}kb`);
+    .map(x => ({ ...x, status: `${(x.size - failSize) / 1000}kb over max` }));
+
   if (warns.length) {
-    warn(
-      `Filesizes are getting large (over ${warnSize / 1000}kb): ${warns.join(", ")}`,
-    );
+    warn(`
+      <table>
+        <tr><th>Filename</th><th>Size</th><th>Status</th></tr>
+        ${warns.map(printRow)}
+      </table>
+    `);
   }
   if (fails.length) {
     // XXX set to warn just until we get everything in order :)
-    // fail(`Bundle sizes exceed the max (${failSize/1000}kb): ${fails.join(", ")}`);
-    warn(
-      `Bundle sizes exceed the max (${failSize / 1000}kb): ${fails.join(", ")}`,
-    );
+    warn(`
+      <table>
+        <tr><th>Filename</th><th>Size</th><th>Status</th></tr>
+        ${fails.map(printRow)}
+      </table>
+    `);
   }
 } else {
   fail("build directory not present");
