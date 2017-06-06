@@ -1,8 +1,9 @@
 // @flow
 // Removed import
 import { danger, fail, warn } from "danger";
-import { any } from "ramda";
-import fs from "fs";
+import { any, compose } from "ramda";
+import { sync as gzip } from "gzip-size";
+import fs, { readFileSync } from "fs";
 
 // Takes a list of file paths, and converts it into clickable links
 const linkableFiles = paths => {
@@ -125,4 +126,61 @@ if (packageChanged && !lockfileChanged) {
   const message = "Changes were made to package.json, but not to yarn.lock";
   const idea = "Perhaps you need to run `yarn install`?";
   warn(`${message} - <i>${idea}</i>`);
+}
+
+/* CHECK BUNDLE FILESIZES */
+const warnSize = 150000; // 150kb
+const failSize = 200000; // 200kb
+const buildDir = "./web/dist/client/";
+const printRow = file =>
+  `<tr>
+    <td>${file.filename}</td>
+    <td>${file.size / 1000}kb</td>
+    <td>${file.status}</td>
+  </tr>`;
+
+const getSize = compose(gzip, readFileSync);
+
+if (fs.existsSync(buildDir)) {
+  // get bundle names
+  const files = fs
+    .readdirSync(buildDir)
+    .filter(name => name.match(/.js$/))
+    // these are built during integration testing
+    .filter(name => name !== "client.js" && name !== "vendor.js");
+  const reducer = size => (over, filename) =>
+    getSize(`${buildDir}${filename}`) > size
+      ? over.concat({
+          filename,
+          size: getSize(`${buildDir}${filename}`),
+        })
+      : over;
+
+  const over = files.reduce(reducer(warnSize), []); // files over the warning
+  const warns = over // files over the warning but under the max
+    .filter(x => x.size < failSize)
+    .map(x => ({ ...x, status: `${(failSize - x.size) / 1000}kb under max` }));
+  const fails = over // files over the max
+    .filter(x => x.size >= failSize)
+    .map(x => ({ ...x, status: `${(x.size - failSize) / 1000}kb over max` }));
+
+  if (warns.length) {
+    warn(`
+      \n<table>
+        <tr><th>Filename</th><th>Size</th><th>Status</th></tr>
+        ${warns.map(printRow).join("")}
+      </table>
+    `);
+  }
+  if (fails.length) {
+    // XXX set to warn just until we get everything in order :)
+    warn(`
+      \n<table>
+        <tr><th>Filename</th><th>Size</th><th>Status</th></tr>
+        ${fails.map(printRow).join("")}
+      </table>
+    `);
+  }
+} else {
+  fail("build directory not present");
 }
