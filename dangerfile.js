@@ -1,8 +1,9 @@
 // @flow
 // Removed import
 import { danger, fail, warn } from "danger";
-import { any } from "ramda";
-import fs from "fs";
+import { any, compose } from "ramda";
+import { sync as gzip } from "gzip-size";
+import fs, { readFileSync } from "fs";
 
 // Takes a list of file paths, and converts it into clickable links
 const linkableFiles = paths => {
@@ -138,14 +139,16 @@ const printRow = file =>
     <td>${file.status}</td>
   </tr>`;
 
+const getSize = compose(gzip, readFileSync);
+
 if (fs.existsSync(buildDir)) {
   // get bundle names
   const files = fs.readdirSync(buildDir).filter(name => name.match(/.js$/));
   const reducer = size => (over, filename) =>
-    fs.statSync(`${buildDir}${filename}`).size > size
+    getSize(`${buildDir}${filename}`) > size
       ? over.concat({
           filename,
-          size: fs.statSync(`${buildDir}${filename}`).size,
+          size: getSize(`${buildDir}${filename}`),
         })
       : over;
 
