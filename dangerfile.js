@@ -3,7 +3,6 @@
 import { danger, fail, warn } from "danger";
 import { any, compose } from "ramda";
 import { sync as gzip } from "gzip-size";
-import { sync as glob } from "glob";
 import fs, { readFileSync } from "fs";
 
 // Takes a list of file paths, and converts it into clickable links
@@ -132,7 +131,7 @@ if (packageChanged && !lockfileChanged) {
 /* CHECK BUNDLE FILESIZES */
 const warnSize = 150000; // 150kb
 const failSize = 200000; // 200kb
-const buildDir = "./web/dist/client/!(client.js|vendor.js)";
+const buildDir = "./web/dist/client/";
 const printRow = file =>
   `<tr>
     <td>${file.filename}</td>
@@ -144,7 +143,7 @@ const getSize = compose(gzip, readFileSync);
 
 if (fs.existsSync(buildDir)) {
   // get bundle names
-  const files = glob(buildDir).filter(name => name.match(/.js$/));
+  const files = fs.readdirSync(buildDir).filter(name => name.match(/.js$/));
   const reducer = size => (over, filename) =>
     getSize(`${buildDir}${filename}`) > size
       ? over.concat({
