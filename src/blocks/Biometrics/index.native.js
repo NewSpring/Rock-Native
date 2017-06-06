@@ -8,7 +8,7 @@ import {
   withLifecycle,
 } from "./utils";
 
-export const UnwrappedAuth = ({
+export const BiometricAuthButton = ({
   supportsBiometrics,
 }: {
   supportsBiometrics: boolean,
@@ -20,6 +20,5 @@ export const UnwrappedAuth = ({
       />
     : null;
 
-export const Auth = withSupportedState(withLifecycle(UnwrappedAuth));
+export default withSupportedState(withLifecycle(BiometricAuthButton));
 export { supportsBiometrics, authWithBiometrics };
-export default Auth;
