@@ -2,12 +2,12 @@
 import { Text, View } from "react-native";
 import React from "react";
 import { helloStyle } from "./";
-import { Auth } from "../Biometrics";
+import TouchIdButton from "../Biometrics";
 
 export const HelloWorld = () => (
   <View>
     <Text style={helloStyle.resolve()}>Hello World</Text>
-    <Auth />
+    <TouchIdButton />
   </View>
 );
 HelloWorld.displayName = "HelloWorld";
