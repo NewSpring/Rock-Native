@@ -143,7 +143,11 @@ const getSize = compose(gzip, readFileSync);
 
 if (fs.existsSync(buildDir)) {
   // get bundle names
-  const files = fs.readdirSync(buildDir).filter(name => name.match(/.js$/));
+  const files = fs
+    .readdirSync(buildDir)
+    .filter(name => name.match(/.js$/))
+    // these are built during integration testing
+    .filter(name => name !== "client.js" && name !== "vendor.js");
   const reducer = size => (over, filename) =>
     getSize(`${buildDir}${filename}`) > size
       ? over.concat({
