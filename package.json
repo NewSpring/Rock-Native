@@ -10,7 +10,7 @@
     "test-unit": "BABEL_ENV=test jest \"^((?!integration).)*$\"",
     "test-int": "cross-env-shell BABEL_ENV=test jest \\\"*.integration.js\\\"",
     "test-all": "cross-env-shell BABEL_ENV=test jest",
-    "e2e": "cross-env-shell BABEL_ENV=test jest ./e2e/",
+    "e2e": "cross-env-shell BABEL_ENV=test detox build && detox test",
     "lint": "eslint ./src index.*",
     "lint-staged": "lint-staged",
     "flow": "flow",
@@ -25,7 +25,8 @@
     "server-deploy": "cd ./web && serverless deploy",
     "danger": "danger run --verbose",
     "stat-vendor": "webpack-bundle-analyzer ./web/dist/stats/vendor.json",
-    "stat-client": "webpack-bundle-analyzer ./web/dist/stats/client.json"
+    "stat-client": "webpack-bundle-analyzer ./web/dist/stats/client.json",
+    "nuke": "watchman watch-del-all && rm -rf node_modules/ && yarn cache clean && yarn install && yarn start -- --reset-cache"
   },
   "lint-staged": {
     "*.js": [
@@ -129,6 +130,10 @@
       "node_modules/(?!react-native|react-router)/",
       "node_modules/selenium-webdriver/",
       "node_modules/fugazi"
+    ],
+    "testPathIgnorePatterns": [
+      "node_modules/",
+      "e2e"
     ]
   },
   "detox": {
