@@ -82,7 +82,7 @@ export const resolvers = {
       //   !e || console.log("ERROR", e);
       // });
       return null;
-    }
+    },
   },
   Response: {
     code: ({ code }: ISample): number => code,
