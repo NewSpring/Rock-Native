@@ -1,4 +1,4 @@
-package com.rocknative;
+package cc.newspring.newspringapp;
 
 import com.facebook.react.ReactActivity;
 
