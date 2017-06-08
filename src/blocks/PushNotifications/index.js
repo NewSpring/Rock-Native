@@ -1,3 +1,5 @@
-// @flow
+//@flow
 
-export default () => null;
+import pushNotifications from "./pushNotifications";
+
+export default pushNotifications;
