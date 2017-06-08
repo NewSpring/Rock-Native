@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "coverage": "npm run test-all -- --coverage && codecov",
-    "test": "cross-env-shell BABEL_ENV=test jest \\\"^((?!integration).)*$\\\"",
+    "test": "BABEL_ENV=test jest \"^((?!integration).)*$\"",
     "test-unit": "BABEL_ENV=test jest \"^((?!integration).)*$\"",
     "test-int": "cross-env-shell BABEL_ENV=test jest \\\"*.integration.js\\\"",
     "test-all": "cross-env-shell BABEL_ENV=test jest",
@@ -144,7 +144,8 @@
         "type": "ios.simulator",
         "name": "iPhone 7"
       }
-    }
+    },
+    "specs": "src/__tests__/e2e"
   },
   "eslintConfig": {
     "parser": "babel-eslint",
