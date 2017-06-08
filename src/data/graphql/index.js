@@ -4,6 +4,8 @@ import { makeExecutableSchema } from "graphql-tools";
 import { print } from "graphql/language/printer";
 import type { ExecutionResult, DocumentNode } from "graphql";
 
+import ua from "universal-analytics";
+
 export const typeDefs = `
 type Response {
   code: Int!
@@ -29,8 +31,13 @@ type Query {
   getRouteInfo(path: String!): Page
 }
 
+type Mutation {
+  track(event: String): String
+}
+
 schema {
   query: Query
+  mutation: Mutation
 }
 `;
 
@@ -66,6 +73,16 @@ export const resolvers = {
         ],
       };
     },
+  },
+  Mutation: {
+    track: (_, { event }, context) => {
+      // do some tracking stuff
+      // const visitor = ua("UA-7130289-27");
+      // visitor.screenview("Home Screen", "Test App", "0.1", (e) => {
+      //   !e || console.log("ERROR", e);
+      // });
+      return null;
+    }
   },
   Response: {
     code: ({ code }: ISample): number => code,
