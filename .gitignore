@@ -46,6 +46,7 @@ package-lock.json
 .fastlane/README.md
 
 # Build files
+ios/RockNative.xcworkspace/xcuserdata/
 ios/build
 android/.gradle
 android/build

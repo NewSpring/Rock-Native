@@ -1,9 +1,13 @@
 // @flow
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { helloStyle } from "./";
+import PushRequestButton from "../PushNotifications/";
 
 export const HelloWorld = () => (
-  <Text testId="helloWorld" style={helloStyle.resolve()}>Hello World</Text>
+  <View>
+    <Text style={helloStyle.resolve()}>Hello World</Text>
+    <PushRequestButton />
+  </View>
 );
 HelloWorld.displayName = "HelloWorld";
 
