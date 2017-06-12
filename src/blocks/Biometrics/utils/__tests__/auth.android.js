@@ -1,10 +1,10 @@
-import auth from "../auth.android.js";
+import { isSupported, requestTouch } from "../auth.android.js";
 
 describe("android auth utils", () => {
-  it("should have an isSupported method on auth", () => {
-    expect(typeof auth.isSupported).toEqual("function");
+  it("should have an isSupported method", () => {
+    expect(typeof isSupported).toEqual("function");
   });
-  it("should have an authenticate method on auth", () => {
-    expect(typeof auth.authenticate).toEqual("function");
+  it("should have an requestTouch method", () => {
+    expect(typeof requestTouch).toEqual("function");
   });
 });

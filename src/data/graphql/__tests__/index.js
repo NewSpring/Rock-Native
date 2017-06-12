@@ -26,10 +26,9 @@ describe("resolvers", () => {
     it("returns a sample registry if path is root", () => {
       expect(getRouteInfo(null, { path: "/" })).toEqual({
         id: 1,
-        layout: "Horizontal",
+        layout: "Vertical",
         blocks: [
           { id: 3, order: 1, zone: "main", path: "HelloWorld" },
-          { id: 2, order: 1, zone: "secondary", path: "HelloWorld" },
           { id: 1, order: 0, zone: "secondary", path: "Counter" },
         ],
       });

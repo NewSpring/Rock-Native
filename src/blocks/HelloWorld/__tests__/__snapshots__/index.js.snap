@@ -1,21 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Hello World should render Hello World component 1`] = `
-<Text
-  accessible={true}
-  allowFontScaling={true}
-  ellipsizeMode="tail"
-  style={
-    Object {
-      "alignItems": "center",
-      "flex": 1,
-      "justifyContent": "center",
-      "marginTop": 16,
-      "paddingTop": 32,
+<View>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "marginTop": 16,
+        "paddingTop": 32,
+      }
     }
-  }
-  testId="helloWorld"
->
-  Hello World
-</Text>
+  >
+    Hello World
+  </Text>
+  <withState(lifecycle(BiometricAuthButton)) />
+</View>
 `;

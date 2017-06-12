@@ -1,15 +1,14 @@
-
 /* there's nothing but blank exports in this file */
-import DefaultAuth, { UnwrappedAuth, Auth, supportsBiometrics, authWithBiometrics } from "../";
+import DefaultAuth, {
+  BiometricAuthButton,
+  supportsBiometrics,
+  authWithBiometrics,
+} from "../index.web";
 import { shallow } from "enzyme";
 
-describe("web auth api", () => {
-  it("should have a null UnwrappedAuth component", () => {
-    const component = shallow(<UnwrappedAuth />);
-    expect(component.html()).toBe(null);
-  });
-  it("should have a null auth component", () => {
-    const component = shallow(<Auth />);
+describe("Web Auth API", () => {
+  it("should have a null BiometricAuthButton component", () => {
+    const component = shallow(<BiometricAuthButton />);
     expect(component.html()).toBe(null);
   });
   it("should not support biometrics", async () => {
