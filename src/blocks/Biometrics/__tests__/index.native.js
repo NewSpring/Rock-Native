@@ -1,28 +1,57 @@
-import DefaultAuth, {
-  Auth,
+import {
   supportsBiometrics,
   authWithBiometrics,
-} from "index.native.js";
+  BiometricAuthButton,
+} from "../index.native";
+import { withSupportedState, withLifecycle } from "../utils/index.native";
 
-const FAIL = () => expect(false).toBe(true);
+import { shallow } from "enzyme";
+
+function mockFunctions() {
+  const original = require.requireActual("../utils/index.native");
+  return {
+    ...original, //Pass down all the exported objects
+    withSupportedState: jest.fn(original.withSupportedState),
+    withLifecycle: jest.fn(original.withLifecycle),
+    authWithBiometrics: jest.fn(),
+    supportsBiometrics: jest.fn(),
+  };
+}
+jest.mock("../utils/index.native", () => mockFunctions());
 
 describe("Native Auth API", () => {
   it("should have a supportsBiometrics export", () => {
-    FAIL();
+    expect(supportsBiometrics).toBeDefined();
+    expect(supportsBiometrics.mock).toBeDefined();
   });
   it("should have a authWithBiometrics export", () => {
-    FAIL();
+    expect(authWithBiometrics).toBeDefined();
+    expect(authWithBiometrics.mock).toBeDefined();
   });
-  it("should have an UnwrappedAuth component export", () => {
-    FAIL();
+  it("should have an BiometricAuthButton component export", () => {
+    const component = shallow(<BiometricAuthButton supportsBiometrics />);
+    expect(component.html()).not.toBe(null);
   });
   it("should call auth when button clicked", () => {
-    FAIL();
+    authWithBiometrics.mockReset();
+    const component = shallow(<BiometricAuthButton supportsBiometrics />);
+    expect(component.html()).not.toBe(null);
+    component.simulate("press");
+    expect(authWithBiometrics).toHaveBeenCalled();
   });
   it("should not show button when auth isn't supported", () => {
-    FAIL();
+    const component = shallow(<BiometricAuthButton />);
+    expect(component.html()).toBe(null);
   });
   it("should default export a recompose HOC for state and lifecycle", () => {
-    FAIL();
+    // There has got to be a better test for this.
+    // This is for James to figure out. :party:
+    const wrappedComponent = withSupportedState(
+      withLifecycle(BiometricAuthButton),
+    );
+    expect(typeof wrappedComponent).toBe("function");
+    expect(wrappedComponent.displayName).toBe(
+      "withState(lifecycle(BiometricAuthButton))",
+    );
   });
 });
