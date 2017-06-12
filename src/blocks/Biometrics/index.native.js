@@ -20,5 +20,7 @@ export const BiometricAuthButton = ({
       />
     : null;
 
+BiometricAuthButton.displayName = "BiometricAuthButton";
+
 export default withSupportedState(withLifecycle(BiometricAuthButton));
 export { supportsBiometrics, authWithBiometrics };
