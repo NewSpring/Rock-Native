@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default Exported Button should render the Push Notifications component for native 1`] = `
+<Button
+  onPress={[Function]}
+  title="Allow Push Notifications"
+/>
+`;
