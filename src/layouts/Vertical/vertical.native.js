@@ -16,7 +16,7 @@ export default ({ zones }: ILayoutProps) => (
     <View style={layoutStyle.resolve()}>
 
       {/* main zone */}
-      <View>
+      <View testId="mainZone">
         {zones.main && zones.main.map(render)}
       </View>
 

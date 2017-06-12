@@ -7,6 +7,7 @@ exports[`loading state 1`] = `
       "flex": 1,
     }
   }
+  testID="counterView"
 >
   <Text
     accessible={true}
@@ -19,6 +20,7 @@ exports[`loading state 1`] = `
     accessible={true}
     allowFontScaling={true}
     ellipsizeMode="tail"
+    testID="counterOutput"
   >
     Counter is at 
     1
@@ -48,7 +50,7 @@ exports[`loading state 1`] = `
         "opacity": 1,
       }
     }
-    testID={undefined}
+    testID="increment"
     tvParallaxProperties={undefined}
   >
     <View
@@ -100,7 +102,7 @@ exports[`loading state 1`] = `
         "opacity": 1,
       }
     }
-    testID={undefined}
+    testID="decrement"
     tvParallaxProperties={undefined}
   >
     <View
@@ -139,11 +141,13 @@ exports[`shows a counter count on native 1`] = `
       "flex": 1,
     }
   }
+  testID="counterView"
 >
   <Text
     accessible={true}
     allowFontScaling={true}
     ellipsizeMode="tail"
+    testID="counterOutput"
   >
     Counter is at 
     1
@@ -173,7 +177,7 @@ exports[`shows a counter count on native 1`] = `
         "opacity": 1,
       }
     }
-    testID={undefined}
+    testID="increment"
     tvParallaxProperties={undefined}
   >
     <View
@@ -225,7 +229,7 @@ exports[`shows a counter count on native 1`] = `
         "opacity": 1,
       }
     }
-    testID={undefined}
+    testID="decrement"
     tvParallaxProperties={undefined}
   >
     <View
@@ -264,6 +268,7 @@ exports[`shows data from the server 1`] = `
       "flex": 1,
     }
   }
+  testID="counterView"
 >
   <Text
     accessible={true}
@@ -279,6 +284,7 @@ exports[`shows data from the server 1`] = `
     accessible={true}
     allowFontScaling={true}
     ellipsizeMode="tail"
+    testID="counterOutput"
   >
     Counter is at 
     1
@@ -308,7 +314,7 @@ exports[`shows data from the server 1`] = `
         "opacity": 1,
       }
     }
-    testID={undefined}
+    testID="increment"
     tvParallaxProperties={undefined}
   >
     <View
@@ -360,7 +366,7 @@ exports[`shows data from the server 1`] = `
         "opacity": 1,
       }
     }
-    testID={undefined}
+    testID="decrement"
     tvParallaxProperties={undefined}
   >
     <View

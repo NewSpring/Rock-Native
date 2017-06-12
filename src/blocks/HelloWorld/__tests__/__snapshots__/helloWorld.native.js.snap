@@ -14,6 +14,7 @@ exports[`Hello World Native should render the Hello World component for native 1
       "paddingTop": 32,
     }
   }
+  testId="helloWorld"
 >
   Hello World
 </Text>

@@ -21,7 +21,9 @@ exports[`Horizontal Native Layout should render Horizontal layout component 1`] 
       }
     }
   >
-    <View>
+    <View
+      testID="mainZone"
+    >
       <HelloWorld
         Component={[Function]}
         id={2}
@@ -29,7 +31,9 @@ exports[`Horizontal Native Layout should render Horizontal layout component 1`] 
         path="HelloWorld"
       />
     </View>
-    <View>
+    <View
+      testID="secondaryZone"
+    >
       <Apollo(withState(withHandlers(Counter)))
         Component={[Function]}
         id={1}
