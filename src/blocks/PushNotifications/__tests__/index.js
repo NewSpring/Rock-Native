@@ -1,4 +1,3 @@
-
 import Button from "../";
 
 it("has a default export", () => {

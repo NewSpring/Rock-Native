@@ -1,8 +1,12 @@
 import { shallow } from "enzyme";
-import React, { Component } from "react";
+import React from "react";
 import renderer from "react-test-renderer";
 import { shallowToJson } from "enzyme-to-json";
-import PushNotifications, { withLifeCycle, requestPermission, PushRequestButton } from "../pushNotifications.native.js";
+import PushNotifications, {
+  withLifeCycle,
+  requestPermission,
+  PushRequestButton,
+} from "../pushNotifications.native.js";
 import FCM from "react-native-fcm";
 
 const generateComponent = additionalProps => (
@@ -12,7 +16,8 @@ const generateComponent = additionalProps => (
 describe("withLifeCycle", () => {
   it("should call fcm on mount", () => {
     FCM.getInitialNotification = jest.fn(() => Promise.resolve());
-    const NoOp = () => null; NoOp.displayName = "NoOp";
+    const NoOp = () => null;
+    NoOp.displayName = "NoOp";
     const Tester = withLifeCycle(FCM)(NoOp);
     renderer.create(<Tester />);
     expect(FCM.getInitialNotification).toBeCalled();
@@ -64,5 +69,4 @@ describe("Default Exported Button", () => {
     expect(FCM.requestPermissions).toBeCalled();
     expect(FCM.getFCMToken).toBeCalled();
   });
-
 });

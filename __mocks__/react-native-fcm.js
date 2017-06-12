@@ -1,4 +1,3 @@
-
 const FCM = {
   getInitialNotification: () => {},
   requestPermissions: () => {},
