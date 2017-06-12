@@ -8,8 +8,8 @@
 # Additional libraries we need to ignore because of flow errors in
 # the libraries.
 .*/node_modules/animated/.*
-.*/node_modules/react-native-touch-id
-.*/node_modules/react-native-touch-id-android
+.*/node_modules/react-native-touch-id/.*
+.*/node_modules/react-native-touch-id-android/.*
 .*/node_modules/react-native-web/.*
 .*/node_modules/react-native-windows/.*
 .*/node_modules/flow-coverage-report/.*
