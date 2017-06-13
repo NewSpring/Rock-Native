@@ -1,6 +1,5 @@
 // @flow
 
-// $FlowIgnore
 import ua from "universal-analytics";
 
 // const UA_CODE = "UA-7130289-27";
